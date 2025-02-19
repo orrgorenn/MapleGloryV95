@@ -49,11 +49,11 @@ jobs:
         if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'release:')
         uses: softprops/action-gh-release@v2
         with:
-          files: target/mapleglory.jar
           tag_name: v1.0.${{ github.run_number }}
-          release_name: Release v1.0.${{ github.run_number }}
+          name: Release v1.0.${{ github.run_number }}
           body: "Automated release of the project."
           draft: false
           prerelease: false
+          files: target/mapleglory.jar
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}  # Using PAT instead of default GITHUB_TOKEN
