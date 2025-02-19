@@ -1,0 +1,31 @@
+# Dark Axe Stump (2130100)
+
+rewards:
+  - [ 0, 22, 33, 0.600000 ]
+  - [ 1002097, 1, 1, 0.000100 ] # Yellow Starry Bandana
+  - [ 1002616, 1, 1, 0.000100 ] # Brown Double Marine
+  - [ 1041028, 1, 1, 0.000100 ] # Purple Shivermail
+  - [ 1051003, 1, 1, 0.000100 ] # Brown Doroness Robe
+  - [ 1051004, 1, 1, 0.000100 ] # Purple Doroness Robe
+  - [ 1061006, 1, 1, 0.000100 ] # Green Able Armor Skirt
+  - [ 1061026, 1, 1, 0.000100 ] # Purple Shivermail Skirt
+  - [ 1072085, 1, 1, 0.000100 ] # Red Lappy Boots
+  - [ 1072087, 1, 1, 0.000100 ] # Black Lappy Boots
+  - [ 1472006, 1, 1, 0.000100 ] # Adamantium Igor
+  - [ 1472009, 1, 1, 0.000100 ] # Mithril Guards
+  - [ 1472012, 1, 1, 0.000100 ] # Silver Guardian
+  - [ 2000001, 1, 1, 0.010000 ] # Orange Potion
+  - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
+  - [ 2012002, 1, 1, 0.010000 ] # Sap of Ancient Tree
+  - [ 2044012, 1, 1, 0.000100 ] # Scroll for Two-Handed Sword for Accuracy 60%
+  - [ 2044202, 1, 1, 0.000100 ] # Scroll for Two-handed BW for ATT 10%
+  - [ 2044210, 1, 1, 0.000100 ] # Scroll for Two-Handed BW for Accuracy 100%
+  - [ 2060000, 10, 20, 0.008000 ] # Arrow for Bow
+  - [ 2061000, 10, 20, 0.008000 ] # Arrow for Crossbow
+  - [ 2070009, 1, 1, 0.000400 ] # Wooden Top
+  - [ 4000018, 1, 1, 0.100000 ] # Firewood
+  - [ 4000215, 1, 1, 0.400000 ] # Axe
+  - [ 4006001, 1, 1, 0.000700 ] # The Summoning Rock
+  - [ 4010001, 1, 1, 0.002000 ] # Steel Ore
+  - [ 4020007, 1, 1, 0.002000 ] # Diamond Ore
+  - [ 4031153, 1, 1, 0.100000, 2070 ] # Stump's Teardrop

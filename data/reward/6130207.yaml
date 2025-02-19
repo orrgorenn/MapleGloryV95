@@ -1,0 +1,28 @@
+# Peach Monkey (6130207)
+
+rewards:
+  - [ 0, 552, 828, 0.600000 ]
+  - [ 1002210, 1, 1, 0.000100 ] # Brown Sonata
+  - [ 1032011, 1, 1, 0.000100 ] # Blue Moon
+  - [ 1040109, 1, 1, 0.000100 ] # Red Pirate Top
+  - [ 1051030, 1, 1, 0.000100 ] # Dark Calaf
+  - [ 1051046, 1, 1, 0.000100 ] # White Anakarune
+  - [ 1060098, 1, 1, 0.000100 ] # Red Pirate Pants
+  - [ 1072309, 1, 1, 0.000100 ] # Black Voyson Shoes
+  - [ 1102017, 1, 1, 0.000100 ] # White Magic Cape
+  - [ 1452008, 1, 1, 0.000100 ] # Olympus
+  - [ 2000002, 1, 1, 0.010000 ] # White Potion
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2040328, 1, 1, 0.000100 ] # Scroll for Earring for HP 10%
+  - [ 2043701, 1, 1, 0.000100 ] # Scroll for Wand for Magic Attack 60%
+  - [ 2044112, 1, 1, 0.000100 ] # Scroll for Two-Handed Axe for Accuracy 60%
+  - [ 2330003, 1, 1, 0.000400 ] # Vital Bullet
+  - [ 4000021, 1, 1, 0.040000 ] # Leather
+  - [ 4000282, 1, 1, 0.400000 ] # Peach Seed
+  - [ 4003005, 1, 1, 0.040000 ] # Soft Feather
+  - [ 4007006, 1, 1, 0.000300 ] # Magic Powder (Red)
+  - [ 4007007, 1, 1, 0.000300 ] # Magic Powder (Black)
+  - [ 4020004, 1, 1, 0.002000 ] # Opal Ore
+  - [ 4130006, 1, 1, 0.000300 ] # Two-Handed Axe Forging Stimulator
+  - [ 4130007, 1, 1, 0.000300 ] # Two-Handed Mace Forging Stimulator
+  - [ 4130021, 1, 1, 0.000300 ] # Overall Production Stimulator

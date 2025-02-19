@@ -1,0 +1,29 @@
+# Chief Oblivion Guardian (8200012)
+
+rewards:
+  - [ 0, 996, 1494, 0.600000 ]
+  - [ 1002401, 1, 1, 0.000100 ] # Dark Varr Hat
+  - [ 1040122, 1, 1, 0.000100 ] # Black Neos
+  - [ 1060111, 1, 1, 0.000100 ] # Black Neos Pants
+  - [ 1072216, 1, 1, 0.000100 ] # Dark Katina Boots
+  - [ 1082213, 1, 1, 0.000100 ] # Black Skellduke
+  - [ 1322045, 1, 1, 0.000100 ] # Battle Hammer
+  - [ 1452021, 1, 1, 0.000100 ] # Dark Nisrock
+  - [ 2000005, 1, 1, 0.001000 ] # Power Elixir
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2022003, 1, 1, 0.010000 ] # Unagi
+  - [ 2040501, 1, 1, 0.000100 ] # Scroll for Overall Armor for DEX 60%
+  - [ 2043701, 1, 1, 0.000100 ] # Scroll for Wand for Magic Attack 60%
+  - [ 2290093, 1, 1, 0.000100 ] # [Mastery Book] Assassinate
+  - [ 2290139, 1, 1, 0.000100 ] # [Mastery Book] Combo Barrier 30
+  - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
+  - [ 4000458, 1, 1, 0.200000 ] # Red Heart
+  - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment
+  - [ 4004002, 1, 1, 0.001000 ] # DEX Crystal Ore
+  - [ 4007001, 1, 1, 0.000300 ] # Magic Powder (White)
+  - [ 4007007, 1, 1, 0.000300 ] # Magic Powder (Black)
+  - [ 4010000, 1, 1, 0.002000 ] # Bronze Ore
+  - [ 4020000, 1, 1, 0.002000 ] # Garnet Ore
+  - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
+  - [ 4130003, 1, 1, 0.000300 ] # One-Handed Axe Forging Stimulator
+  - [ 4130012, 1, 1, 0.000300 ] # Bow Production Stimulator

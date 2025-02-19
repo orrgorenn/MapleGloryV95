@@ -1,0 +1,33 @@
+# Chief Memory Guardian (8200004)
+
+rewards:
+  - [ 0, 888, 1332, 0.600000 ]
+  - [ 1002326, 1, 1, 0.000100 ] # Red Osfa Hat
+  - [ 1041121, 1, 1, 0.000100 ] # Dark Valkyrie
+  - [ 1050091, 1, 1, 0.000100 ] # Dark Ades
+  - [ 1061120, 1, 1, 0.000100 ] # Blood Valkyrie Skirt
+  - [ 1072198, 1, 1, 0.000100 ] # Dark War Greave
+  - [ 1082132, 1, 1, 0.000100 ] # Green Sage
+  - [ 1092036, 1, 1, 0.000100 ] # Green Hoflon
+  - [ 1302056, 1, 1, 0.000100 ] # Sparta
+  - [ 1422013, 1, 1, 0.000100 ] # Leomite
+  - [ 1482011, 1, 1, 0.000100 ] # White Fangz
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2020015, 1, 1, 0.010000 ] # Sunset Dew
+  - [ 2022003, 1, 1, 0.010000 ] # Unagi
+  - [ 2040025, 1, 1, 0.000100 ] # Scroll for Helmet for INT 60%
+  - [ 2044312, 1, 1, 0.000100 ] # Scroll for Spear for Accuracy 60%
+  - [ 2044901, 1, 1, 0.000100 ] # Scroll for Gun for Attack 60%
+  - [ 2290073, 1, 1, 0.000100 ] # [Mastery Book] Frostprey
+  - [ 2290134, 1, 1, 0.000100 ] # [Mastery Book] High Defense 20
+  - [ 2290148, 1, 1, 0.000100 ] # [Mastery Book] Dark Fog 20
+  - [ 4000448, 1, 1, 0.200000 ] # Green Heart
+  - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment
+  - [ 4004001, 1, 1, 0.001000 ] # Wisdom Crystal Ore
+  - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)
+  - [ 4007006, 1, 1, 0.000300 ] # Magic Powder (Red)
+  - [ 4010001, 1, 1, 0.002000 ] # Steel Ore
+  - [ 4020008, 1, 1, 0.002000 ] # Black Crystal Ore
+  - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
+  - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
+  - [ 4130017, 1, 1, 0.000300 ] # Gun Production Stimulator

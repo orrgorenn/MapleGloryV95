@@ -1,0 +1,30 @@
+# Memory Monk (8200001)
+
+rewards:
+  - [ 0, 852, 1278, 0.600000 ]
+  - [ 1002532, 1, 1, 0.000100 ] # Dark Grace Helmet
+  - [ 1051097, 1, 1, 0.000100 ] # Black Oriental Fury Coat
+  - [ 1052128, 1, 1, 0.000100 ] # White Marquini
+  - [ 1072205, 1, 1, 0.000100 ] # Dark Ades Shoes
+  - [ 1082144, 1, 1, 0.000100 ] # Dark Mystra
+  - [ 1312015, 1, 1, 0.000100 ] # Vifennis
+  - [ 1382035, 1, 1, 0.000100 ] # Blue Marine
+  - [ 1402005, 1, 1, 0.000100 ] # Berzerker
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2022003, 1, 1, 0.010000 ] # Unagi
+  - [ 2040029, 1, 1, 0.000100 ] # Scroll for Helmet for DEX 60%
+  - [ 2040321, 1, 1, 0.000100 ] # Scroll for Earring for LUK 60%
+  - [ 2043301, 1, 1, 0.000100 ] # Scroll for Dagger for ATT 60%
+  - [ 2290050, 1, 1, 0.000100 ] # [Mastery Book] Angel Ray
+  - [ 2290129, 1, 1, 0.000100 ] # [Mastery Book]High Mastery 30
+  - [ 2290143, 1, 1, 0.000100 ] # [Mastery Book] Flame Wheel 30
+  - [ 4000444, 1, 1, 0.200000 ] # Green Cloth
+  - [ 4000446, 1, 1, 0.200000 ] # Smiley Mask
+  - [ 4004003, 1, 1, 0.001000 ] # LUK Crystal Ore
+  - [ 4007000, 1, 1, 0.000300 ] # Magic Powder (Brown)
+  - [ 4007006, 1, 1, 0.000300 ] # Magic Powder (Red)
+  - [ 4010001, 1, 1, 0.002000 ] # Steel Ore
+  - [ 4020001, 1, 1, 0.002000 ] # Amethyst Ore
+  - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
+  - [ 4130001, 1, 1, 0.000300 ] # Shoes Production Stimulator
+  - [ 4130014, 1, 1, 0.000300 ] # Dagger Forging Stimulator

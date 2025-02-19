@@ -1,0 +1,50 @@
+# Death Teddy (7130010)
+
+rewards:
+  - [ 0, 672, 1008, 0.600000 ]
+  - [ 1002328, 1, 1, 0.000100 ] # Green Pireta Hat
+  - [ 1041101, 1, 1, 0.000100 ] # Blue Mystique
+  - [ 1050073, 1, 1, 0.000100 ] # Blue Enigmatic
+  - [ 1050088, 1, 1, 0.000100 ] # Red Ades
+  - [ 1051065, 1, 1, 0.000100 ] # Dark Lineros
+  - [ 1051077, 1, 1, 0.000100 ] # Yellow Battle Empress
+  - [ 1051078, 1, 1, 0.000100 ] # Red Battle Empress
+  - [ 1061100, 1, 1, 0.000100 ] # Blue Mystique Pants
+  - [ 1072154, 1, 1, 0.000100 ] # Blue Carzen Boots
+  - [ 1072184, 1, 1, 0.000100 ] # Green Wing Boots
+  - [ 1072196, 1, 1, 0.000100 ] # Emerald War Greave
+  - [ 1072209, 1, 1, 0.000100 ] # Dark Neli Shoes
+  - [ 1082118, 1, 1, 0.000100 ] # Green Larceny
+  - [ 1082123, 1, 1, 0.000100 ] # Dark Clarity
+  - [ 1082142, 1, 1, 0.000100 ] # Green Mystra
+  - [ 1082207, 1, 1, 0.000100 ] # Blue Halfglove
+  - [ 1102030, 1, 1, 0.000100 ] # Black Seraph Cape
+  - [ 1302016, 1, 1, 0.000100 ] # Yellow Umbrella
+  - [ 1332022, 1, 1, 0.000100 ] # Angelic Betrayal
+  - [ 1372016, 1, 1, 0.000100 ] # Phoenix Wand
+  - [ 1412009, 1, 1, 0.000100 ] # Helios
+  - [ 1452010, 1, 1, 0.000100 ] # Blue Hinkel
+  - [ 2000002, 1, 1, 0.010000 ] # White Potion
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2002005, 1, 1, 0.010000 ] # Sniper Potion
+  - [ 2020015, 1, 1, 0.010000 ] # Sunset Dew
+  - [ 2040025, 1, 1, 0.000100 ] # Scroll for Helmet for INT 60%
+  - [ 2040418, 1, 1, 0.000100 ] # Scroll for Topwear for STR 60%
+  - [ 2040601, 1, 1, 0.000100 ] # Scroll for Bottomwear for DEF 60%
+  - [ 2040923, 1, 1, 0.000100 ] # Scroll for Shield for LUK 100%
+  - [ 2040928, 1, 1, 0.000100 ] # Scroll for Shield for HP 10%
+  - [ 2041016, 1, 1, 0.000100 ] # Scroll for Cape for INT 60%
+  - [ 2044412, 1, 1, 0.000100 ] # Scroll for Pole-Arm for Accuracy 60%
+  - [ 2050004, 1, 1, 0.010000 ] # All Cure Potion
+  - [ 4000147, 1, 1, 0.400000 ] # Sealed Teddy Bear
+  - [ 4004002, 1, 1, 0.001000 ] # DEX Crystal Ore
+  - [ 4006001, 1, 1, 0.000700 ] # The Summoning Rock
+  - [ 4007000, 1, 1, 0.000300 ] # Magic Powder (Brown)
+  - [ 4007005, 1, 1, 0.000300 ] # Magic Powder (Purple)
+  - [ 4020005, 1, 1, 0.002000 ] # Sapphire Ore
+  - [ 4020008, 1, 1, 0.002000 ] # Black Crystal Ore
+  - [ 4130002, 1, 1, 0.000300 ] # One-Handed Sword Forging Stimulator
+  - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
+  - [ 4130006, 1, 1, 0.000300 ] # Two-Handed Axe Forging Stimulator
+  - [ 4031170, 1, 1, 0.500000, 7100 ] # Tachion
+  - [ 4031175, 1, 1, 0.400000, 7101 ] # Tachion

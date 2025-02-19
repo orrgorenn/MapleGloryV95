@@ -1,0 +1,29 @@
+# Sage Cat (6130209)
+
+rewards:
+  - [ 0, 570, 855, 0.600000 ]
+  - [ 1032014, 1, 1, 0.000100 ] # Pink-Flowered Earrings
+  - [ 1040096, 1, 1, 0.000100 ] # Brown China
+  - [ 1060085, 1, 1, 0.000100 ] # Brown China Pants
+  - [ 1092015, 1, 1, 0.000100 ] # Steel Ancient Shield
+  - [ 1332019, 1, 1, 0.000100 ] # Golden River
+  - [ 1492008, 1, 1, 0.000100 ] # Burning Hell
+  - [ 2000002, 1, 1, 0.010000 ] # White Potion
+  - [ 2000004, 1, 1, 0.001000 ] # Elixir
+  - [ 2040301, 1, 1, 0.000100 ] # Scroll for Earring for INT 60%
+  - [ 2040925, 1, 1, 0.000100 ] # Scroll for Shield for LUK 10%
+  - [ 2043017, 1, 1, 0.000100 ] # Scroll for One-Handed Sword for Accuracy 60%
+  - [ 2043110, 1, 1, 0.000100 ] # Scroll for One-Handed Axe for Accuracy 100%
+  - [ 4000021, 1, 1, 0.040000 ] # Leather
+  - [ 4000289, 1, 1, 0.400000 ] # Cat Doll
+  - [ 4003005, 1, 1, 0.040000 ] # Soft Feather
+  - [ 4004003, 1, 1, 0.001000 ] # LUK Crystal Ore
+  - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock
+  - [ 4007000, 1, 1, 0.000300 ] # Magic Powder (Brown)
+  - [ 4007001, 1, 1, 0.000300 ] # Magic Powder (White)
+  - [ 4020002, 1, 1, 0.002000 ] # AquaMarine Ore
+  - [ 4020004, 1, 1, 0.002000 ] # Opal Ore
+  - [ 4130014, 1, 1, 0.000300 ] # Dagger Forging Stimulator
+  - [ 4130017, 1, 1, 0.000300 ] # Gun Production Stimulator
+  - [ 4130018, 1, 1, 0.000300 ] # Armor Production Stimulator
+  - [ 4031433, 1, 1, 0.050000, 3804 ] # Kitty Spirit

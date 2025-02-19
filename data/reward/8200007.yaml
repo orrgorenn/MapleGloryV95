@@ -1,0 +1,29 @@
+# Qualm Guardian (8200007)
+
+rewards:
+  - [ 0, 930, 1395, 0.600000 ]
+  - [ 1002400, 1, 1, 0.000100 ] # Red Varr Hat
+  - [ 1040121, 1, 1, 0.000100 ] # Blue Neos
+  - [ 1041124, 1, 1, 0.000100 ] # Dark Lucida
+  - [ 1051091, 1, 1, 0.000100 ] # Blue Katte
+  - [ 1072214, 1, 1, 0.000100 ] # Blue Katina Boots 
+  - [ 1082213, 1, 1, 0.000100 ] # Black Skellduke
+  - [ 1332052, 1, 1, 0.000100 ] # Blood Dagger
+  - [ 1422027, 1, 1, 0.000100 ] # Golden Smith Hammer
+  - [ 1462018, 1, 1, 0.000100 ] # Casa Crow
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2022003, 1, 1, 0.010000 ] # Unagi
+  - [ 2040302, 1, 1, 0.000100 ] # Scroll for Earring for INT 10%
+  - [ 2040701, 1, 1, 0.000100 ] # Scroll for Shoes for DEX 60%
+  - [ 2044301, 1, 1, 0.000100 ] # Scroll for Spear for ATT 60%
+  - [ 2290007, 1, 1, 0.000100 ] # [Mastery Book] Power Stance
+  - [ 2290150, 1, 1, 0.000100 ] # [Mastery Book] Soul Stone 20
+  - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
+  - [ 4000452, 1, 1, 0.200000 ] # Blue Helmet
+  - [ 4000459, 1, 1, 0.200000 ] # Black Armor Fragment
+  - [ 4004002, 1, 1, 0.001000 ] # DEX Crystal Ore
+  - [ 4010004, 1, 1, 0.002000 ] # Silver Ore
+  - [ 4020004, 1, 1, 0.002000 ] # Opal Ore
+  - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
+  - [ 4130007, 1, 1, 0.000300 ] # Two-Handed Mace Forging Stimulator
+  - [ 4130020, 1, 1, 0.000300 ] # Bottomwear Production Stimulator

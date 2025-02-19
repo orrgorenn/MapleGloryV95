@@ -1,0 +1,23 @@
+# Scarf Plead (2100107)
+
+rewards:
+  - [ 0, 400, 600, 0.600000 ]
+  - [ 1002141, 1, 1, 0.000100 ] # Red Matty
+  - [ 1040059, 1, 1, 0.000100 ] # Red Gold Stealer
+  - [ 1041054, 1, 1, 0.000100 ] # Green Huntress Armor
+  - [ 1051011, 1, 1, 0.000100 ] # Red Engrit
+  - [ 1060045, 1, 1, 0.000100 ] # Red / Gold Stealer Pants
+  - [ 1061050, 1, 1, 0.000100 ] # Green Huntress Pants
+  - [ 1332004, 1, 1, 0.000100 ] # Forked Dagger
+  - [ 1382017, 1, 1, 0.000100 ] # Circle-Winded Staff
+  - [ 1492003, 1, 1, 0.000100 ] # Golden Hook
+  - [ 2000001, 1, 1, 0.010000 ] # Orange Potion
+  - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
+  - [ 2048001, 1, 1, 0.000100 ] # Scroll for Pet Equip. for Speed 60%
+  - [ 2060000, 10, 20, 0.008000 ] # Arrow for Bow
+  - [ 2061000, 10, 20, 0.008000 ] # Arrow for Crossbow
+  - [ 2070002, 1, 1, 0.000400 ] # Mokbi Throwing-Stars
+  - [ 4000327, 1, 1, 0.400000 ] # Ragged Scarf
+  - [ 4010007, 1, 1, 0.002000 ] # Lidium Ore
+  - [ 4020002, 1, 1, 0.002000 ] # AquaMarine Ore
+  - [ 4020003, 1, 1, 0.002000 ] # Emerald Ore

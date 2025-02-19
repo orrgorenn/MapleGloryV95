@@ -1,0 +1,27 @@
+# Oblivion Monk Trainee (8200010)
+
+rewards:
+  - [ 0, 972, 1458, 0.600000 ]
+  - [ 1002646, 1, 1, 0.000100 ] # Black Polax Hat
+  - [ 1050099, 1, 1, 0.000100 ] # Dark Katinas
+  - [ 1072225, 1, 1, 0.000100 ] # Red Varr Shoes
+  - [ 1082158, 1, 1, 0.000100 ] # Red Arcina
+  - [ 1312030, 1, 1, 0.000100 ] # Tomahawk
+  - [ 1432030, 1, 1, 0.000100 ] # Pinaka
+  - [ 2000005, 1, 1, 0.001000 ] # Power Elixir
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2022003, 1, 1, 0.010000 ] # Unagi
+  - [ 2041022, 1, 1, 0.000100 ] # Scroll for Cape for LUK 60%
+  - [ 2043801, 1, 1, 0.000100 ] # Scroll for Staff for Magic Attack 60%
+  - [ 2290089, 1, 1, 0.000100 ] # [Mastery Book] Shadow Claw
+  - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
+  - [ 4000455, 1, 1, 0.200000 ] # Red Cone Hat
+  - [ 4000456, 1, 1, 0.200000 ] # Frowny Mask
+  - [ 4004003, 1, 1, 0.001000 ] # LUK Crystal Ore
+  - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)
+  - [ 4007004, 1, 1, 0.000300 ] # Magic Powder (Yellow)
+  - [ 4010002, 1, 1, 0.002000 ] # Mithril Ore
+  - [ 4020000, 1, 1, 0.002000 ] # Garnet Ore
+  - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
+  - [ 4130001, 1, 1, 0.000300 ] # Shoes Production Stimulator
+  - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator

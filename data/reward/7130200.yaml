@@ -1,0 +1,41 @@
+# Werewolf (7130200)
+
+rewards:
+  - [ 0, 762, 1143, 0.600000 ]
+  - [ 1002254, 1, 1, 0.000100 ] # Dark Infinium Circlet
+  - [ 1002273, 1, 1, 0.000100 ] # Purple Galaxy
+  - [ 1002288, 1, 1, 0.000100 ] # Green Patriot
+  - [ 1002339, 1, 1, 0.000100 ] # Blue Dragon Barbute
+  - [ 1040102, 1, 1, 0.000100 ] # Bronze Platine
+  - [ 1041094, 1, 1, 0.000100 ] # Light Mantis
+  - [ 1041102, 1, 1, 0.000100 ] # Pink Mystique
+  - [ 1041105, 1, 1, 0.000100 ] # Green Pirate Blouse
+  - [ 1050055, 1, 1, 0.000100 ] # White Anakamoon
+  - [ 1050069, 1, 1, 0.000100 ] # Brown Requiem
+  - [ 1051066, 1, 1, 0.000100 ] # Red Pria
+  - [ 1060090, 1, 1, 0.000100 ] # Bronze Platine Pants
+  - [ 1061093, 1, 1, 0.000100 ] # Light Mantis Pants
+  - [ 1061101, 1, 1, 0.000100 ] # Pink Mystique Pants
+  - [ 1061104, 1, 1, 0.000100 ] # Green Pirate Skirt
+  - [ 1072309, 1, 1, 0.000100 ] # Black Voyson Shoes
+  - [ 1082100, 1, 1, 0.000100 ] # Dark Lorin
+  - [ 1092015, 1, 1, 0.000100 ] # Steel Ancient Shield
+  - [ 1322020, 1, 1, 0.000100 ] # Bent Judgement
+  - [ 1332018, 1, 1, 0.000100 ] # Kandine
+  - [ 1402012, 1, 1, 0.000100 ] # Doombringer
+  - [ 1472029, 1, 1, 0.000100 ] # Black Scarab
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2040031, 1, 1, 0.000100 ] # Scroll for Helmet for DEX 10%
+  - [ 2040302, 1, 1, 0.000100 ] # Scroll for Earring for INT 10%
+  - [ 2043701, 1, 1, 0.000100 ] # Scroll for Wand for Magic Attack 60%
+  - [ 2044701, 1, 1, 0.000100 ] # Scroll for Claw for ATT 60%
+  - [ 4000053, 1, 1, 0.400000 ] # Werewolf Toenail
+  - [ 4004000, 1, 1, 0.001000 ] # Power Crystal Ore
+  - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock
+  - [ 4007001, 1, 1, 0.000300 ] # Magic Powder (White)
+  - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)
+  - [ 4010003, 1, 1, 0.002000 ] # Adamantium Ore
+  - [ 4020001, 1, 1, 0.002000 ] # Amethyst Ore
+  - [ 4130006, 1, 1, 0.000300 ] # Two-Handed Axe Forging Stimulator
+  - [ 4130009, 1, 1, 0.000300 ] # Pole Arm Forging Stimulator
+  - [ 4130014, 1, 1, 0.000300 ] # Dagger Forging Stimulator

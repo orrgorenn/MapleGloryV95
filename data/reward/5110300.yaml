@@ -1,0 +1,29 @@
+# Reinforced Mithril Mutae  (5110300)
+
+rewards:
+  - [ 0, 487, 730, 0.600000 ]
+  - [ 1041088, 1, 1, 0.000100 ] # Ivory Shouldermail
+  - [ 1051038, 1, 1, 0.000100 ] # Green Lumati
+  - [ 1052116, 1, 1, 0.000100 ] # Green Plasteer
+  - [ 1060077, 1, 1, 0.000100 ] # Ocher Shouldermail Pants
+  - [ 1072118, 1, 1, 0.000100 ] # Red Pierre Shoes
+  - [ 1312008, 1, 1, 0.000100 ] # Buck
+  - [ 1332011, 1, 1, 0.000100 ] # Bazlud
+  - [ 1482007, 1, 1, 0.000100 ] # Fury Claw
+  - [ 2000002, 1, 1, 0.010000 ] # White Potion
+  - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
+  - [ 2002003, 1, 1, 0.010000 ] # Wizard Potion
+  - [ 2040027, 1, 1, 0.000100 ] # Scroll for Helmet for DEX 100%
+  - [ 2040317, 1, 1, 0.000100 ] # Scroll for Earring for DEX 60%
+  - [ 2040901, 1, 1, 0.000100 ] # Scroll for Shield for DEF 60%
+  - [ 2044602, 1, 1, 0.000100 ] # Scroll for Crossbow for ATT 10%
+  - [ 2044902, 1, 1, 0.000100 ] # Scroll for Gun for ATT 10%
+  - [ 4000360, 1, 1, 0.400000 ] # Hardened Piece of Mithril
+  - [ 4004002, 1, 1, 0.001000 ] # DEX Crystal Ore
+  - [ 4007005, 1, 1, 0.000300 ] # Magic Powder (Purple)
+  - [ 4007007, 1, 1, 0.000300 ] # Magic Powder (Black)
+  - [ 4020005, 1, 1, 0.002000 ] # Sapphire Ore
+  - [ 4130000, 1, 1, 0.000300 ] # Gloves Production Stimulator
+  - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
+  - [ 4130006, 1, 1, 0.000300 ] # Two-Handed Axe Forging Stimulator
+  - [ 4130022, 1, 1, 0.000300 ] # Shield Production Stimulator

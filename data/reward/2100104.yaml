@@ -1,0 +1,26 @@
+# Royal Cactus (2100104)
+
+rewards:
+  - [ 0, 395, 592, 0.600000 ]
+  - [ 1002004, 1, 1, 0.000100 ] # Great Brown Helmet
+  - [ 1040068, 1, 1, 0.000100 ] # Dark Hunter's Armor
+  - [ 1060057, 1, 1, 0.000100 ] # Dark Hunter's Pants
+  - [ 1072087, 1, 1, 0.000100 ] # Black Lappy Boots
+  - [ 1082052, 1, 1, 0.000100 ] # Blue Lutia
+  - [ 1082186, 1, 1, 0.000100 ] # Hard Leather Glove
+  - [ 1092019, 1, 1, 0.000100 ] # Nimble Wristguard
+  - [ 1322003, 1, 1, 0.000100 ] # Lollipop
+  - [ 1442001, 1, 1, 0.000100 ] # Mithril Pole Arm
+  - [ 2000001, 1, 1, 0.010000 ] # Orange Potion
+  - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
+  - [ 2002003, 1, 1, 0.010000 ] # Wizard Potion
+  - [ 2022155, 1, 1, 0.010000 ] # Desert Mist
+  - [ 2041002, 1, 1, 0.000100 ] # Scroll for Cape for Magic DEF 10%
+  - [ 2043214, 1, 1, 0.000100 ] # Scroll for One-Handed BW for Accuracy 10%
+  - [ 2060000, 10, 20, 0.008000 ] # Arrow for Bow
+  - [ 2061000, 10, 20, 0.008000 ] # Arrow for Crossbow
+  - [ 4000331, 1, 1, 0.400000 ] # Cactus Flower
+  - [ 4004001, 1, 1, 0.001000 ] # Wisdom Crystal Ore
+  - [ 4010007, 1, 1, 0.002000 ] # Lidium Ore
+  - [ 4020005, 1, 1, 0.002000 ] # Sapphire Ore
+  - [ 4020006, 1, 1, 0.002000 ] # Topaz Ore

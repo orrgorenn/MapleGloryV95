@@ -1,0 +1,11 @@
+# Jr. Lucida  (6230401)
+
+rewards:
+  - [ 0, 140, 210, 0.600000 ]
+  - [ 2040515, 1, 1, 0.000100 ] # Scroll for Overall Armor for LUK 100%
+  - [ 2044410, 1, 1, 0.000100 ] # Scroll for Pole-Arm for Accuracy 100%
+  - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)
+  - [ 4007003, 1, 1, 0.000300 ] # Magic Powder (Green)
+  - [ 4130009, 1, 1, 0.000300 ] # Pole Arm Forging Stimulator
+  - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator
+  - [ 4130014, 1, 1, 0.000300 ] # Dagger Forging Stimulator

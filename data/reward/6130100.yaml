@@ -1,0 +1,44 @@
+# Red Drake (6130100)
+
+rewards:
+  - [ 0, 216, 324, 0.600000 ]
+  - [ 1002246, 1, 1, 0.000100 ] # Dark Seraphis
+  - [ 1002248, 1, 1, 0.000100 ] # Silver Identity
+  - [ 1040080, 1, 1, 0.000100 ] # Dark Piette
+  - [ 1040083, 1, 1, 0.000100 ] # Marine Shadow
+  - [ 1040100, 1, 1, 0.000100 ] # Dark Scorpio
+  - [ 1040103, 1, 1, 0.000100 ] # Mithril Platine
+  - [ 1041080, 1, 1, 0.000100 ] # Red Moon
+  - [ 1050056, 1, 1, 0.000100 ] # Dark Anakamoon
+  - [ 1060068, 1, 1, 0.000100 ] # Dark Piette Pants 
+  - [ 1060072, 1, 1, 0.000100 ] # Marine Shadow Pants
+  - [ 1060089, 1, 1, 0.000100 ] # Dark Scorpio Pants
+  - [ 1060091, 1, 1, 0.000100 ] # Mithril Platine Pants
+  - [ 1061079, 1, 1, 0.000100 ] # Red Moon Pants
+  - [ 1072136, 1, 1, 0.000100 ] # Pink Goldrunners
+  - [ 1072146, 1, 1, 0.000100 ] # Green Gore Boots
+  - [ 1072148, 1, 1, 0.000100 ] # Orihalcon Camel Boots
+  - [ 1072160, 1, 1, 0.000100 ] # Gold Lapiz Sandals
+  - [ 1072162, 1, 1, 0.000100 ] # Blue Mystique Shoes
+  - [ 1082067, 1, 1, 0.000100 ] # Red Moon Gloves
+  - [ 1082106, 1, 1, 0.000100 ] # Blue Eyes
+  - [ 1092004, 1, 1, 0.000100 ] # Skull Shield
+  - [ 1102022, 1, 1, 0.000100 ] # Red Gaia Cape
+  - [ 1372014, 1, 1, 0.000100 ] # Evil Tale
+  - [ 1482008, 1, 1, 0.000100 ] # Psycho Claw
+  - [ 2000004, 1, 1, 0.001000 ] # Elixir
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2040319, 1, 1, 0.000100 ] # Scroll for Earring for LUK 100%
+  - [ 2070005, 1, 1, 0.000400 ] # Steely Throwing-Knives
+  - [ 2331000, 1, 1, 0.000400 ] # Blaze Capsule
+  - [ 4000014, 1, 1, 0.400000 ] # Drake Skull
+  - [ 4000030, 1, 1, 0.001000 ] # Dragon Skin
+  - [ 4007000, 1, 1, 0.000300 ] # Magic Powder (Brown)
+  - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)
+  - [ 4010005, 1, 1, 0.002000 ] # Orihalcon Ore
+  - [ 4020007, 1, 1, 0.002000 ] # Diamond Ore
+  - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
+  - [ 4130014, 1, 1, 0.000300 ] # Dagger Forging Stimulator
+  - [ 4130018, 1, 1, 0.000300 ] # Armor Production Stimulator
+  - [ 4001077, 1, 1, 0.070000, 7301 ] # Tough Dragon Skin
+  - [ 4001105, 1, 1, 0.070000, 7303 ] # Tough Dragon Skin

@@ -1,0 +1,37 @@
+# Overlord A (7120106)
+
+rewards:
+  - [ 0, 648, 972, 0.600000 ]
+  - [ 1040092, 1, 1, 0.000100 ] # Blue Orientican
+  - [ 1041092, 1, 1, 0.000100 ] # Red Ice Queen
+  - [ 1041095, 1, 1, 0.000100 ] # Bloody Mantis
+  - [ 1050061, 1, 1, 0.000100 ] # Blue Linnex
+  - [ 1051054, 1, 1, 0.000100 ] # Brown Requierre
+  - [ 1051063, 1, 1, 0.000100 ] # Beige Lineros
+  - [ 1060081, 1, 1, 0.000100 ] # Blue Orientican Pants
+  - [ 1061091, 1, 1, 0.000100 ] # Red Ice Queen Skirt
+  - [ 1061094, 1, 1, 0.000100 ] # Bloody Mantis Pants
+  - [ 1072172, 1, 1, 0.000100 ] # Green Pirate Boots
+  - [ 1072177, 1, 1, 0.000100 ] # Green Enigma Shoes
+  - [ 1072182, 1, 1, 0.000100 ] # Blue Wing Boots
+  - [ 1072210, 1, 1, 0.000100 ] # Red Rivers Boots
+  - [ 1082207, 1, 1, 0.000100 ] # Blue Halfglove
+  - [ 1092023, 1, 1, 0.000100 ] # Steel Aquila Shield
+  - [ 2000004, 1, 1, 0.001000 ] # Elixir
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2002003, 1, 1, 0.010000 ] # Wizard Potion
+  - [ 2002004, 1, 1, 0.010000 ] # Warrior Potion
+  - [ 2040301, 1, 1, 0.000100 ] # Scroll for Earring for INT 60%
+  - [ 2040418, 1, 1, 0.000100 ] # Scroll for Topwear for STR 60%
+  - [ 2040516, 1, 1, 0.000100 ] # Scroll for Overall Armor for LUK 60%
+  - [ 2049000, 1, 1, 0.000100 ] # Clean Slate Scroll 1%
+  - [ 2384062, 1, 1, 0.020000 ] # Overlord B Card
+  - [ 4000548, 1, 1, 0.400000 ] # Overlord A Radar Device
+  - [ 4006001, 1, 1, 0.000700 ] # The Summoning Rock
+  - [ 4007002, 1, 1, 0.000300 ] # Magic Powder (Blue)
+  - [ 4007004, 1, 1, 0.000300 ] # Magic Powder (Yellow)
+  - [ 4010002, 1, 1, 0.002000 ] # Mithril Ore
+  - [ 4020002, 1, 1, 0.002000 ] # AquaMarine Ore
+  - [ 4130001, 1, 1, 0.000300 ] # Shoes Production Stimulator
+  - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
+  - [ 4130012, 1, 1, 0.000300 ] # Bow Production Stimulator

@@ -1,0 +1,37 @@
+# Lilynouch (8220005)
+
+rewards:
+  - [ 0, 954, 1431, 0.600000 ]
+  - [ 1002382, 1, 1, 0.000200 ] # Red Canal Hood
+  - [ 1050108, 1, 1, 0.000200 ] # Red Arzuna
+  - [ 1051104, 1, 1, 0.000200 ] # Dark Bazura
+  - [ 1072222, 1, 1, 0.000200 ] # Dark Crescent Boots
+  - [ 1082154, 1, 1, 0.000200 ] # Purple Ciara
+  - [ 1402035, 1, 1, 0.000200 ] # The Beheader
+  - [ 1452021, 1, 1, 0.000200 ] # Dark Nisrock
+  - [ 1482012, 1, 1, 0.000200 ] # King Cent
+  - [ 2000005, 1, 1, 0.500000 ] # Power Elixir
+  - [ 2000005, 1, 1, 0.500000 ] # Power Elixir
+  - [ 2000006, 1, 1, 0.500000 ] # Mana Elixir
+  - [ 2000006, 1, 1, 0.500000 ] # Mana Elixir
+  - [ 2020013, 1, 1, 0.500000 ] # Reindeer Milk
+  - [ 2020013, 1, 1, 0.500000 ] # Reindeer Milk
+  - [ 2040317, 1, 1, 0.010000 ] # Scroll for Earring for DEX 60%
+  - [ 2040321, 1, 1, 0.010000 ] # Scroll for Earring for LUK 60%
+  - [ 2040927, 1, 1, 0.010000 ] # Scroll for Shield for HP 60%
+  - [ 2040931, 1, 1, 0.010000 ] # Scroll for Shield for STR 60%
+  - [ 2049000, 1, 1, 0.010000 ] # Clean Slate Scroll 1%
+  - [ 2290003, 1, 1, 0.100000 ] # [Mastery Book] Achilles
+  - [ 2290037, 1, 1, 0.100000 ] # [Mastery Book] Fire Demon
+  - [ 2290055, 1, 1, 0.100000 ] # [Mastery Book] Dragon's Breath
+  - [ 2290080, 1, 1, 0.100000 ] # [Mastery Book] Taunt
+  - [ 2290099, 1, 1, 0.100000 ] # [Mastery Book] Energy Orb
+  - [ 2290131, 1, 1, 0.100000 ] # [Mastery Book] Freeze Standing 30
+  - [ 2290136, 1, 1, 0.100000 ] # [Mastery Book] Combo Tempest 20
+  - [ 2290145, 1, 1, 0.100000 ] # [Mastery Book] Magic Mastery 30
+  - [ 2290150, 1, 1, 0.100000 ] # [Mastery Book] Soul Stone 20
+  - [ 2330005, 1, 1, 0.000400 ] # Eternal Bullet
+  - [ 4000461, 1, 1, 0.400000 ] # Knight's Mask
+  - [ 4006000, 1, 1, 0.000700 ] # The Magic Rock
+  - [ 4006001, 1, 1, 0.000700 ] # The Summoning Rock
+  - [ 4020009, 1, 1, 0.001000 ] # Piece of Time
