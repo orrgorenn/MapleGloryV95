@@ -33,6 +33,13 @@ jobs:
           gdown --id 1EJfQtXv8xofabqSPpJs7oOgtanAVtEKv -O wz.tar
           tar -xvf wz.tar -C ~/wz
 
+      - name: Create .env file from GitHub Secrets
+        run: |
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_USER=${{ secrets.DB_USER }}" >> .env
+          echo "DB_PASS=${{ secrets.DB_PASS }}" >> .env
+          echo "DB_URL_FORMAT=${{ secrets.DB_URL_FORMAT }}" >> .env
+
       - name: Run tests with debug logging
         run: mvn test -X || true  # Run tests, but prevent failure from stopping workflow
       
@@ -45,13 +52,17 @@ jobs:
           name: mapleglory-jar
           path: target/mapleglory.jar
 
+      - name: Extract version from commit message
+        id: get_version
+        run: echo "VERSION=$(echo '${{ github.event.head_commit.message }}' | grep -oP '(?<=release:)[0-9]+\.[0-9]+\.[0-9]+')" >> $GITHUB_ENV
+
       - name: Release to GitHub (Only if commit message starts with 'release:')
         if: github.ref == 'refs/heads/main' && startsWith(github.event.head_commit.message, 'release:')
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: Release v1.0.${{ github.run_number }}
-          body: "Automated release of the project."
+          tag_name: v${{ env.VERSION }}
+          name: Release v${{ env.VERSION }}
+          body: "Automated release of version v${{ env.VERSION }}."
           draft: false
           prerelease: false
           files: target/mapleglory.jar
