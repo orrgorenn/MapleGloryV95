@@ -41,7 +41,7 @@ build/
 .idea/
 
 ### Project ###
-wz/
+/wz/
 json/
 
 # env
