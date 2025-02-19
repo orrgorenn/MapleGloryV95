@@ -92,6 +92,7 @@ public final class LoginHandler {
             }
 
             c.setAccount(account);
+            c.setLoggedStatus(true);
             c.setMachineId(machineId);
             c.getServerNode().addClient(c);
             c.write(LoginPacket.checkPasswordResultSuccess(account, c.getClientKey()));

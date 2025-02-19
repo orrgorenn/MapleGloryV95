@@ -8,6 +8,7 @@ import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
 
 import java.util.List;
+import java.util.Map;
 
 public final class ExplorerQuest extends ScriptHandler {
     @Script("enter_archer")
@@ -80,6 +81,7 @@ public final class ExplorerQuest extends ScriptHandler {
     public static void fighter(ScriptManager sm) {
         // Dances with Balrog : Warrior Job Instructor
         if(sm.getUser().getJob() == 0) {
+            // 1st Job
             sm.sayNext("Do you want to become a #rwarrior#k? You need to meet some criteria in order to do so.#bYou should be at least in level 10, and at least 35 STR#k. Let's see...");
             if(sm.getUser().getLevel() >= 10 && sm.canGetFirstJob(1)) {
                 sm.sayBoth("It is an important and final choice. You will not be able to turn back.");
@@ -120,6 +122,29 @@ public final class ExplorerQuest extends ScriptHandler {
                 sm.sayBoth("This is all I can teach you. Good luck on your journey, young Magician.");
             } else {
                 sm.sayOk("Train a bit more until you reach the base requirements and I can show you the way of the #rMagician#k.");
+            }
+        } else if(sm.getUser().getJob() == 200 && sm.getLevel() >= 30) {
+            // 2nd Job
+            if (sm.hasItem(4031012)) {
+                sm.sayNext("I see you have done well. I will allow you to take the next step on your long road.");
+                final int answer = sm.askMenu("Alright, when you have made your decision, click on [I'll choose my occupation] at the bottom.", Map.of(
+                        0, "Please explain to me what being the Wizard (Fire / Poison) is all about.",
+                        1, "Please explain to me what being the Wizard (Ice / Lighting) is all about.",
+                        2, "Please explain to me what being the Cleric is all about.",
+                        3, "I'll choose my occupation!"
+                ));
+                if (answer == 0) {
+                    sm.sayNext("Magicians that master #rFire/Poison-based magic#k.\r\n\r\n#bWizards#k are a active class that deal magical, elemental damage. These abilities grants them a significant advantage against enemies weak to their element. With their skills #rMeditation#k and #rSlow#k, #bWizards#k can increase their magic attack and reduce the opponent's mobility. #bFire/Poison Wizards#k contains a powerful flame arrow attack and poison attack.");    //f/p mage
+                } else if (answer == 1) {
+                    sm.sayNext("Magicians that master #rIce/Lightning-based magic#k.\r\n\r\n#bWizards#k are a active class that deal magical, elemental damage. These abilities grants them a significant advantage against enemies weak to their element. With their skills #rMeditation#k and #rSlow#k, #bWizards#k can increase their magic attack and reduce the opponent's mobility. #bIce/Lightning Wizards#k have a freezing ice attack and a striking lightning attack.");    //i/l mage
+                } else if(answer == 2) {
+                    sm.sayNext("Magicians that master #rHoly magic#k.\r\n\r\n#bClerics#k are a powerful supportive class, bound to be accepted into any Party. That's because the have the power to #rHeal#k themselves and others in their party. Using #rBless#k, #bClerics#k can buff the attributes and reduce the amount of damage taken. This class is on worth going for if you find it hard to survive. #bClerics#k are especially effective against undead monsters.");    //cleric
+                }
+            } else if (sm.hasItem(4031009)) {
+                sm.sayOk("Go and see the #b#p1072001##k.");
+                return;
+            } else {
+                sm.sayNext("The progress you have made is astonishing.");
             }
         }
     }

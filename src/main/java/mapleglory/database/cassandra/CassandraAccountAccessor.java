@@ -33,6 +33,9 @@ public final class CassandraAccountAccessor extends CassandraAccessor implements
         super(session, keyspace);
     }
 
+    @Override
+    public void setLoggedStatus(Account account, boolean status) {}
+
     private Account loadAccount(Row row) {
         final int accountId = row.getInt(AccountTable.ACCOUNT_ID);
         final String username = row.getString(AccountTable.USERNAME);

@@ -25,6 +25,7 @@ public final class AccountTable {
     public static final String TRUNK_MONEY = "trunk_money";
     public static final String LOCKER_ITEMS = "locker_items";
     public static final String WISHLIST = "wishlist";
+    public static final String LOGGED_IN = "logged_in";
     private static final String tableName = "account";
 
     public static String getTableName() {
@@ -42,11 +43,12 @@ public final class AccountTable {
                 AccountTable.NX_CREDIT + " INT, " +
                 AccountTable.NX_PREPAID + " INT, " +
                 AccountTable.MAPLE_POINT + " INT, " +
-                AccountTable.TRUNK_ITEMS + " JSON, " +  // Stored as JSON string
+                AccountTable.TRUNK_ITEMS + " JSON, " +
                 AccountTable.TRUNK_SIZE + " INT, " +
                 AccountTable.TRUNK_MONEY + " INT, " +
-                AccountTable.LOCKER_ITEMS + " JSON, " + // Stored as JSON string
-                AccountTable.WISHLIST + " JSON" +      // Stored as JSON string
+                AccountTable.LOCKER_ITEMS + " JSON, " +
+                AccountTable.WISHLIST + " JSON, " +
+                AccountTable.LOGGED_IN + " BOOL" +
                 ")";
 
         try (Connection con = DatabaseConnection.getConnection();

@@ -18,22 +18,13 @@ public final class ClientStorage {
     private final Map<Integer, Client> mapByCharacterId = new HashMap<>();
 
     public boolean isConnected(Account account) {
-        log.debug("Locking: {}", account.getUsername());
-
         try {
             if (!lock.tryLock(5, TimeUnit.SECONDS)) {
-                log.error("Lock acquisition failed, returning false.");
                 return false;
             }
-
-            log.debug("Looking in keys: {}", mapByAccountId);
             final int accountId = account.getId();
-            log.debug("Account ID: {}", accountId);
-            log.debug("Current map keys: {}", mapByAccountId.keySet());
-
             return mapByAccountId.containsKey(accountId);
         } catch (Exception e) {
-            log.error("Error when looking: {}", e.getMessage());
             return false;
         } finally {
             lock.unlock();

@@ -20,9 +20,7 @@ public abstract class ServerNode extends Node {
     }
 
     public final boolean isConnected(Account account) {
-        final boolean isCConnected = clientStorage.isConnected(account);
-        log.debug("IS CONNECTED: {}", isCConnected);
-        return isCConnected;
+        return clientStorage.isConnected(account);
     }
 
     public final void addClient(Client client) {

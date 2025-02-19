@@ -245,6 +245,25 @@ public class MysqlAccountAccessor implements AccountAccessor {
     }
 
     @Override
+    public void setLoggedStatus(Account account, boolean status) {
+        String updateQuery = "UPDATE " + AccountTable.getTableName() + " SET " +
+                AccountTable.LOGGED_IN + " = ? " +
+                "WHERE " + AccountTable.ACCOUNT_ID + " = ?";
+
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(updateQuery)) {
+
+            // Setting parameters in PreparedStatement
+            ps.setBoolean(1, status);
+            ps.setInt(2, account.getId());
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            log.error("SQL error updating logged in status account ID {}: {}", account.getId(), e.getMessage());
+        }
+    }
+
+    @Override
     public boolean saveAccount(Account account) {
         String updateQuery = "UPDATE " + AccountTable.getTableName() + " SET " +
                 AccountTable.CHARACTER_SLOTS + " = ?, " +

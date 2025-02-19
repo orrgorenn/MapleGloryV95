@@ -49,6 +49,10 @@ public final class Client extends NettyClient {
         this.clientKey = clientKey;
     }
 
+    public synchronized void setLoggedStatus(boolean status) {
+        DatabaseManager.accountAccessor().setLoggedStatus(account, status);
+    }
+
     public void sendPing() {
         write(ClientPacket.aliveReq());
     }
@@ -59,6 +63,7 @@ public final class Client extends NettyClient {
         if (user == null) {
             if (account != null) {
                 try (var lockedAccount = account.acquire()) {
+                    setLoggedStatus(false);
                     DatabaseManager.accountAccessor().saveAccount(account);
                 }
             }
