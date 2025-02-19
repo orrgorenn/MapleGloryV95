@@ -29,6 +29,7 @@ jobs:
 
       - name: Download large build files from Google Drive
         run: |
+          mkdir -p ~/wz  # Ensure the directory exists
           gdown --id 1EJfQtXv8xofabqSPpJs7oOgtanAVtEKv -O wz.tar
           tar -xvf wz.tar -C ~/wz
 
