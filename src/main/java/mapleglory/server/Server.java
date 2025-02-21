@@ -15,15 +15,64 @@ import mapleglory.util.crypto.MapleCrypto;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.time.Instant;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public final class Server {
     private static final Logger log = LogManager.getLogger(Server.class);
     private static CentralServerNode centralServerNode;
+    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     public static void main(String[] args) throws Exception {
         Server.initialize();
+    }
+
+    public static void sendHeartbeat() {
+        Runnable heartbeatTask = () -> {
+            try {
+                startSendingHeartbeat();
+            } catch (Exception e) {
+                log.error("Failed to send heartbeat: ", e);
+            }
+        };
+
+        // Schedule the heartbeat to run every 60 seconds
+        scheduler.scheduleAtFixedRate(heartbeatTask, 0, 60, TimeUnit.SECONDS);
+    }
+
+    private static void startSendingHeartbeat() throws Exception {
+        String heartbeatUrl = "https://www.mapleglory.online/api/server/status";
+        URL url = URI.create(heartbeatUrl).toURL(); // Correct way to create URL in Java 20+
+        int responseCode = getResponseCode(url);
+        if (responseCode != 200) {
+            log.error("Heartbeat failed with response code: " + responseCode);
+        }
+    }
+
+    private static int getResponseCode(URL url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        connection.setRequestProperty("Authorization", "Bearer Base64encoding!");
+        connection.setDoOutput(true);
+
+        String jsonInputString = "{\"serverId\": \"1\", \"status\": \"online\"}";
+
+        try (OutputStream os = connection.getOutputStream()) {
+            byte[] input = jsonInputString.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+
+        return connection.getResponseCode();
     }
 
     private static void initialize() throws Exception {
@@ -111,6 +160,8 @@ public final class Server {
                 throw new RuntimeException(e);
             }
         }));
+
+        Server.sendHeartbeat();
     }
 
     private static void shutdown() throws Exception {
