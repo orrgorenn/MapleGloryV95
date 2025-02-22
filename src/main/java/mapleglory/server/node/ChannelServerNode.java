@@ -3,6 +3,8 @@ package mapleglory.server.node;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
+import io.netty.handler.logging.LogLevel;
+import io.netty.handler.logging.LoggingHandler;
 import mapleglory.packet.CentralPacket;
 import mapleglory.packet.stage.LoginPacket;
 import mapleglory.server.ServerConfig;
@@ -265,6 +267,7 @@ public final class ChannelServerNode extends ServerNode {
             @Override
             protected void initChannel(SocketChannel ch) {
                 log.info("[Netty] Initializing pipeline for new connection: {}", ch.remoteAddress());
+                ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
                 ch.pipeline().addLast(new PacketDecoder(), new ChannelPacketHandler(), new PacketEncoder());
                 final Client c = new Client(self, ch);
                 c.setSendIv(getNewIv());
