@@ -27,7 +27,7 @@ public final class ExplorerQuest extends ScriptHandler {
         // Dark Lord : Thief Job Advancement
         if(sm.getUser().getJob() == 0) {
             sm.sayNext("Want to be a #rthief#k? There are some standards to meet. because we can't just accept EVERYONE in... #bYour level should be at least 10, with at least 25 DEX#k. Let's see.");
-            if(sm.getUser().getLevel() >= 10 && sm.canGetFirstJob(4)) {
+            if(sm.getUser().getLevel() >= 10) {
                 if(sm.askYesNo("Oh...! You look like someone that can definitely be a part of us... all you need is a little sinister mind, and... yeah... so, what do you think? Wanna be the Rogue?")) {
                     if (!sm.addItems(List.of(
                             Tuple.of(2070000, 500),
@@ -56,7 +56,7 @@ public final class ExplorerQuest extends ScriptHandler {
         // Athena Pierce : Bowman Job Advancement
         if(sm.getUser().getJob() == 0) {
             sm.sayNext("So you decided to become a #rbowman#k? There are some standards to meet, y'know... #bYour level should be at least 10, with at least DEX 25#k. Let's see.");
-            if(sm.getUser().getLevel() >= 10 && sm.canGetFirstJob(3)) {
+            if(sm.getUser().getLevel() >= 10) {
                 sm.sayBoth("It is an important and final choice. You will not be able to turn back.");
                 if (!sm.addItems(List.of(
                         Tuple.of(1452051, 1),
@@ -83,7 +83,7 @@ public final class ExplorerQuest extends ScriptHandler {
         if(sm.getUser().getJob() == 0) {
             // 1st Job
             sm.sayNext("Do you want to become a #rwarrior#k? You need to meet some criteria in order to do so.#bYou should be at least in level 10, and at least 35 STR#k. Let's see...");
-            if(sm.getUser().getLevel() >= 10 && sm.canGetFirstJob(1)) {
+            if(sm.getUser().getLevel() >= 10) {
                 sm.sayBoth("It is an important and final choice. You will not be able to turn back.");
                 if (!sm.addItem(1302077, 1)) {
                     sm.sayOk("Make some room in your inventory and talk back to me.");
@@ -106,7 +106,7 @@ public final class ExplorerQuest extends ScriptHandler {
         // Grendel the Really Old : Magician Job Advancement
         if(sm.getUser().getJob() == 0) {
             sm.sayNext("Want to be a #rmagician#k? There are some standards to meet. because we can't just accept EVERYONE in... #bYour level should be at least 8, with getting 20 INT#k as your top priority. Let's see...");
-            if(sm.getUser().getLevel() >= 10 && sm.canGetFirstJob(2)) {
+            if(sm.getUser().getLevel() >= 10) {
                 sm.sayBoth("Oh...! You look like someone that can definitely be a part of us... all you need is a little sinister mind, and... yeah... so, what do you think? Wanna be the Magician?");
                 if (!sm.addItem(1372043, 1)) {
                     sm.sayOk("Make some room in your inventory and talk back to me.");

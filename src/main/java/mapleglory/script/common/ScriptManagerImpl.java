@@ -172,18 +172,6 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    public boolean canGetFirstJob(int jobType) {
-        final CharacterStat cs = user.getCharacterStat();
-        return switch (jobType) {
-            case 1 -> cs.getBaseStr() >= 35;
-            case 2 -> cs.getBaseInt() >= 20;
-            case 3, 4 -> cs.getBaseDex() >= 25;
-            case 5 -> cs.getBaseDex() >= 20;
-            default -> true;
-        };
-    }
-
-    @Override
     public void setJob(Job job) {
         // Set job
         final CharacterStat cs = user.getCharacterStat();

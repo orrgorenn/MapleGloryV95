@@ -57,8 +57,6 @@ public interface ScriptManager {
 
     void setJob(Job job);
 
-    boolean canGetFirstJob(int jobType);
-
     void setAvatar(int look);
 
     void addSkill(int skillId, int skillLevel, int masterLevel);
