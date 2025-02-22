@@ -40,7 +40,7 @@ public abstract class Node {
     }
 
     protected final ChannelFuture startServer(ChannelInitializer<SocketChannel> initializer, int port) {
-        log.debug("Starting Server on port {}", port)
+        log.debug("Starting Server on port {}", port);
         final ServerBootstrap b = new ServerBootstrap();
         b.group(bossGroup, workerGroup);
         b.channel(NioServerSocketChannel.class);
