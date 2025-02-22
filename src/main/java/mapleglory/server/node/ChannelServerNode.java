@@ -257,16 +257,13 @@ public final class ChannelServerNode extends ServerNode {
         speakerManager.initialize(clientStorage);
         eventManager.initialize(fieldStorage);
 
-        // ✅ Instantiate ChannelPacketHandler BEFORE server starts
-        ChannelPacketHandler channelPacketHandler = new ChannelPacketHandler();
-        log.info("✅ ChannelPacketHandler instantiated successfully.");
-
         // Start channel server
         final ChannelServerNode self = this;
         channelServerFuture = startServer(new ChannelInitializer<>() {
             @Override
             protected void initChannel(SocketChannel ch) {
-                ch.pipeline().addLast(new PacketDecoder(), channelPacketHandler, new PacketEncoder());
+                log.info("[Netty] Initializing pipeline for new connection: {}", ch.remoteAddress());
+                ch.pipeline().addLast(new PacketDecoder(), new ChannelPacketHandler(), new PacketEncoder());
                 final Client c = new Client(self, ch);
                 c.setSendIv(getNewIv());
                 c.setRecvIv(getNewIv());
