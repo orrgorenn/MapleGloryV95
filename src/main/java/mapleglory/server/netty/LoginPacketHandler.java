@@ -11,8 +11,7 @@ import java.util.Map;
 public final class LoginPacketHandler extends PacketHandler {
     private static final Map<InHeader, Method> loginPacketHandlerMap = loadHandlers(
             ClientHandler.class,
-            LoginHandler.class,
-            MigrationHandler.class
+            LoginHandler.class
     );
 
     public LoginPacketHandler() {
