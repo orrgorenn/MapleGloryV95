@@ -1,5 +1,6 @@
 package mapleglory.packet.stage;
 
+import mapleglory.database.mysql.MysqlAccountAccessor;
 import mapleglory.server.ServerConfig;
 import mapleglory.server.ServerConstants;
 import mapleglory.server.header.OutHeader;
@@ -10,12 +11,15 @@ import mapleglory.server.rank.RankManager;
 import mapleglory.world.user.Account;
 import mapleglory.world.user.AvatarData;
 import mapleglory.world.user.CharacterData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
 public final class LoginPacket {
+    private static final Logger log = LoggerFactory.getLogger(LoginPacket.class);
     // CLogin::OnPacket ------------------------------------------------------------------------------------------------
 
     public static OutPacket connect(byte[] sendIv, byte[] recvIv) {
@@ -144,6 +148,8 @@ public final class LoginPacket {
     }
 
     public static OutPacket selectCharacterResultSuccess(byte[] channelHost, int channelPort, int characterId) {
+        log.debug("inside selectCharResultSuccess");
+        log.debug("channelHost: {}, channelPort: {}, charId: {}", channelHost, channelPort, characterId);
         final OutPacket outPacket = OutPacket.of(OutHeader.SelectCharacterResult);
         outPacket.encodeByte(LoginResultType.Success.getValue());
         outPacket.encodeByte(0);
@@ -157,6 +163,7 @@ public final class LoginPacket {
     }
 
     public static OutPacket selectCharacterResultFail(LoginResultType resultType) {
+        log.debug("inside selectCharacterResultFail");
         final OutPacket outPacket = OutPacket.of(OutHeader.SelectCharacterResult);
         outPacket.encodeByte(resultType.getValue());
         outPacket.encodeByte(0); // Trouble logging in?
