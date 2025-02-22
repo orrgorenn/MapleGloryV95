@@ -91,6 +91,7 @@ public abstract class PacketHandler extends SimpleChannelInboundHandler<InPacket
                     if (handlerMap.containsKey(header)) {
                         throw new RuntimeException(String.format("Multiple handlers found for InHeader \"%s\"", header.name()));
                     }
+                    log.debug("Registering handler {} for {}", method.getName(), header);
                     handlerMap.put(header, method);
                 }
             }
