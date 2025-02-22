@@ -1,5 +1,9 @@
 package mapleglory.server.header;
 
+import mapleglory.handler.ClientHandler;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -365,10 +369,17 @@ public enum InHeader {
         return ignoreHeaders.contains(this);
     }
 
+    private static final Logger log = LogManager.getLogger(InHeader.class);
+
     public static InHeader getByValue(short op) {
-        if (op >= 0 && op < NO.getValue()) {
-            return headers.get(op);
+        InHeader header = (op >= 0 && op < NO.getValue()) ? headers.get(op) : null;
+
+        if (header == null) {
+            log.error("❌ `getByValue({})` returned NULL. Opcode does not exist!", op);
+        } else {
+            log.debug("✅ `getByValue({})` -> {}", op, header);
         }
-        return null;
+
+        return header;
     }
 }
