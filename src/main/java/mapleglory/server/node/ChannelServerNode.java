@@ -51,7 +51,6 @@ public final class ChannelServerNode extends ServerNode {
     private ChannelFuture channelServerFuture;
 
     public ChannelServerNode(int channelId, int channelPort) {
-        log.debug("ChannelServerNode({}, {})", channelId, channelPort);
         this.channelId = channelId;
         this.channelPort = channelPort;
     }
@@ -256,7 +255,6 @@ public final class ChannelServerNode extends ServerNode {
 
     @Override
     public void initialize() throws InterruptedException, UnknownHostException {
-        log.debug("Initialize ChannelServerNode");
         // Initialize channel server classes
         speakerManager.initialize(clientStorage);
         eventManager.initialize(fieldStorage);
@@ -266,7 +264,6 @@ public final class ChannelServerNode extends ServerNode {
         channelServerFuture = startServer(new ChannelInitializer<>() {
             @Override
             protected void initChannel(SocketChannel ch) {
-                log.info("[Netty] Initializing pipeline for new connection: {}", ch.remoteAddress());
                 ch.pipeline().addLast(new LoggingHandler(LogLevel.DEBUG));
                 ch.pipeline().addLast(new PacketDecoder(), new ChannelPacketHandler(), new PacketEncoder());
                 final Client c = new Client(self, ch);

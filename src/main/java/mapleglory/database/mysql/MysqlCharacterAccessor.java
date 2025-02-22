@@ -301,10 +301,8 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
         String name = characterData.getCharacterName().toLowerCase();
         boolean nameAvailable = checkCharacterNameAvailable(name);
         if (!nameAvailable) {
-            log.debug("newChar - Checking availability {}, {} - return false", name, nameAvailable);
             return false;
         }
-        log.debug("SavingCharData");
         return saveCharacter(characterData);
     }
 

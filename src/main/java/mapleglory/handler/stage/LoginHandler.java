@@ -461,25 +461,17 @@ public final class LoginHandler {
         final String macAddressWithHddSerial = inPacket.decodeString(); // CLogin::GetLocalMacAddressWithHDDSerialNo
 
         final Account account = c.getAccount();
-        if (account == null) {
-            log.debug("account = null");
-        } else {
-            log.debug("Acc: {}, canSelect: {}, isConnected: {}, hasSecPass: {}", account, account.canSelectCharacter(characterId), c.getServerNode().isConnected(account), account.hasSecondaryPassword());
-        }
-        log.debug("mac: {}, withHdd: {}", macAddress, macAddressWithHddSerial);
+        // log.debug("mac: {}, withHdd: {}", macAddress, macAddressWithHddSerial);
         if (account == null || !account.canSelectCharacter(characterId) || !c.getServerNode().isConnected(account) ||
                 !account.hasSecondaryPassword()) {
-            log.debug("send char result failed");
             c.write(LoginPacket.selectCharacterResultFail(LoginResultType.Unknown));
             return;
         }
         if (!DatabaseManager.accountAccessor().checkPassword(account, secondaryPassword, true)) {
             OutPacket checkSecondaryPasswordResult = LoginPacket.checkSecondaryPasswordResult();
-            log.debug("send checkSecondaryPasswordResult: {}", checkSecondaryPasswordResult);
             c.write(checkSecondaryPasswordResult);
             return;
         }
-        log.debug("handling migration");
         handleMigration(c, account, characterId);
     }
 
@@ -491,7 +483,6 @@ public final class LoginHandler {
     }
 
     private static void handleMigration(Client c, Account account, int characterId) {
-        log.debug("inside handleMigration");
         // Check that client requirements are set
         if (c.getMachineId() == null || c.getMachineId().length != 16 || c.getClientKey() == null || c.getClientKey().length != 8) {
             log.error("Tried to submit migration request without client requirements for character ID : {}", characterId);

@@ -148,8 +148,6 @@ public final class LoginPacket {
     }
 
     public static OutPacket selectCharacterResultSuccess(byte[] channelHost, int channelPort, int characterId) {
-        log.debug("inside selectCharResultSuccess");
-        log.debug("channelHost: {}, channelPort: {}, charId: {}", channelHost, channelPort, characterId);
         final OutPacket outPacket = OutPacket.of(OutHeader.SelectCharacterResult);
         outPacket.encodeByte(LoginResultType.Success.getValue());
         outPacket.encodeByte(0);
@@ -163,7 +161,6 @@ public final class LoginPacket {
     }
 
     public static OutPacket selectCharacterResultFail(LoginResultType resultType) {
-        log.debug("inside selectCharacterResultFail");
         final OutPacket outPacket = OutPacket.of(OutHeader.SelectCharacterResult);
         outPacket.encodeByte(resultType.getValue());
         outPacket.encodeByte(0); // Trouble logging in?

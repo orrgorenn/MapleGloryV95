@@ -77,12 +77,8 @@ public abstract class PacketHandler extends SimpleChannelInboundHandler<InPacket
 
     protected static Map<InHeader, Method> loadHandlers(Class<?>... handlerClasses) {
         try {
-            log.info("Executing loadHandlers() with {} classes", handlerClasses.length);
-
             final Map<InHeader, Method> handlerMap = new EnumMap<>(InHeader.class);
             for (Class<?> clazz : handlerClasses) {
-                log.info("Processing class: {}", clazz.getSimpleName());
-
                 for (Method method : clazz.getDeclaredMethods()) {
                     if (!method.isAnnotationPresent(Handler.class)) {
                         continue;
@@ -96,7 +92,6 @@ public abstract class PacketHandler extends SimpleChannelInboundHandler<InPacket
                         if (handlerMap.containsKey(header)) {
                             throw new RuntimeException(String.format("Multiple handlers found for InHeader \"%s\"", header.name()));
                         }
-                        log.debug("Registering handler {} for {}", method.getName(), header);
                         handlerMap.put(header, method);
                     }
                 }
