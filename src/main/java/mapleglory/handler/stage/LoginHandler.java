@@ -491,7 +491,7 @@ public final class LoginHandler {
     }
 
     private static void handleMigration(Client c, Account account, int characterId) {
-        log.debug("inside handleMigration")
+        log.debug("inside handleMigration");
         // Check that client requirements are set
         if (c.getMachineId() == null || c.getMachineId().length != 16 || c.getClientKey() == null || c.getClientKey().length != 8) {
             log.error("Tried to submit migration request without client requirements for character ID : {}", characterId);
