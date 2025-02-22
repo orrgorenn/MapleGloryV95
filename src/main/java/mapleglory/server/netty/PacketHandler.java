@@ -76,26 +76,34 @@ public abstract class PacketHandler extends SimpleChannelInboundHandler<InPacket
     }
 
     protected static Map<InHeader, Method> loadHandlers(Class<?>... handlerClasses) {
-        final Map<InHeader, Method> handlerMap = new EnumMap<>(InHeader.class);
-        for (Class<?> clazz : handlerClasses) {
-            for (Method method : clazz.getDeclaredMethods()) {
-                if (!method.isAnnotationPresent(Handler.class)) {
-                    continue;
-                }
-                if (method.getParameterCount() != 2 || (method.getParameterTypes()[0] != Client.class && method.getParameterTypes()[0] != User.class) ||
-                        method.getParameterTypes()[1] != InPacket.class) {
-                    throw new RuntimeException(String.format("Incorrect parameters for handler method \"%s\"", method.getName()));
-                }
-                Handler annotation = method.getAnnotation(Handler.class);
-                for (InHeader header : annotation.value()) {
-                    if (handlerMap.containsKey(header)) {
-                        throw new RuntimeException(String.format("Multiple handlers found for InHeader \"%s\"", header.name()));
+        try {
+            log.info("Executing loadHandlers() with {} classes", handlerClasses.length);
+
+            final Map<InHeader, Method> handlerMap = new EnumMap<>(InHeader.class);
+            for (Class<?> clazz : handlerClasses) {
+                log.info("Processing class: {}", clazz.getSimpleName());
+
+                for (Method method : clazz.getDeclaredMethods()) {
+                    if (!method.isAnnotationPresent(Handler.class)) {
+                        continue;
                     }
-                    log.debug("Registering handler {} for {}", method.getName(), header);
-                    handlerMap.put(header, method);
+                    if (method.getParameterCount() != 2 || (method.getParameterTypes()[0] != Client.class && method.getParameterTypes()[0] != User.class) ||
+                            method.getParameterTypes()[1] != InPacket.class) {
+                        throw new RuntimeException(String.format("Incorrect parameters for handler method \"%s\"", method.getName()));
+                    }
+                    Handler annotation = method.getAnnotation(Handler.class);
+                    for (InHeader header : annotation.value()) {
+                        if (handlerMap.containsKey(header)) {
+                            throw new RuntimeException(String.format("Multiple handlers found for InHeader \"%s\"", header.name()));
+                        }
+                        log.debug("Registering handler {} for {}", method.getName(), header);
+                        handlerMap.put(header, method);
+                    }
                 }
             }
+            return Collections.unmodifiableMap(handlerMap);
+        } catch (Exception e) {
+            log.error("Error occurred in loadHandlers(): ", e);
         }
-        return Collections.unmodifiableMap(handlerMap);
     }
 }

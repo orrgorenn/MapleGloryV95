@@ -11,11 +11,15 @@ import mapleglory.handler.user.item.CashItemHandler;
 import mapleglory.handler.user.item.ItemHandler;
 import mapleglory.handler.user.item.UpgradeItemHandler;
 import mapleglory.server.header.InHeader;
+import mapleglory.server.node.ChannelServerNode;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.lang.reflect.Method;
 import java.util.Map;
 
 public final class ChannelPacketHandler extends PacketHandler {
+    private static final Logger log = LogManager.getLogger(ChannelPacketHandler.class);
     private static final Map<InHeader, Method> channelPacketHandlerMap = loadHandlers(
             ClientHandler.class,
             CashShopHandler.class,
@@ -41,5 +45,6 @@ public final class ChannelPacketHandler extends PacketHandler {
 
     public ChannelPacketHandler() {
         super(channelPacketHandlerMap);
+        log.info("Initializing ChannelPacketHandler...");
     }
 }
