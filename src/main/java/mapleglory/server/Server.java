@@ -99,11 +99,6 @@ public final class Server {
         CommandProcessor.initialize();
 
         // Initialize database
-//        start = Instant.now();
-//        DatabaseManager.initialize();
-//        log.info("Loaded database (cassandra) connection in {} milliseconds", Duration.between(start, Instant.now()).toMillis());
-
-        // Initialize database
         start = Instant.now();
         if (!DatabaseConnection.initializeConnectionPool()) {
             throw new IllegalStateException("Failed to initiate a connection to the database");
