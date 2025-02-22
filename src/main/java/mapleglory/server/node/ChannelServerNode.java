@@ -274,7 +274,15 @@ public final class ChannelServerNode extends ServerNode {
                 ch.attr(NettyClient.CLIENT_KEY).set(c);
             }
         }, channelPort);
-        channelServerFuture.sync();
+
+        new Thread(() -> {
+            try {
+                channelServerFuture.sync();
+            } catch (InterruptedException e) {
+                log.error("Channel server sync interrupted", e);
+            }
+        }).start();
+
         log.info("Channel {} listening on port {}", channelId + 1, channelPort);
 
         // Start central client
