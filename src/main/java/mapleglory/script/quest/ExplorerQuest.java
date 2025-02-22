@@ -22,6 +22,24 @@ public final class ExplorerQuest extends ScriptHandler {
         sm.warp(910060000); // Victoria Road : Bowman Training Center
     }
 
+    @Script("enter_thief")
+    public static void enter_thief(ScriptManager sm) {
+        if (sm.hasQuestStarted(22515) || sm.hasQuestStarted(22516) || sm.hasQuestStarted(22517) || sm.hasQuestStarted(22518)) {
+            sm.warpInstance(910310000, "start", 103010000, 60 * 30);
+            return;
+        }
+        sm.warp(910310000);
+    }
+
+    @Script("enter_magician")
+    public static void enter_magician(ScriptManager sm) {
+        if (sm.hasQuestStarted(22515) || sm.hasQuestStarted(22516) || sm.hasQuestStarted(22517) || sm.hasQuestStarted(22518)) {
+            sm.warpInstance(910120000, "start", 101000000, 60 * 30);
+            return;
+        }
+        sm.warp(910120000);
+    }
+
     @Script("rogue")
     public static void rogue(ScriptManager sm) {
         // Dark Lord : Thief Job Advancement

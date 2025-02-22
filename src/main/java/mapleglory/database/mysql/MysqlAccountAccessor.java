@@ -47,6 +47,7 @@ public class MysqlAccountAccessor implements AccountAccessor {
             account.setNxCredit(rs.getInt(AccountTable.NX_CREDIT));
             account.setNxPrepaid(rs.getInt(AccountTable.NX_PREPAID));
             account.setMaplePoint(rs.getInt(AccountTable.MAPLE_POINT));
+            account.setGM(rs.getInt(AccountTable.GM));
 
             final Trunk trunk = new Trunk(rs.getInt(AccountTable.TRUNK_SIZE));
             final String rsItems = rs.getString(AccountTable.TRUNK_ITEMS);

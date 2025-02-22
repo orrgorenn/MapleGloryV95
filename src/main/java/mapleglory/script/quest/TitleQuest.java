@@ -124,7 +124,6 @@ public final class TitleQuest extends ScriptHandler {
         //   highposition (4561, -985)
         // Orbis : Entrance to Orbis Tower (200080100)
         //   highposition (94, -487)
-
     }
 
     @Script("q29900s")

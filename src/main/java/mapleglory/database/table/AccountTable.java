@@ -26,6 +26,7 @@ public final class AccountTable {
     public static final String LOCKER_ITEMS = "locker_items";
     public static final String WISHLIST = "wishlist";
     public static final String LOGGED_IN = "logged_in";
+    public static final String GM = "gm";
     private static final String tableName = "account";
 
     public static String getTableName() {

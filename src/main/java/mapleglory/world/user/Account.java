@@ -18,6 +18,7 @@ public final class Account implements Lockable<Account> {
     private Trunk trunk;
     private Locker locker;
     private List<Integer> wishlist;
+    private int gm;
 
     // TRANSIENT
     private int channelId = -1;
@@ -32,6 +33,8 @@ public final class Account implements Lockable<Account> {
     public int getId() {
         return id;
     }
+
+    public boolean isGM() { return gm == 1; }
 
     public String getUsername() {
         return username;
@@ -51,6 +54,9 @@ public final class Account implements Lockable<Account> {
 
     public void setNxCredit(int nxCredit) {
         this.nxCredit = nxCredit;
+    }
+    public void setGM(int currentGm) {
+        this.gm = currentGm;
     }
 
     public int getNxPrepaid() {

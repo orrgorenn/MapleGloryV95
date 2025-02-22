@@ -127,8 +127,12 @@ public final class UserHandler {
         final String text = inPacket.decodeString(); // sText
         final boolean onlyBalloon = inPacket.decodeBoolean(); // bOnlyBalloon
         if (text.startsWith(ServerConfig.COMMAND_PREFIX) && text.length() > 1) {
-            CommandProcessor.tryProcessCommand(user, text);
-            return;
+            if(user.getAccount().isGM()) {
+                CommandProcessor.tryProcessCommand(user, text);
+                return;
+            } else {
+                log.warn("Non GM tried to use commands ({})", user.getCharacterName());
+            }
         }
         user.getField().broadcastPacket(UserPacket.userChat(user, ChatType.NORMAL, text, onlyBalloon));
     }
