@@ -146,16 +146,16 @@ public final class DatabaseManager {
             GuildMemberUDT.createUserDefinedType(cqlSession, DATABASE_KEYSPACE);
             GuildBoardCommentUDT.createUserDefinedType(cqlSession, DATABASE_KEYSPACE);
             GuildBoardEntryUDT.createUserDefinedType(cqlSession, DATABASE_KEYSPACE);
-
-            // Create Tables
-            IdTable.createTable(cqlSession, DATABASE_KEYSPACE);
-            AccountTable.createTable();
-            CharacterTable.createTable();
-            FriendTable.createTable(cqlSession, DATABASE_KEYSPACE);
-            GuildTable.createTable(cqlSession, DATABASE_KEYSPACE);
-            GiftTable.createTable(cqlSession, DATABASE_KEYSPACE);
-            MemoTable.createTable(cqlSession, DATABASE_KEYSPACE);
         }
+
+        // Create Tables
+        IdTable.createTable(cqlSession, DATABASE_KEYSPACE);
+        AccountTable.createTable();
+        CharacterTable.createTable();
+        FriendTable.createTable(cqlSession, DATABASE_KEYSPACE);
+        GuildTable.createTable(cqlSession, DATABASE_KEYSPACE);
+        GiftTable.createTable(cqlSession, DATABASE_KEYSPACE);
+        MemoTable.createTable(cqlSession, DATABASE_KEYSPACE);
 
         // Register Codecs
         registerCodec(cqlSession, EquipDataUDT.getTypeName(), (ic) -> new EquipDataCodec(ic, GenericType.of(EquipData.class)));
