@@ -103,7 +103,7 @@ public abstract class PacketHandler extends SimpleChannelInboundHandler<InPacket
             }
             return Collections.unmodifiableMap(handlerMap);
         } catch (Exception e) {
-            log.error("Error occurred in loadHandlers(): ", e);
+            throw new RuntimeException(String.format("Multiple handlers found for InHeader \"%s\"", e));
         }
     }
 }
