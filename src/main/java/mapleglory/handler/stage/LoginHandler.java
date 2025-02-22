@@ -460,6 +460,12 @@ public final class LoginHandler {
         final String macAddressWithHddSerial = inPacket.decodeString(); // CLogin::GetLocalMacAddressWithHDDSerialNo
 
         final Account account = c.getAccount();
+        if (account == null) {
+            log.debug("account = null");
+        } else {
+            log.debug("Acc: {}, canSelect: {}, isConnected: {}, hasSecPass: {}", account, account.canSelectCharacter(characterId), c.getServerNode().isConnected(account), account.hasSecondaryPassword());
+        }
+        log.debug("mac: {}, withHdd: {}", macAddress, macAddressWithHddSerial);
         if (account == null || !account.canSelectCharacter(characterId) || !c.getServerNode().isConnected(account) ||
                 !account.hasSecondaryPassword()) {
             c.write(LoginPacket.selectCharacterResultFail(LoginResultType.Unknown));
