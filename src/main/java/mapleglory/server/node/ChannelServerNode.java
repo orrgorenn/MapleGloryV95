@@ -49,6 +49,7 @@ public final class ChannelServerNode extends ServerNode {
     private ChannelFuture channelServerFuture;
 
     public ChannelServerNode(int channelId, int channelPort) {
+        log.debug("ChannelServerNode({}, {})", channelId, channelPort);
         this.channelId = channelId;
         this.channelPort = channelPort;
     }
@@ -253,6 +254,7 @@ public final class ChannelServerNode extends ServerNode {
 
     @Override
     public void initialize() throws InterruptedException, UnknownHostException {
+        log.debug("Initialize ChannelServerNode");
         // Initialize channel server classes
         speakerManager.initialize(clientStorage);
         eventManager.initialize(fieldStorage);
