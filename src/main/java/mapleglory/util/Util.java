@@ -1,8 +1,10 @@
 package mapleglory.util;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import io.github.cdimascio.dotenv.Dotenv;
 
+import java.io.IOException;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
@@ -113,5 +115,15 @@ public final class Util {
 
     public static Timestamp toTimestamp(java.time.Instant instant) {
         return (instant != null) ? Timestamp.from(instant) : null;
+    }
+
+    public static String convertObjectToJson(Object obj) {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            return objectMapper.writeValueAsString(obj);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "{}";
+        }
     }
 }

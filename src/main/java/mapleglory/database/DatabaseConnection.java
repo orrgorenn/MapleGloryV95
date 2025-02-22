@@ -2,8 +2,8 @@ package mapleglory.database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import mapleglory.database.cassandra.table.AccountTable;
-import mapleglory.database.cassandra.table.CharacterTable;
+import mapleglory.database.table.AccountTable;
+import mapleglory.database.table.CharacterTable;
 import mapleglory.server.ServerConfig;
 import org.jdbi.v3.core.Handle;
 import org.jdbi.v3.core.Jdbi;

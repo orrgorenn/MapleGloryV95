@@ -62,12 +62,6 @@ public final class GuildHandler {
                         user.write(GuildPacket.checkGuildNameAlreadyUsed()); // The name is already in use... Please try other ones....
                         return;
                     }
-                    // Resolve new guild ID
-                    final Optional<Integer> guildIdResult = DatabaseManager.idAccessor().nextGuildId();
-                    if (guildIdResult.isEmpty()) {
-                        user.write(GuildPacket.serverMsg(null)); // The guild request has not been accepted due to unknown reason.
-                        return;
-                    }
                     // Deduct creation cost
                     if (!im.addMoney(-GameConstants.CREATE_GUILD_COST)) {
                         throw new IllegalStateException("Could not deduct guild creation cost");
@@ -75,7 +69,7 @@ public final class GuildHandler {
                     user.write(WvsContext.statChanged(Stat.MONEY, im.getMoney(), false));
                     user.write(MessagePacket.incMoney(-GameConstants.CREATE_GUILD_COST));
                     // Submit guild creation request
-                    user.getConnectedServer().submitGuildRequest(user, GuildRequest.createNewGuild(guildIdResult.get(), guildName));
+                    user.getConnectedServer().submitGuildRequest(user, GuildRequest.createNewGuild(guildName));
                 }
             }
             case InviteGuild -> {

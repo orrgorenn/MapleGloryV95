@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import mapleglory.database.DatabaseConnection;
 import mapleglory.database.DatabaseManager;
-import mapleglory.database.cassandra.table.CharacterTable;
+import mapleglory.database.table.CharacterTable;
 import mapleglory.handler.Handler;
 import mapleglory.packet.stage.LoginPacket;
 import mapleglory.packet.stage.LoginResultType;

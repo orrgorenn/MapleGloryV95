@@ -6,7 +6,7 @@ import com.google.gson.reflect.TypeToken;
 import mapleglory.database.CharacterAccessor;
 import mapleglory.database.CharacterInfo;
 import mapleglory.database.DatabaseConnection;
-import mapleglory.database.cassandra.table.CharacterTable;
+import mapleglory.database.table.CharacterTable;
 import mapleglory.server.rank.CharacterRank;
 import mapleglory.util.InstantTypeAdapter;
 import mapleglory.util.Util;

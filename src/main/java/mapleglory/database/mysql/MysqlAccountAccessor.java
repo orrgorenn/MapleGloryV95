@@ -4,7 +4,7 @@ import com.google.gson.GsonBuilder;
 import io.netty.handler.timeout.TimeoutException;
 import mapleglory.database.AccountAccessor;
 import mapleglory.database.DatabaseConnection;
-import mapleglory.database.cassandra.table.AccountTable;
+import mapleglory.database.table.AccountTable;
 import mapleglory.server.ServerConfig;
 import mapleglory.server.cashshop.CashItemInfo;
 import mapleglory.util.InstantTypeAdapter;
