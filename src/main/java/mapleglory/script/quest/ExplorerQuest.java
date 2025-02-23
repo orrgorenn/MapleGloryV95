@@ -119,6 +119,53 @@ public final class ExplorerQuest extends ScriptHandler {
         }
     }
 
+    @Script("change_magician")
+    public static void change_magician(ScriptManager sm) {
+        if (sm.hasQuestCompleted(100007)) {
+            sm.sayOk("You're truly a hero!");
+        } else if (sm.hasQuestCompleted(100006)) {
+            sm.sayNext("Alright, I'll let you in! Defeat the monsters inside, collect 30 Dark Marbles, then talk to a colleague of mine inside. " +
+                    "He'll give you #bThe Proof of a Hero#k, the proof that you've passed the test. Best of luck to you.");
+
+            // Start the next quest and remove the Instructor's Letter
+            sm.forceCompleteQuest(100006);
+            sm.forceStartQuest(100007);
+            sm.removeItem(4031009, 1);
+
+            // Send the player to the test map
+            sm.warp(108000200);
+        } else if (sm.hasQuestStarted(100006)) {
+            sm.sayNext("Hmmm... it is definitely the letter from #bGrendel the Really Old#k... " +
+                    "so you came all the way here to take the test and make the 2nd job advancement as a magician. " +
+                    "Alright, I'll explain the test to you. Don't sweat it too much, it's not that complicated.");
+
+            sm.sayNext("I'll send you to a hidden map. You'll see monsters you don't normally see. " +
+                    "They look similar to the regular ones but with a totally different attitude. " +
+                    "They neither boost your experience level nor provide you with items.");
+
+            sm.sayNext("You'll be able to acquire a marble called #b#t4031013##k while knocking down those monsters. " +
+                    "It is a special marble made out of their sinister, evil minds. Collect 30 of those, " +
+                    "and then go talk to a colleague of mine in there. That's how you pass the test.");
+
+            if (sm.askYesNo("Once you go inside, you can't leave until you complete your mission. " +
+                    "If you die, your experience level will decrease. So you better really buckle up and get ready... " +
+                    "Well, do you want to go for it now?")) {
+                sm.sayNext("Alright, I'll let you in! Defeat the monsters inside, collect 30 Dark Marbles, " +
+                        "then talk to a colleague of mine inside. He'll give you #bThe Proof of a Hero#k, " +
+                        "the proof that you've passed the test. Best of luck to you.");
+                sm.forceCompleteQuest(100006);
+                sm.forceStartQuest(100007);
+                sm.removeItem(4031009, 1);
+                sm.warp(108000200);
+            } else {
+                sm.sayOk("Come back when you are ready.");
+            }
+        } else {
+            sm.sayOk("I can show you the way once you're ready for it.");
+        }
+
+    }
+
     @Script("magician")
     public static void magician(ScriptManager sm) {
         // Grendel the Really Old : Magician Job Advancement
