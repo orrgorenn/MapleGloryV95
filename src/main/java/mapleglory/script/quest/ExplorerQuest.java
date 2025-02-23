@@ -203,7 +203,7 @@ public final class ExplorerQuest extends ScriptHandler {
             if (sm.hasItem(4031012)) { // Player has Proof of a Hero
                 sm.sayNext("I see you have done well. I will allow you to take the next step on your long road.");
 
-                final int choice = sm.askMenu(null, Map.of(
+                final int choice = sm.askMenu("Now... have you made up your mind? Please choose the job you'd like for your 2nd job advancement:", Map.of(
                         0, "Wizard (Fire / Poison)",
                         1, "Wizard (Ice / Lightning)",
                         2, "Cleric"
