@@ -14,6 +14,9 @@ public final class GameConstants {
     // RATES --------------------------------------------------------------------------------------------------
 
     public static final int EXP_RATE = 2;
+    public static final int MESO_RATE = 3;
+    public static final int DROP_RATE = 3;
+    public static final int QUEST_RATE = 2;
 
     // USER CONSTANTS --------------------------------------------------------------------------------------------------
 

@@ -44,7 +44,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiPredicate;
 
-import static mapleglory.world.GameConstants.EXP_RATE;
+import static mapleglory.world.GameConstants.*;
 
 public final class Mob extends Life implements ControlledObject, Encodable, Lockable<Mob> {
     private final Lock lock = new ReentrantLock();
@@ -563,7 +563,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
 
     private Optional<Drop> createDrop(User owner, Reward reward) {
         // Drop probability
-        double probability = reward.getProb();
+        double probability = reward.getProb() * DROP_RATE;
         if (owner.getSecondaryStat().hasOption(CharacterTemporaryStat.ItemUpByItem)) {
             final double multiplier = (owner.getSecondaryStat().getOption(CharacterTemporaryStat.ItemUpByItem).nOption + 100) / 100.0;
             probability = probability * multiplier;
@@ -577,7 +577,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
         }
         // Create drop
         if (reward.isMoney()) {
-            int money = Util.getRandom(reward.getMin(), reward.getMax());
+            int money = Util.getRandom(reward.getMin(), reward.getMax()) * MESO_RATE;
             if (money <= 0) {
                 return Optional.empty();
             }
