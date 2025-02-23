@@ -630,7 +630,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
                         getFoothold()
                 );
                 reviveMob.setLeft(isLeft());
-                reviveMob.setSummonType(MobAppearType.REGEN.getValue());
+                reviveMob.setSummonType(MobAppearType.EFFECT.getValue());
                 getField().getMobPool().addMob(reviveMob);
             }
         }, template.getReviveDelay() + delay, TimeUnit.MILLISECONDS);
