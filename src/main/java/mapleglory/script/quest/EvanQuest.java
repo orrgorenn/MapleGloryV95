@@ -317,7 +317,7 @@ public final class EvanQuest extends ScriptHandler {
             sm.setPlayerAsSpeaker(false);
             sm.sayBoth("What do you mean I deceived you? You let yourself imagine what you wanted. Anyway, thanks to you, we were able to accomplish quite a lot. But you are nothing but a hindrance now.");
             sm.sayBoth("You better get out of here. Now!");
-            sm.spawnMob(9300393, MobAppearType.NORMAL, 230, 31, true);
+            sm.spawnMob(9300393, MobAppearType.NORMAL, 230, 31, true, true);
             sm.removeNpc(9300393);
         }
     }

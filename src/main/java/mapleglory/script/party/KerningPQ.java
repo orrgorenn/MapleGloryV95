@@ -238,7 +238,7 @@ public final class KerningPQ extends ScriptHandler {
                             count++;
                         }
                     }
-                    sm.broadcastMessage(String.format("Currently, you've selected %d answer platforms", count));
+                    sm.broadcastMessage(String.format("Currently, you've selected %d answer platforms", count), true);
                     sm.broadcastScriptProgressMessage(String.format("Currently, you've selected %d answer platforms", count));
                     sm.broadcastScreenEffect("quest/party/wrong_kor");
                     sm.broadcastSoundEffect("Party1/Failed");

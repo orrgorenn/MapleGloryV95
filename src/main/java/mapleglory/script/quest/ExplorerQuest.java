@@ -4,6 +4,7 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.util.Tuple;
+import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
 
@@ -11,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public final class ExplorerQuest extends ScriptHandler {
+    public static final int MARBAS = 9400612;
     @Script("enter_archer")
     public static void enter_archer(ScriptManager sm) {
         //  Power B. Fore : Entrance to Bowman Training Center (1012119)
@@ -116,6 +118,25 @@ public final class ExplorerQuest extends ScriptHandler {
             } else {
                 sm.sayOk("Train a bit more until you reach the base requirements and I can show you the way of the #rWarrior#k.");
             }
+        }
+    }
+
+    @Script("inside_magician")
+    public static void inside_magician(ScriptManager sm) {
+        if (!sm.hasItem(4031013, 30)) {
+            if(sm.askMenu("You will have to collect me #b30 #t4031013##k. Good luck.", Map.of(0, "#bI would like to leave.")) == 0) {
+                sm.warp(101040300);
+            }
+        } else {
+            sm.sayNext("Ohhhhh.. you collected all 30 Dark Marbles!! It should have been difficult... just incredible! Alright. You've passed the test and for that, I'll reward you #bThe Proof of a Hero#k. Take that and go back to Ellinia.");
+            sm.removeItem(4031013);
+            sm.forceCompleteQuest(100007);
+            if(!sm.canAddItem(4031012, 1)) {
+                sm.sayOk("Make some space in your inventory and talk back to me.");
+                return;
+            }
+            sm.addItem(4031012, 1);
+            sm.warp(101040300);
         }
     }
 
@@ -249,6 +270,23 @@ public final class ExplorerQuest extends ScriptHandler {
                     }
                 }
             }
+        }
+    }
+
+    @Script("Enter_Darkportal_M")
+    public static void enter_darkportal_m(ScriptManager sm) {
+        if(!sm.hasQuestStarted(28198)) {
+            sm.sayOk("...");
+            return;
+        }
+        if(!sm.hasItem(4032495, 1)) {
+            sm.sayOk("Seems like you lost Marbas' Emblem. Go talk to #p1032001# to retrieve it.");
+            return;
+        }
+        if(sm.askMenu("Are you sure you want to fight with Marbas the Demon?", Map.of(0, "I am sure.", 1, "Maybe another time.")) == 0) {
+            sm.warp(677000001);
+            sm.spawnMob(MARBAS, MobAppearType.NORMAL, 174, 70, true, false);
+            sm.broadcastMessage("Kill Marbas!", false);
         }
     }
 }

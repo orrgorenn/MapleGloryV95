@@ -400,7 +400,24 @@ public final class User extends Life implements Lockable<User> {
     }
 
     public void addExp(int exp) {
-        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt());
+        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt(), false);
+        write(WvsContext.statChanged(addExpResult, true));
+        // Level up
+        if (addExpResult.containsKey(Stat.LEVEL)) {
+            getField().broadcastPacket(UserRemote.effect(this, Effect.levelUp()), this);
+            validateStat();
+            setHp(getMaxHp());
+            setMp(getMaxMp());
+            getConnectedServer().notifyUserUpdate(this);
+            // Max level
+            if (getLevel() == GameConstants.getLevelMax(getJob())) {
+                getCharacterData().setMaxLevelTime(Instant.now());
+            }
+        }
+    }
+
+    public void addQuestExp(int exp) {
+        final Map<Stat, Object> addExpResult = getCharacterStat().addExp(exp, getBasicStat().getInt(), true);
         write(WvsContext.statChanged(addExpResult, true));
         // Level up
         if (addExpResult.containsKey(Stat.LEVEL)) {

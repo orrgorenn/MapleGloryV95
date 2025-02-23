@@ -94,7 +94,7 @@ public final class ResistanceTutorial extends ScriptHandler {
             sm.sayNext("Eep! You found me.");
             sm.sayBoth("Eh, I wanted to go further into the wagon, but my head wouldn't fit.");
             sm.sayBoth("Did you find Ulrika and Von yet? Von is really, really good at hiding.\r\n\r\n\r\n\r\n#fUI/UIWindow2.img/QuestIcon/8/0# 5 exp");
-            user.addExp(5);
+            user.addQuestExp(5);
             sm.addQRValue(QuestRecordType.ResistanceHideSeek, "exp1=1");
         } else {
             sm.sayNext("Did you find Ulrika and Von yet? Von is really, really good at hiding.");
@@ -108,7 +108,7 @@ public final class ResistanceTutorial extends ScriptHandler {
         final User user = sm.getUser();
 
         if (!sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp2=1")) {
-            user.addExp(5);
+            user.addQuestExp(5);
             sm.addQRValue(QuestRecordType.ResistanceHideSeek, "exp2=1");
             sm.sayNext("Haha, you found me. Guess I should've found a better hiding spot.");
             sm.sayBoth("Have you found Jun and Von yet? Von's going to be pretty hard to find. Better keep your eyes open.\r\n\r\n\r\n\r\n#fUI/UIWindow2.img/QuestIcon/8/0# 5 exp");
@@ -129,7 +129,7 @@ public final class ResistanceTutorial extends ScriptHandler {
         // Cutie (2159015)
         //   Dangerous Hide-and-Seek : Neglected Rocky Mountain (931000001)
         if (!sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp3=1")) {
-            sm.addExp(3);
+            sm.getUser().addQuestExp(3);
             sm.addQRValue(QuestRecordType.ResistanceHideSeek, "exp3=1");
             sm.sayNext("Aw shucks. You found me. Wow, you're really good at this game!\r\n\r\n\r\n\r\n#fUI/UIWindow2.img/QuestIcon/8/0# 3 exp");
         } else {
@@ -144,7 +144,7 @@ public final class ResistanceTutorial extends ScriptHandler {
         final User user = sm.getUser();
 
         if (!sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp4=1")) {
-            user.addExp(3);
+            user.addQuestExp(3);
             sm.addQRValue(QuestRecordType.ResistanceHideSeek, "exp4=1");
             sm.sayNext("D'oh! You found me. But I'm tiny! Are you a professional at this game or something?\r\n\r\n\r\n\r\n#fUI/UIWindow2.img/QuestIcon/8/0# 3 exp");
         } else {
@@ -158,7 +158,7 @@ public final class ResistanceTutorial extends ScriptHandler {
         //   Dangerous Hide-and-Seek : Neglected Rocky Mountain (931000001)
         if (sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp1=1") && sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp2=1") && sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp3=1") && sm.hasQRValue(QuestRecordType.ResistanceHideSeek, "exp4=1")) {
             if (sm.askYesNo("#b(What a suspicious hole. Maybe Von is hiding inside. Peek inside?)#k")) {
-                sm.addExp(35);
+                sm.getUser().addQuestExp(35);
                 sm.playPortalSE();
                 sm.warp(MAP_LAB1);
             } else {

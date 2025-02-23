@@ -291,7 +291,7 @@ public final class ResistanceQuest extends ScriptHandler {
         sm.sayNext("Come to think of it, you do look familiar... Where have I seen you before?");
         sm.sayNext("I couldn't fight you the last time we met, but I plan to fix that today.", ScriptMessageParam.PLAYER_AS_SPEAKER);
         sm.sayNext("You! I remember now! You stole that one test subject! Do you have any idea how much I suffered because of that? I was demoted... five times! Now I'm stuck doing menial jobs like this.\r\nTime for you to pay, oh yes.");
-        sm.spawnMob(9001031, MobAppearType.NORMAL, 230, -14, true); //This is offset for some reason
+        sm.spawnMob(9001031, MobAppearType.NORMAL, 230, -14, true, true); //This is offset for some reason
         sm.removeNpc(2159100);
     }
 

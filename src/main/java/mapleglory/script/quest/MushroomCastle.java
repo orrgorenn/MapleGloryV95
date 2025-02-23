@@ -348,7 +348,7 @@ public final class MushroomCastle extends ScriptHandler {
         // Mushroom Castle : Entrance to Wedding Hall (106021508)
         // Mushroom Castle : Entrance to Wedding Hall (106021509)
         final int variant = Integer.parseInt(sm.getInstanceVariable("pepeVariant"));
-        sm.spawnMob(3300005 + variant, MobAppearType.NORMAL, 100, -100, true);
+        sm.spawnMob(3300005 + variant, MobAppearType.NORMAL, 100, -100, true, true);
     }
 
     @Script("out_pepeking")
@@ -409,7 +409,7 @@ public final class MushroomCastle extends ScriptHandler {
             sm.setSpeakerId(1300002);
             sm.sayBoth("#bThe #o3300008#! Please defeat the #o3300008#!", ScriptMessageParam.FLIP_SPEAKER);
             sm.setInstanceVariable("spawnedPM", "1");
-            sm.spawnMob(3300008, 23, 215, 142, true);
+            sm.spawnMob(3300008, 23, 215, 142, true, true);
             sm.forceStartQuest(2333);
             sm.scriptProgressMessage("New Mission! Defeat the Prime Minister!");
         }

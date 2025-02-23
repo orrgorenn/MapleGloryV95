@@ -167,7 +167,7 @@ public final class ScriptManagerImpl implements ScriptManager {
 
     @Override
     public void addExp(int exp) {
-        user.addExp(exp);
+        user.addQuestExp(exp);
         user.write(MessagePacket.incExp(exp, 0, true, true));
     }
 
@@ -707,12 +707,13 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft) {
+    public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, boolean originalField) {
         final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
         if (mobTemplateResult.isEmpty()) {
             throw new ScriptError("Could not resolve mob template ID : %d", templateId);
         }
-        final Optional<Foothold> footholdResult = field.getFootholdBelow(x, y - GameConstants.REACTOR_SPAWN_HEIGHT);
+        Field currentField = originalField ? field : user.getField();
+        final Optional<Foothold> footholdResult = currentField.getFootholdBelow(x, y - GameConstants.REACTOR_SPAWN_HEIGHT);
         final Mob mob = new Mob(
                 mobTemplateResult.get(),
                 null,
@@ -722,7 +723,7 @@ public final class ScriptManagerImpl implements ScriptManager {
         );
         mob.setLeft(isLeft);
         mob.setSummonType(summonType);
-        field.getMobPool().addMob(mob);
+        currentField.getMobPool().addMob(mob);
     }
 
     @Override
@@ -904,7 +905,7 @@ public final class ScriptManagerImpl implements ScriptManager {
         field.getUserPool().forEach((member) -> {
             if (member.getCharacterId() != user.getCharacterId()) {
                 try (var lockedMember = member.acquire()) {
-                    member.addExp(exp);
+                    member.addQuestExp(exp);
                 }
             }
         });
@@ -916,8 +917,9 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
-    public void broadcastMessage(String message) {
-        field.broadcastPacket(MessagePacket.system(message));
+    public void broadcastMessage(String message, boolean originalField) {
+        Field currentField = originalField ? field : user.getField();
+        currentField.broadcastPacket(MessagePacket.system(message));
     }
 
     @Override

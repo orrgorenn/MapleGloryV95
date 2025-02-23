@@ -202,9 +202,9 @@ public final class HenesysPQ extends ScriptHandler {
         // moonMob0 (9101000)
         //   Hidden Street : Primrose Hill (910010000)
         //   Hidden Street : Primrose Hill (910010001)
-        sm.spawnMob(MOON_BUNNY, MobAppearType.REGEN, -180, -196, false); // Moon Bunny
+        sm.spawnMob(MOON_BUNNY, MobAppearType.REGEN, -180, -196, false, true); // Moon Bunny
         sm.getField().setMobSpawn(true);
         sm.getField().blowWeather(5120016, "Protect the Moon Bunny that's pounding the mill, and gather up 10 Moon Bunny's Rice Cakes!", 20);
-        sm.broadcastMessage("Protect the Moon Bunny!");
+        sm.broadcastMessage("Protect the Moon Bunny!", true);
     }
 }

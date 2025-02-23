@@ -165,11 +165,11 @@ public interface ScriptManager {
 
     int getFieldId();
 
-    default void spawnMob(int templateId, MobAppearType appearType, int x, int y, boolean isLeft) {
-        spawnMob(templateId, appearType.getValue(), x, y, isLeft);
+    default void spawnMob(int templateId, MobAppearType appearType, int x, int y, boolean isLeft, boolean originalField) {
+        spawnMob(templateId, appearType.getValue(), x, y, isLeft, originalField);
     }
 
-    void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft);
+    void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, boolean originalField);
 
     void spawnNpc(int templateId, int x, int y, boolean isFlip, boolean originalField);
 
@@ -204,7 +204,7 @@ public interface ScriptManager {
 
     void broadcastPacket(OutPacket outPacket);
 
-    void broadcastMessage(String message);
+    void broadcastMessage(String message, boolean originalField);
 
     void broadcastScriptProgressMessage(String message);
 
