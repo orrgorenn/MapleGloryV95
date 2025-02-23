@@ -11,6 +11,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public final class GameConstants {
+    // RATES --------------------------------------------------------------------------------------------------
+
+    public static final int EXP_RATE = 2;
+
     // USER CONSTANTS --------------------------------------------------------------------------------------------------
 
     public static final int CHARACTER_SLOT_MAX = 15;

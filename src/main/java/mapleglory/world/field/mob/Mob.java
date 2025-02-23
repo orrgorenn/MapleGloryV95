@@ -44,6 +44,8 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.BiPredicate;
 
+import static mapleglory.world.GameConstants.EXP_RATE;
+
 public final class Mob extends Life implements ControlledObject, Encodable, Lockable<Mob> {
     private final Lock lock = new ReentrantLock();
     private final MobStat mobStat = new MobStat();
@@ -420,7 +422,7 @@ public final class Mob extends Life implements ControlledObject, Encodable, Lock
      */
     private void distributeExp() {
         // Calculate exp split based on damage dealt
-        final int totalExp = getExp();
+        final int totalExp = getExp() * EXP_RATE;
         final Map<User, Integer> expSplit = new HashMap<>(); // user -> exp
         final Map<Integer, Set<User>> partyMembers = new HashMap<>(); // party id -> members
         for (var entry : damageDone.entrySet()) {
