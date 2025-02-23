@@ -119,22 +119,6 @@ public final class ExplorerQuest extends ScriptHandler {
         }
     }
 
-    @Script("inside_magician")
-    public static void inside_magician(ScriptManager sm) {
-        if (sm.hasItem(4031013, 30)) {
-            sm.sayNext("Ohhhhh.. you collected all 30 Dark Marbles!! It must have been difficult... just incredible! " +
-                    "Alright. You've passed the test, and as a reward, I'll give you #bThe Proof of a Hero#k. " +
-                    "Take that and return to Ellinia.");
-            sm.removeItem(4031013);
-            sm.forceCompleteQuest(100007);
-            sm.forceStartQuest(100008);
-            sm.addItem(4031012, 1);
-            sm.warp(101040300);
-        } else if (sm.askYesNo("You need to collect #b30 #t4031013##k. Good luck.\n#b#L1#I would like to leave#l")) {
-            sm.warp(101040300);
-        }
-    }
-
     @Script("change_magician")
     public static void change_magician(ScriptManager sm) {
         if (sm.hasQuestCompleted(100007)) {
@@ -174,7 +158,6 @@ public final class ExplorerQuest extends ScriptHandler {
         } else {
             sm.sayOk("I can show you the way once you're ready for it.");
         }
-
     }
 
     @Script("magician")
