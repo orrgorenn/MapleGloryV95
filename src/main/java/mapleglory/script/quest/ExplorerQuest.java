@@ -119,6 +119,22 @@ public final class ExplorerQuest extends ScriptHandler {
         }
     }
 
+    @Script("inside_magician")
+    public static void inside_magician(ScriptManager sm) {
+        if (sm.hasItem(4031013, 30)) {
+            sm.sayNext("Ohhhhh.. you collected all 30 Dark Marbles!! It must have been difficult... just incredible! " +
+                    "Alright. You've passed the test, and as a reward, I'll give you #bThe Proof of a Hero#k. " +
+                    "Take that and return to Ellinia.");
+            sm.removeItem(4031013);
+            sm.forceCompleteQuest(100007);
+            sm.forceStartQuest(100008);
+            sm.addItem(4031012, 1);
+        } else if (sm.askYesNo("You need to collect #b30 #t4031013##k. Good luck.\n#b#L1#I would like to leave#l")) {
+            sm.warp(102020300);
+        }
+        sm.warp(102020300);
+    }
+
     @Script("change_magician")
     public static void change_magician(ScriptManager sm) {
         if (sm.hasQuestCompleted(100007)) {
@@ -127,13 +143,8 @@ public final class ExplorerQuest extends ScriptHandler {
             sm.sayNext("Alright, I'll let you in! Defeat the monsters inside, collect 30 Dark Marbles, then talk to a colleague of mine inside. " +
                     "He'll give you #bThe Proof of a Hero#k, the proof that you've passed the test. Best of luck to you.");
 
-            // Start the next quest and remove the Instructor's Letter
-            sm.forceCompleteQuest(100006);
-            sm.forceStartQuest(100007);
-            sm.removeItem(4031009, 1);
-
             // Send the player to the test map
-            sm.warp(108000200);
+            sm.warp(910140000);
         } else if (sm.hasQuestStarted(100006)) {
             sm.sayNext("Hmmm... it is definitely the letter from #bGrendel the Really Old#k... " +
                     "so you came all the way here to take the test and make the 2nd job advancement as a magician. " +
@@ -156,7 +167,7 @@ public final class ExplorerQuest extends ScriptHandler {
                 sm.forceCompleteQuest(100006);
                 sm.forceStartQuest(100007);
                 sm.removeItem(4031009, 1);
-                sm.warp(108000200);
+                sm.warp(910140000);
             } else {
                 sm.sayOk("Come back when you are ready.");
             }
