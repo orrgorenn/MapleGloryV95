@@ -132,6 +132,18 @@ public final class TitleQuest extends ScriptHandler {
         sm.forceStartQuest(29900);
     }
 
+    @Script("q29900e")
+    public static void q29900e(ScriptManager sm) {
+        // Beginner Adventurer (29900 - end)
+        sm.sayNext("Congratulations on earning your honorable #b<Beginner Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work.\n" +
+                "\n" +
+                "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
+                " #v1142107:# #t1142107# 1");
+        if (!sm.addItem(1142107, 1)) {
+            sm.sayOk("Make some room in your inventory and talk back to me.");
+        }
+    }
+
     @Script("q29901s")
     public static void q29901s(ScriptManager sm) {
         // Junior Adventurer (29901 - start)
