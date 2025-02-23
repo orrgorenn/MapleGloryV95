@@ -31,8 +31,8 @@ public final class ExplorerQuest extends ScriptHandler {
         sm.warp(910310000);
     }
 
-    @Script("enter_magician")
-    public static void enter_magician(ScriptManager sm) {
+    @Script("enter_magicion")
+    public static void enter_magicion(ScriptManager sm) {
         if (sm.hasQuestStarted(22515) || sm.hasQuestStarted(22516) || sm.hasQuestStarted(22517) || sm.hasQuestStarted(22518)) {
             sm.warpInstance(910120000, "start", 101000000, 60 * 30);
             return;
@@ -122,7 +122,7 @@ public final class ExplorerQuest extends ScriptHandler {
     @Script("magician")
     public static void magician(ScriptManager sm) {
         // Grendel the Really Old : Magician Job Advancement
-        if(sm.getUser().getJob() == 0) {
+        if(sm.getUser().getJob() == Job.BEGINNER.getJobId()) {
             sm.sayNext("Want to be a #rmagician#k? There are some standards to meet. because we can't just accept EVERYONE in... #bYour level should be at least 8, with getting 20 INT#k as your top priority. Let's see...");
             if(sm.getUser().getLevel() >= 8) {
                 sm.sayBoth("Oh...! You look like someone that can definitely be a part of us... all you need is a little sinister mind, and... yeah... so, what do you think? Wanna be the Magician?");
@@ -141,28 +141,72 @@ public final class ExplorerQuest extends ScriptHandler {
             } else {
                 sm.sayOk("Train a bit more until you reach the base requirements and I can show you the way of the #rMagician#k.");
             }
-        } else if(sm.getUser().getJob() == 200 && sm.getLevel() >= 30) {
-            // 2nd Job
-            if (sm.hasItem(4031012)) {
+        } else if (sm.getUser().getJob() == Job.MAGICIAN.getJobId() && sm.getLevel() >= 30) {
+            if (sm.hasItem(4031012)) { // Player has Proof of a Hero
                 sm.sayNext("I see you have done well. I will allow you to take the next step on your long road.");
-                final int answer = sm.askMenu("Alright, when you have made your decision, click on [I'll choose my occupation] at the bottom.", Map.of(
-                        0, "Please explain to me what being the Wizard (Fire / Poison) is all about.",
-                        1, "Please explain to me what being the Wizard (Ice / Lighting) is all about.",
-                        2, "Please explain to me what being the Cleric is all about.",
-                        3, "I'll choose my occupation!"
+
+                final int choice = sm.askMenu(null, Map.of(
+                        0, "Wizard (Fire / Poison)",
+                        1, "Wizard (Ice / Lightning)",
+                        2, "Cleric"
                 ));
-                if (answer == 0) {
-                    sm.sayNext("Magicians that master #rFire/Poison-based magic#k.\r\n\r\n#bWizards#k are a active class that deal magical, elemental damage. These abilities grants them a significant advantage against enemies weak to their element. With their skills #rMeditation#k and #rSlow#k, #bWizards#k can increase their magic attack and reduce the opponent's mobility. #bFire/Poison Wizards#k contains a powerful flame arrow attack and poison attack.");    //f/p mage
-                } else if (answer == 1) {
-                    sm.sayNext("Magicians that master #rIce/Lightning-based magic#k.\r\n\r\n#bWizards#k are a active class that deal magical, elemental damage. These abilities grants them a significant advantage against enemies weak to their element. With their skills #rMeditation#k and #rSlow#k, #bWizards#k can increase their magic attack and reduce the opponent's mobility. #bIce/Lightning Wizards#k have a freezing ice attack and a striking lightning attack.");    //i/l mage
-                } else if(answer == 2) {
-                    sm.sayNext("Magicians that master #rHoly magic#k.\r\n\r\n#bClerics#k are a powerful supportive class, bound to be accepted into any Party. That's because the have the power to #rHeal#k themselves and others in their party. Using #rBless#k, #bClerics#k can buff the attributes and reduce the amount of damage taken. This class is on worth going for if you find it hard to survive. #bClerics#k are especially effective against undead monsters.");    //cleric
+
+                Job newJob;
+                if (choice == 0) {
+                    newJob = Job.WIZARD_FP;
+                    sm.sayNext("Magicians that master #rFire/Poison-based magic#k.\r\n\r\n" +
+                            "#bWizards#k are an active class that deal magical, elemental damage. " +
+                            "With skills like #rMeditation#k and #rSlow#k, #bWizards#k can increase magic attack and reduce enemy mobility. " +
+                            "Fire/Poison Wizards use powerful flame and poison attacks.");
+                } else if (choice == 1) {
+                    newJob = Job.WIZARD_IL;
+                    sm.sayNext("Magicians that master #rIce/Lightning-based magic#k.\r\n\r\n" +
+                            "#bWizards#k are an active class that deal magical, elemental damage. " +
+                            "With skills like #rMeditation#k and #rSlow#k, #bWizards#k can increase magic attack and reduce enemy mobility. " +
+                            "Ice/Lightning Wizards use freezing ice and striking lightning attacks.");
+                } else {
+                    newJob = Job.CLERIC;
+                    sm.sayNext("Magicians that master #rHoly magic#k.\r\n\r\n" +
+                            "#bClerics#k are a powerful supportive class, welcomed in any party. " +
+                            "They have the power to #rHeal#k themselves and their allies, and can buff stats with #rBless#k. " +
+                            "Clerics are particularly effective against undead monsters.");
                 }
-            } else if (sm.hasItem(4031009)) {
-                sm.sayOk("Go and see the #b#p1072001##k.");
-                return;
+
+                final boolean confirm = sm.askYesNo("So you want to make the second job advancement as a " +
+                        (newJob == Job.WIZARD_FP ? "#bWizard (Fire / Poison)#k?" :
+                                newJob == Job.WIZARD_IL ? "#bWizard (Ice / Lightning)#k?" : "#bCleric#k?") +
+                        " You know you won’t be able to choose a different job after this, right?");
+
+                if (confirm) {
+                    sm.removeItem(4031012, 1); // Remove Proof of a Hero
+                    sm.setJob(newJob);
+                    sm.sayNext("Alright, you're now a " +
+                            (newJob == Job.WIZARD_FP ? "#bWizard (Fire / Poison)#k!" :
+                                    newJob == Job.WIZARD_IL ? "#bWizard (Ice / Lightning)#k!" : "#bCleric#k!") +
+                            " Magicians and wizards have incredible magical prowess, able to pierce the minds of monsters with ease... Train yourself daily.");
+                    sm.sayBoth("I have given you a book listing the skills you can acquire as a " +
+                            (newJob == Job.WIZARD_FP ? "#bWizard (Fire / Poison)#k." :
+                                    newJob == Job.WIZARD_IL ? "#bWizard (Ice / Lightning)#k." : "#bCleric#k.") +
+                            " Also, your inventory has expanded and your max HP/MP have increased. Check them out.");
+                    sm.sayBoth("I have also given you a little bit of #bSP#k. Open the #bSkill Menu#k and start boosting your new 2nd-level skills.");
+                    sm.sayBoth("This is all I can teach you. Use your new powers wisely, and continue training. Good luck!");
+                } else {
+                    sm.sayOk("Take your time and come back when you're ready.");
+                }
             } else {
-                sm.sayNext("The progress you have made is astonishing.");
+                if (sm.hasItem(4031009)) {
+                    sm.sayOk("Go and see the #b#p1072001##k at #b#m101020000##k near Ellinia.");
+                } else {
+                    sm.sayNext("Good decision. You look strong, but I need to test you first. Take my letter and bring it to the instructor near Ellinia.");
+                    if (!sm.hasQuestStarted(100006)) {
+                        sm.forceStartQuest(100006);
+                    }
+                    if (!sm.addItem(4031009, 1)) {
+                        sm.sayOk("Make some space in your inventory and talk back to me.");
+                    } else {
+                        sm.sayNext("Take this letter to #b#p1072001##k near Ellinia. He will test you in my place. Best of luck.");
+                    }
+                }
             }
         }
     }

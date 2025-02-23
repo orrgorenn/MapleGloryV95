@@ -141,7 +141,9 @@ public final class TitleQuest extends ScriptHandler {
                 " #v1142107:# #t1142107# 1");
         if (!sm.addItem(1142107, 1)) {
             sm.sayOk("Make some room in your inventory and talk back to me.");
+            return;
         }
+        sm.forceCompleteQuest(29900);
     }
 
     @Script("q29901s")
