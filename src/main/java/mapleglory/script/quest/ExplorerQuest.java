@@ -124,7 +124,7 @@ public final class ExplorerQuest extends ScriptHandler {
         // Grendel the Really Old : Magician Job Advancement
         if(sm.getUser().getJob() == 0) {
             sm.sayNext("Want to be a #rmagician#k? There are some standards to meet. because we can't just accept EVERYONE in... #bYour level should be at least 8, with getting 20 INT#k as your top priority. Let's see...");
-            if(sm.getUser().getLevel() >= 10) {
+            if(sm.getUser().getLevel() >= 8) {
                 sm.sayBoth("Oh...! You look like someone that can definitely be a part of us... all you need is a little sinister mind, and... yeah... so, what do you think? Wanna be the Magician?");
                 if (!sm.addItem(1372043, 1)) {
                     sm.sayOk("Make some room in your inventory and talk back to me.");
