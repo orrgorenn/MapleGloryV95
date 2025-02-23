@@ -130,9 +130,10 @@ public final class ExplorerQuest extends ScriptHandler {
             sm.forceStartQuest(100008);
             sm.addItem(4031012, 1);
         } else if (sm.askYesNo("You need to collect #b30 #t4031013##k. Good luck.\n#b#L1#I would like to leave#l")) {
-            sm.warp(102020300);
+            sm.warp(101040300);
+            return;
         }
-        sm.warp(102020300);
+        sm.warp(101040300);
     }
 
     @Script("change_magician")
