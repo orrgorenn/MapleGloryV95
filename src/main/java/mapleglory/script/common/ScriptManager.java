@@ -77,10 +77,16 @@ public interface ScriptManager {
     boolean canAddMoney(int money);
 
     default boolean addItem(int itemId, int quantity) {
-        return addItems(List.of(Tuple.of(itemId, quantity)));
+        return addItems(List.of(Tuple.of(itemId, quantity)), 0); // Default: No Expiry
+    }
+
+    default boolean addItem(int itemId, int quantity, int hours) {
+        return addItems(List.of(Tuple.of(itemId, quantity)), hours); // Overload with Expiry
     }
 
     boolean addItems(List<Tuple<Integer, Integer>> items);
+
+    boolean addItems(List<Tuple<Integer, Integer>> items, int hours);
 
     default boolean canAddItem(int itemId, int quantity) {
         return canAddItems(List.of(Tuple.of(itemId, quantity)));

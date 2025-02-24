@@ -10,6 +10,8 @@ import mapleglory.world.GameConstants;
 import mapleglory.world.item.*;
 import mapleglory.world.job.JobConstants;
 
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.Map;
@@ -187,20 +189,29 @@ public final class ItemInfo {
     }
 
     public Item createItem(long itemSn, int quantity) {
-        return createItem(itemSn, quantity, ItemVariationOption.NONE);
+        return createItem(itemSn, quantity, ItemVariationOption.NONE, 0);
     }
 
     public Item createItem(long itemSn, int quantity, ItemVariationOption option) {
+        return createItem(itemSn, quantity, option, 0);
+    }
+
+    public Item createItem(long itemSn, int quantity, ItemVariationOption option, int hours) {
         final ItemType type = ItemType.getByItemId(itemId);
         final Item item = new Item(type);
         item.setItemSn(itemSn);
         item.setItemId(itemId);
         item.setCash(isCash());
         item.setQuantity((short) quantity);
+
         if (type == ItemType.EQUIP) {
             item.setEquipData(EquipData.from(this, option));
         } else if (type == ItemType.PET) {
-            item.setPetData(PetData.from(this));
+            final PetData pd = PetData.from(this);
+            if(hours > 0) {
+                pd.setRemainLife(hours * 60 * 60);
+            }
+            item.setPetData(pd);
         }
         return item;
     }

@@ -7,6 +7,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 public final class InventoryManager {
@@ -226,6 +227,7 @@ public final class InventoryManager {
         final int slotMax = ItemProvider.getItemInfo(originalItem.getItemId()).map(ItemInfo::getSlotMax).orElse(0);
         // Clone item and try adding item to inventory
         final Item item = new Item(originalItem);
+        // item.setDateExpire(Instant.now().plus(hoursExpire, ChronoUnit.HOURS));
         boolean canAddItem = false;
         if (item.getItemType() == ItemType.BUNDLE && !ItemConstants.isRechargeableItem(item.getItemId())) {
             // Merge into existing stacks

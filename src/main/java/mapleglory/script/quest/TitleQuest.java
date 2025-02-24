@@ -265,4 +265,14 @@ public final class TitleQuest extends ScriptHandler {
         // Special Training Master (29945 - start)
         sm.forceCompleteQuest(29945);
     }
+
+    @Script("q29901e")
+    public static void q29901e(ScriptManager sm) {
+        // Dalair - Monk of Honor
+        // Junior Adventurer - end
+        if (sm.canAddItem(1142108,1) && !sm.hasItem(1142108, 1) && sm.getUser().getJob() % 100 > 0 && sm.getUser().getJob() < 1000) {
+            sm.addItem(1142108, 1);
+            sm.forceCompleteQuest(29901);
+        }
+    }
 }

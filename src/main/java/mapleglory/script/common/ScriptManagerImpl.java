@@ -450,10 +450,14 @@ public final class ScriptManagerImpl implements ScriptManager {
 
     @Override
     public boolean addItems(List<Tuple<Integer, Integer>> items) {
+        return addItems(items, 0);
+    }
+
+    public boolean addItems(List<Tuple<Integer, Integer>> items, int hours) {
         if (!canAddItems(items)) {
             return false;
         }
-        // Create items
+
         final List<Item> itemList = new ArrayList<>();
         for (var tuple : items) {
             final int itemId = tuple.getLeft();
@@ -462,9 +466,11 @@ public final class ScriptManagerImpl implements ScriptManager {
             if (itemInfoResult.isEmpty()) {
                 throw new ScriptError("Could not resolve item info for item ID : %d", itemId);
             }
+
             final ItemInfo itemInfo = itemInfoResult.get();
-            itemList.add(itemInfo.createItem(user.getNextItemSn(), Math.min(quantity, itemInfo.getSlotMax())));
+            itemList.add(itemInfo.createItem(user.getNextItemSn(), Math.min(quantity, itemInfo.getSlotMax()), ItemVariationOption.NONE, hours));
         }
+
         // Add items to inventory
         for (Item item : itemList) {
             final Optional<List<InventoryOperation>> addItemResult = user.getInventoryManager().addItem(item);
@@ -476,6 +482,7 @@ public final class ScriptManagerImpl implements ScriptManager {
         }
         return true;
     }
+
 
     @Override
     public boolean canAddItems(List<Tuple<Integer, Integer>> items) {
