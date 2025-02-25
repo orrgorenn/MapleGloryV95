@@ -19,17 +19,17 @@
     <Loggers>
         <Logger name="mapleglory" level="debug" additivity="false">
             <AppenderRef ref="ConsoleLogger"/>
-            <AppenderRef ref="LogIOAppender"/>
+            <AppenderRef ref="LogioSocketAppender"/>
         </Logger>
 
         <Logger name="io.netty" level="error">
             <AppenderRef ref="ConsoleLogger"/>
-            <AppenderRef ref="LogIOAppender"/>
+            <AppenderRef ref="LogioSocketAppender"/>
         </Logger>
 
         <Root level="error">
             <AppenderRef ref="ConsoleLogger"/>
-            <AppenderRef ref="LogIOAppender"/>
+            <AppenderRef ref="LogioSocketAppender"/>
         </Root>
     </Loggers>
 </Configuration>
