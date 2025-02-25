@@ -8,7 +8,7 @@ import java.lang.annotation.*;
 @Documented
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface Command {
+public @interface Permission {
     /**
      * Returns an array of the command aliases that can be used to invoke the command.
      *

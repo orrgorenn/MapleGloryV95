@@ -29,6 +29,6 @@ public final class ServerConfig {
     public static final int CYGNUS_LEVEL_MAX = 120;
     public static final int ITEM_EXPIRE_INTERVAL = 60; // 180 seconds in BMS
     public static final int WORLD_SPEAKER_COOLTIME = 60;
-    public static final String COMMAND_PREFIX = Util.getEnv("COMMAND_PREFIX", "!");
+    public static final String COMMAND_PREFIX = Util.getEnv("COMMAND_PREFIX", "@");
     public static final boolean DEBUG_MODE = Util.getEnv("DEBUG_MODE", true);
 }

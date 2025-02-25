@@ -15,13 +15,13 @@ public final class Masteria extends ScriptHandler {
 
     @Script("NLC_ticketing")
     public static void NLC_ticketing(ScriptManager sm) {
-        // Bell : NLC Subway Staff (9201057)
+        //   Bell : NLC Subway Staff (9201057)
         //   Victoria Road : Subway Ticketing Booth (103000100)
         //   Kerning City Subway : Subway Ticketing Booth (103020000)
         //   New Leaf City : NLC Subway Station (600010001)
         //   New Leaf City : Waiting Room(From NLC to KC) (600010002)
         //   Kerning City Town Street : Waiting Room(From KC to NLC) (600010004)
-        if (sm.getFieldId() == 103000100) {
+        if (sm.getFieldId() == 103000100 || sm.getFieldId() == 103020000) {
             // Victoria Road : Subway Ticketing Booth
             if (sm.askMenu("Hello. Would you like to buy a ticket for the subway?", Map.of(0, "New Leaf City of Masteria")) != 0) {
                 return;

@@ -242,6 +242,20 @@ public final class VictoriaIsland extends ScriptHandler {
         sm.warp(104020120, "out00"); // Port Road : Station to Ereve
     }
 
+    @Script("Depart_topFloor")
+    public static void Depart_topFloor(ScriptManager sm) {
+        // Kerning Square : 7th Floor 8th Floor Area A
+        sm.playPortalSE();
+        sm.warp(103040410, "right01"); // Kerning Square : 7th Floor 8th Floor Area B
+    }
+
+    @Script("Depart_topOut")
+    public static void Depart_topOut(ScriptManager sm) {
+        // Kerning Square : 7th Floor 8th Floor Area A
+        sm.playPortalSE();
+        sm.warp(103040300, "fromUp"); // Kerning Square : 5th Floor 6th Floor Area A
+    }
+
     @Script("nautil_black")
     public static void nautil_black(ScriptManager sm) {
         // Muirhat (1092007)

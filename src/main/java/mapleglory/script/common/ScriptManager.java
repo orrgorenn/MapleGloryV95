@@ -175,7 +175,13 @@ public interface ScriptManager {
         spawnMob(templateId, appearType.getValue(), x, y, isLeft, originalField);
     }
 
+    default void spawnMobInMap(int templateId, MobAppearType appearType, int x, int y, boolean isLeft, Field customField) {
+        spawnMob(templateId, appearType.getValue(), x, y, isLeft, customField);
+    }
+
     void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, boolean originalField);
+
+    void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, Field customField);
 
     void spawnNpc(int templateId, int x, int y, boolean isFlip, boolean originalField);
 

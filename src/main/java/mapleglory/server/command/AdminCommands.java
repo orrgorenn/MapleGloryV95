@@ -3,6 +3,7 @@ package mapleglory.server.command;
 import mapleglory.packet.user.DragonPacket;
 import mapleglory.packet.user.UserLocal;
 import mapleglory.packet.user.UserRemote;
+import mapleglory.packet.world.BroadcastPacket;
 import mapleglory.packet.world.MessagePacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.*;
@@ -16,6 +17,7 @@ import mapleglory.provider.mob.MobTemplate;
 import mapleglory.provider.npc.NpcTemplate;
 import mapleglory.provider.quest.QuestInfo;
 import mapleglory.provider.reactor.ReactorTemplate;
+import mapleglory.provider.reward.Reward;
 import mapleglory.provider.skill.SkillInfo;
 import mapleglory.provider.skill.SkillStat;
 import mapleglory.provider.skill.SkillStringInfo;
@@ -23,6 +25,7 @@ import mapleglory.script.common.ScriptDispatcher;
 import mapleglory.server.ServerConfig;
 import mapleglory.server.cashshop.CashShop;
 import mapleglory.server.cashshop.Commodity;
+import mapleglory.server.user.RemoteUser;
 import mapleglory.util.BitFlag;
 import mapleglory.util.Rect;
 import mapleglory.util.Util;
@@ -47,24 +50,28 @@ import mapleglory.world.user.Account;
 import mapleglory.world.user.Dragon;
 import mapleglory.world.user.User;
 import mapleglory.world.user.effect.Effect;
+import mapleglory.world.user.friend.Friend;
 import mapleglory.world.user.stat.*;
 
 import java.lang.reflect.Method;
 import java.util.*;
 
+import static mapleglory.handler.user.item.CashItemHandler.formatSpeakerMessage;
+
 public final class AdminCommands {
     @Command("test")
+    @Permission("gm")
     public static void test(User user, String[] args) {
         user.getConnectedServer().submitUserQueryRequestAll((queryResult) -> {
             user.write(MessagePacket.system("Users in world: %d", queryResult.size()));
             user.write(MessagePacket.system("Users in field : %d", user.getField().getUserPool().getCount()));
             user.write(MessagePacket.system("Party ID : %d (%d)", user.getPartyId(), user.getCharacterData().getPartyId()));
-            user.setConsumeItemEffect(ItemProvider.getItemInfo(2022181).orElseThrow());
             user.dispose();
         });
     }
 
     @Command("dispose")
+    @Permission("gm")
     public static void dispose(User user, String[] args) {
         user.closeDialog();
         user.dispose();
@@ -72,6 +79,7 @@ public final class AdminCommands {
     }
 
     @Command("info")
+    @Permission("gm")
     public static void info(User user, String[] args) {
         // User stats
         final Field field = user.getField();
@@ -126,6 +134,7 @@ public final class AdminCommands {
     }
 
     @Command({ "find", "lookup" })
+    @Permission("gm")
     @Arguments({ "item/map/mob/npc/skill/quest/commodity", "id or query" })
     public static void find(User user, String[] args) {
         final String type = args[1];
@@ -376,6 +385,7 @@ public final class AdminCommands {
 
     @Command("npc")
     @Arguments("npc template ID")
+    @Permission("gm")
     public static void npc(User user, String[] args) {
         final int templateId = Integer.parseInt(args[1]);
         final Optional<NpcTemplate> npcTemplateResult = NpcProvider.getNpcTemplate(templateId);
@@ -394,6 +404,7 @@ public final class AdminCommands {
 
     @Command({ "map", "warp" })
     @Arguments("field ID to warp to")
+    @Permission("gm")
     public static void map(User user, String[] args) {
         final int fieldId = Integer.parseInt(args[1]);
         final String portalName;
@@ -420,6 +431,7 @@ public final class AdminCommands {
 
     @Command("reactor")
     @Arguments("reactor template ID")
+    @Permission("gm")
     public static void reactor(User user, String[] args) {
         final int templateId = Integer.parseInt(args[1]);
         final Optional<ReactorTemplate> reactorTemplateResult = ReactorProvider.getReactorTemplate(templateId);
@@ -434,6 +446,7 @@ public final class AdminCommands {
 
     @Command("hitreactor")
     @Arguments("reactor template ID")
+    @Permission("gm")
     public static void hitReactor(User user, String[] args) {
         final int templateId = Integer.parseInt(args[1]);
         final Field field = user.getField();
@@ -451,6 +464,7 @@ public final class AdminCommands {
 
     @Command({ "mob", "spawn" })
     @Arguments("mob template ID")
+    @Permission("gm")
     public static void mob(User user, String[] args) {
         final int templateId = Integer.parseInt(args[1]);
         final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
@@ -480,6 +494,7 @@ public final class AdminCommands {
 
     @Command("togglemob")
     @Arguments("true/false")
+    @Permission("gm")
     public static void disableMob(User user, String[] args) {
         if (args[1].equalsIgnoreCase("true")) {
             user.getField().setMobSpawn(true);
@@ -492,6 +507,7 @@ public final class AdminCommands {
 
     @Command("item")
     @Arguments("item ID")
+    @Permission("gm")
     public static void item(User user, String[] args) {
         final int itemId = Integer.parseInt(args[1]);
         final int quantity;
@@ -523,6 +539,7 @@ public final class AdminCommands {
 
     @Command("clearinventory")
     @Arguments("inventory type")
+    @Permission("gm")
     public static void clearInventory(User user, String[] args) {
         final Optional<InventoryType> inventoryTypeResult = Arrays.stream(InventoryType.values())
                 .filter((type) -> type.name().equalsIgnoreCase(args[1]))
@@ -547,6 +564,7 @@ public final class AdminCommands {
     }
 
     @Command("clearlocker")
+    @Permission("gm")
     public static void clearLocker(User user, String[] args) {
         try (var locked = user.acquire()) {
             try (var lockedAccount = user.getAccount().acquire()) {
@@ -558,6 +576,7 @@ public final class AdminCommands {
 
     @Command({ "meso", "money" })
     @Arguments("amount")
+    @Permission("gm")
     public static void meso(User user, String[] args) {
         final int money = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -569,6 +588,7 @@ public final class AdminCommands {
 
     @Command("nx")
     @Arguments("amount")
+    @Permission("gm")
     public static void nx(User user, String[] args) {
         final int nx = Integer.parseInt(args[1]);
         try (var lockedAccount = user.getAccount().acquire()) {
@@ -580,6 +600,7 @@ public final class AdminCommands {
 
     @Command("hp")
     @Arguments("new hp")
+    @Permission("gm")
     public static void hp(User user, String[] args) {
         final int newHp = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -589,6 +610,7 @@ public final class AdminCommands {
 
     @Command("mp")
     @Arguments("new mp")
+    @Permission("gm")
     public static void mp(User user, String[] args) {
         final int newMp = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -598,6 +620,7 @@ public final class AdminCommands {
 
     @Command("stat")
     @Arguments({ "hp/mp/str/dex/int/luk/ap/sp", "new value" })
+    @Permission("gm")
     public static void stat(User user, String[] args) {
         final String stat = args[1].toLowerCase();
         final int value = Integer.parseInt(args[2]);
@@ -655,6 +678,7 @@ public final class AdminCommands {
 
     @Command("avatar")
     @Arguments("new look")
+    @Permission("gm")
     public static void avatar(User user, String[] args) {
         final int look = Integer.parseInt(args[1]);
         if (look >= 0 && look <= GameConstants.SKIN_MAX) {
@@ -684,6 +708,7 @@ public final class AdminCommands {
 
     @Command("level")
     @Arguments("new level")
+    @Permission("gm")
     public static void level(User user, String[] args) {
         final int level = Integer.parseInt(args[1]);
         if (level < 1 || level > GameConstants.LEVEL_MAX) {
@@ -701,6 +726,7 @@ public final class AdminCommands {
 
     @Command("levelup")
     @Arguments("new level")
+    @Permission("gm")
     public static void levelUp(User user, String[] args) {
         final int level = Integer.parseInt(args[1]);
         if (level <= user.getLevel() || level > GameConstants.LEVEL_MAX) {
@@ -716,6 +742,7 @@ public final class AdminCommands {
 
     @Command("job")
     @Arguments("job ID")
+    @Permission("gm")
     public static void job(User user, String[] args) {
         final int jobId = Integer.parseInt(args[1]);
         final Job job = Job.getById(jobId);
@@ -766,6 +793,7 @@ public final class AdminCommands {
 
     @Command("skill")
     @Arguments({ "skill ID", "skill level" })
+    @Permission("gm")
     public static void skill(User user, String[] args) {
         final int skillId = Integer.parseInt(args[1]);
         final int slv = Integer.parseInt(args[2]);
@@ -789,6 +817,7 @@ public final class AdminCommands {
 
     @Command("morph")
     @Arguments("morph ID")
+    @Permission("gm")
     public static void morph(User user, String[] args) {
         final int morphId = Integer.parseInt(args[1]);
         if (SkillProvider.getMorphInfoById(morphId).isEmpty()) {
@@ -806,6 +835,7 @@ public final class AdminCommands {
 
     @Command("ride")
     @Arguments("vehicle ID")
+    @Permission("gm")
     public static void ride(User user, String[] args) {
         final int vehicleId = Integer.parseInt(args[1]);
         if (ItemProvider.getItemInfo(vehicleId).isEmpty()) {
@@ -823,6 +853,7 @@ public final class AdminCommands {
 
     @Command("clearquest")
     @Arguments("quest ID")
+    @Permission("gm")
     public static void clearQuest(User user, String[] args) {
         final int questId = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -840,6 +871,7 @@ public final class AdminCommands {
 
     @Command("startquest")
     @Arguments("quest ID")
+    @Permission("gm")
     public static void startQuest(User user, String[] args) {
         final int questId = Integer.parseInt(args[1]);
         final Optional<QuestInfo> questInfoResult = QuestProvider.getQuestInfo(questId);
@@ -856,6 +888,7 @@ public final class AdminCommands {
 
     @Command("completequest")
     @Arguments("quest ID")
+    @Permission("gm")
     public static void completeQuest(User user, String[] args) {
         final int questId = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -867,6 +900,7 @@ public final class AdminCommands {
 
     @Command({ "questex", "qr" })
     @Arguments("quest ID")
+    @Permission("gm")
     public static void questex(User user, String[] args) {
         final int questId = Integer.parseInt(args[1]);
         final String newValue;
@@ -890,6 +924,7 @@ public final class AdminCommands {
     }
 
     @Command("killmobs")
+    @Permission("gm")
     public static void killMobs(User user, String[] args) {
         user.getField().getMobPool().forEach((mob) -> {
             try (var lockedMob = mob.acquire()) {
@@ -902,6 +937,7 @@ public final class AdminCommands {
 
     @Command("mobskill")
     @Arguments({ "skill ID", "skill level" })
+    @Permission("gm")
     public static void mobskill(User user, String[] args) {
         final int skillId = Integer.parseInt(args[1]);
         final int slv = Integer.parseInt(args[2]);
@@ -929,6 +965,7 @@ public final class AdminCommands {
 
     @Command("combo")
     @Arguments("value")
+    @Permission("gm")
     public static void combo(User user, String[] args) {
         final int combo = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -938,6 +975,7 @@ public final class AdminCommands {
     }
 
     @Command({ "battleship", "bship" })
+    @Permission("gm")
     public static void battleship(User user, String[] args) {
         try (var locked = user.acquire()) {
             user.write(MessagePacket.system("Battleship HP : %d", Pirate.getBattleshipDurability(user)));
@@ -946,6 +984,7 @@ public final class AdminCommands {
 
     @Command("jaguar")
     @Arguments("index")
+    @Permission("gm")
     public static void jaguar(User user, String[] args) {
         final int index = Integer.parseInt(args[1]);
         try (var locked = user.acquire()) {
@@ -955,6 +994,7 @@ public final class AdminCommands {
     }
 
     @Command("cd")
+    @Permission("gm")
     public static void cd(User user, String[] args) {
         try (var locked = user.acquire()) {
             final var iter = locked.get().getSkillManager().getSkillCooltimes().keySet().iterator();
@@ -967,6 +1007,7 @@ public final class AdminCommands {
     }
 
     @Command("max")
+    @Permission("gm")
     public static void max(User user, String[] args) {
         try (var locked = user.acquire()) {
             // Set stats
@@ -1030,14 +1071,33 @@ public final class AdminCommands {
     }
 
     @Command("help")
+    @Permission({"gm", "user"})
     public static void help(User user, String[] args) {
         if (args.length == 1) {
+            final boolean isGM = user.getAccount().isGM();
             for (Class<?> clazz : new Class[]{ AdminCommands.class }) {
-                user.write(MessagePacket.system("Admin Commands :"));
+                if(isGM) {
+                    user.write(MessagePacket.system("Admin Commands :"));
+                } else {
+                    user.write(MessagePacket.system("User Commands :"));
+                }
                 for (Method method : clazz.getDeclaredMethods()) {
                     if (!method.isAnnotationPresent(Command.class)) {
                         continue;
                     }
+
+                    if(!isGM) {
+                        Permission permission = method.getAnnotation(Permission.class);
+                        if (permission != null) {
+                            String[] roles = permission.value();
+                            boolean gmCommand = Arrays.asList(roles).contains("gm");
+
+                            if (gmCommand) {
+                                continue;
+                            }
+                        }
+                    }
+
                     user.write(MessagePacket.system("%s", CommandProcessor.getHelpString(method)));
                 }
             }
@@ -1054,17 +1114,84 @@ public final class AdminCommands {
     }
 
     @Command("reloaddrops")
+    @Permission({"gm"})
     public static void reloadDrops(User user, String[] args) {
         RewardProvider.initialize();
     }
 
     @Command("reloadshops")
+    @Permission({"gm"})
     public static void reloadShops(User user, String[] args) {
         ShopProvider.initialize();
     }
 
     @Command({ "reloadcashshop", "reloadcs" })
+    @Permission({"gm"})
     public static void reloadCashShop(User user, String[] args) {
         CashShop.initialize();
+    }
+
+    @Command({"s", "smega"})
+    @Arguments("message")
+    @Permission("user")
+    public static void smega(User user, String[] args) {
+        final String message = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        // TODO: make user pay something for using this
+        user.getConnectedServer().submitWorldSpeakerRequest(user.getCharacterId(), true, BroadcastPacket.speakerWorld(formatSpeakerMessage(user, message), user.getChannelId(), true));
+    }
+
+    @Command("online")
+    @Permission("user")
+    public static void online(User user, String[] args) {
+        user.getConnectedServer().submitUserQueryRequestAll((queryResult) -> {
+            user.write(MessagePacket.system("Users in world: %d", queryResult.size()));
+            for (RemoteUser remoteUser : queryResult) {
+                user.write(MessagePacket.system("[%s] (Ch %d)", remoteUser.getCharacterName(), remoteUser.getChannelId() + 1));
+            }
+        });
+    }
+
+    @Command({"whatdropsfrom", "wdf"})
+    @Arguments("mob_name/mob_id")
+    @Permission("user")
+    public static void whatdropsfrom(User user, String[] args) {
+        final String query = String.join(" ", Arrays.copyOfRange(args, 1, args.length));
+        final boolean isNumber = Util.isInteger(query);
+        int mobId = -1;
+        if (!isNumber) {
+            final List<Map.Entry<Integer, String>> searchResult = StringProvider.getMobNames().entrySet().stream()
+                    .filter((entry) -> entry.getValue().toLowerCase().contains(query.toLowerCase()))
+                    .sorted(Comparator.comparingInt(Map.Entry::getKey))
+                    .toList();
+            if (!searchResult.isEmpty()) {
+                if (searchResult.size() == 1) {
+                    mobId = searchResult.getFirst().getKey();
+                } else {
+                    user.write(MessagePacket.system("Results for mob name : \"%s\"", query));
+                    for (var entry : searchResult) {
+                        user.write(MessagePacket.system("  %d : %s", entry.getKey(), entry.getValue()));
+                    }
+                    return;
+                }
+            }
+        } else {
+            mobId = Integer.parseInt(query);
+        }
+        final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(mobId);
+        if (mobTemplateResult.isEmpty()) {
+            user.write(MessagePacket.system("Could not find mob with %s : %s", isNumber ? "id" : "name", query));
+            return;
+        }
+        final MobTemplate mobTemplate = mobTemplateResult.get();
+        user.write(MessagePacket.system("Mob : %s (%d)", StringProvider.getMobName(mobId), mobId));
+        user.write(MessagePacket.system("  level : %d", mobTemplate.getLevel()));
+        List<Reward> mobRewards = RewardProvider.getMobRewards(mobTemplate.getId());
+        for (var reward : mobRewards) {
+            if(reward.isMoney() || reward.isQuest()) {
+                continue;
+            }
+            final String itemName = StringProvider.getItemName(reward.getItemId());
+            user.write(MessagePacket.system("[%s] (%.2f%%)", itemName, reward.getProb() * 100));
+        }
     }
 }

@@ -60,7 +60,10 @@ public final class ExplorerQuest extends ScriptHandler {
                     sm.addInventorySlots(InventoryType.EQUIP, 4);
                     sm.addInventorySlots(InventoryType.ETC, 4);
                     sm.setJob(Job.ROGUE);
-                    sm.forceCompleteQuest(2079);
+                    if(sm.hasQuestStarted(2351)) {
+                        // First Mission: Infiltration
+                        sm.forceCompleteQuest(2351);
+                    }
                     sm.sayNext("Alright, from here out, you are a part of us! You'll be living the life of a wanderer at ..., but just be patient as soon, you'll be living the high life. Alright, it ain't much, but I'll give you some of my abilities... HAAAHHH!!!");
                     sm.sayBoth("You've gotten much stronger now. Plus every single one of your inventories have added slots. A whole row, to be exact. Go see for it yourself. I just gave you a little bit of #bSP#k. When you open up the #bSkill#k menu on the lower left corner of the screen, there are skills you can learn by using SP's. One warning, though: You can't raise it all together all at once. There are also skills you can acquire only after having learned a couple of skills first.");
                     sm.sayBoth("Now a reminder. Once you have chosen, you cannot change up your mind and try to pick another path. Go now, and live as a proud Thief.");

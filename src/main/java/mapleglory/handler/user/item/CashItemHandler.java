@@ -612,7 +612,7 @@ public final class CashItemHandler extends ItemHandler {
 
     // HELPER METHODS --------------------------------------------------------------------------------------------------
 
-    private static String formatSpeakerMessage(User user, String message) {
+    public static String formatSpeakerMessage(User user, String message) {
         final Item medalItem = user.getInventoryManager().getEquipped().getItem(BodyPart.MEDAL.getValue());
         if (medalItem != null) {
             final String medalName = StringProvider.getItemName(medalItem.getItemId());

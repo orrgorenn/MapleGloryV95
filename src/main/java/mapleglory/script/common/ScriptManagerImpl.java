@@ -734,6 +734,25 @@ public final class ScriptManagerImpl implements ScriptManager {
     }
 
     @Override
+    public void spawnMob(int templateId, int summonType, int x, int y, boolean isLeft, Field customField) {
+        final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
+        if (mobTemplateResult.isEmpty()) {
+            throw new ScriptError("Could not resolve mob template ID : %d", templateId);
+        }
+        final Optional<Foothold> footholdResult = customField.getFootholdBelow(x, y - GameConstants.REACTOR_SPAWN_HEIGHT);
+        final Mob mob = new Mob(
+                mobTemplateResult.get(),
+                null,
+                x,
+                y,
+                footholdResult.map(Foothold::getSn).orElse(0)
+        );
+        mob.setLeft(isLeft);
+        mob.setSummonType(summonType);
+        customField.getMobPool().addMob(mob);
+    }
+
+    @Override
     public void spawnNpc(int templateId, int x, int y, boolean isFlip, boolean originalField) {
         final Optional<NpcTemplate> npcTemplateResult = NpcProvider.getNpcTemplate(templateId);
         if (npcTemplateResult.isEmpty()) {
