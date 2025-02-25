@@ -36,16 +36,6 @@
             <version>${netty.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.apache.cassandra</groupId>
-            <artifactId>java-driver-core</artifactId>
-            <version>${driver.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cassandra</groupId>
-            <artifactId>java-driver-query-builder</artifactId>
-            <version>${driver.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.snakeyaml</groupId>
             <artifactId>snakeyaml-engine</artifactId>
             <version>2.7</version>

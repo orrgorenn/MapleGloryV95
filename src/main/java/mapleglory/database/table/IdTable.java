@@ -1,10 +1,5 @@
 package mapleglory.database.table;
 
-import com.datastax.oss.driver.api.core.CqlSession;
-import com.datastax.oss.driver.api.core.cql.ResultSet;
-import com.datastax.oss.driver.api.core.type.DataTypes;
-import com.datastax.oss.driver.api.querybuilder.QueryBuilder;
-import com.datastax.oss.driver.api.querybuilder.SchemaBuilder;
 import mapleglory.database.DatabaseConnection;
 
 import java.sql.Connection;

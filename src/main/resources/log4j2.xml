@@ -11,7 +11,7 @@
             <AppenderRef ref="ConsoleLogger"/>
         </Logger>
 
-        <Logger name="io.netty, com.datastax" level="error">
+        <Logger name="io.netty" level="error">
             <AppenderRef ref="ConsoleLogger"/>
         </Logger>
 
