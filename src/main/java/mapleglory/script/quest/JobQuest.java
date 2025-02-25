@@ -16,8 +16,8 @@ public class JobQuest extends ScriptHandler {
     public static void enter_darkportal_p(ScriptManager sm) {
         // Demon's Doorway
         // Victoria Road - The Forest East of Henesys
-        if(!sm.hasItem(4032494, 1)) {
-            sm.sayOk("You need #v4032494# #t4032494# in order to pass here.");
+        if(!sm.hasQuestStarted(28256)) {
+            sm.sayOk("Demon's Doorway is closed right now.");
             return;
         }
         sm.sayNext("You are permitted to enter the Demon's Doorway.");

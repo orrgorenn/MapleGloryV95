@@ -903,6 +903,108 @@ public final class UserHandler {
         }
     }
 
+    @Handler(InHeader.UserLotteryItemUseRequest)
+    public static void handleUserLotteryItemUseRequest(User user, InPacket inPacket) {
+        final short slot = inPacket.decodeShort();  // slot
+        final int itemId = inPacket.decodeInt();  // itemID
+        List<Triple<Integer, Integer, Integer>> triples = getTriples(itemId);
+        if(triples == null) {
+            log.error("Failed to match itemId to lottery item.");
+            return;
+        }
+
+        // Select a random reward based on probability
+        Optional<Triple<Integer, Integer, Integer>> rewardResult = Util.getRandomFromCollection(triples, Triple::getThird);
+        if (rewardResult.isEmpty()) {
+            log.error("Failed to determine a reward for lottery item ID: {}", itemId);
+            return;
+        }
+
+        int rewardItemId = rewardResult.get().getFirst();
+        int rewardCount = rewardResult.get().getSecond();
+
+        try (var locked = user.acquire()) {
+            InventoryManager im = user.getInventoryManager();
+
+            // Remove the used item from inventory
+            Optional<List<InventoryOperation>> removeResult = im.removeItem(itemId, 1);
+            if (removeResult.isEmpty()) {
+                log.error("Failed to remove lottery item from inventory, slot: {}", slot);
+                return;
+            }
+
+            // Give the user the selected reward
+            Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(rewardItemId);
+            if (itemInfoResult.isEmpty()) {
+                log.error("Could not find item info for item ID: {}", rewardItemId);
+                return;
+            }
+
+            Item rewardItem = itemInfoResult.get().createItem(user.getNextItemSn(), rewardCount);
+            Optional<List<InventoryOperation>> addResult = im.addItem(rewardItem);
+            if (addResult.isEmpty()) {
+                log.error("Failed to add reward item ID: {} to inventory", rewardItemId);
+                return;
+            }
+
+            // Update client
+            user.write(WvsContext.inventoryOperation(removeResult.get(), false));
+            user.write(WvsContext.inventoryOperation(addResult.get(), true));
+            user.write(UserLocal.effect(Effect.itemMaker(MakerResult.SUCCESS)));
+            user.getField().broadcastPacket(UserRemote.effect(user, Effect.itemMaker(MakerResult.SUCCESS)));
+        }
+    }
+
+    private static List<Triple<Integer, Integer, Integer>> getTriples(int itemId) {
+        List<Triple<Integer, Integer, Integer>> rewards = null;
+
+        // refactor logic here to save rewards in other place
+        if (itemId == 2022580) { // King Pepe Warrior Box
+             rewards = List.of(
+                    Triple.of(1002990, 1, 4),  // King Pepe Great Blue Helmet (4%)
+                    Triple.of(1040145, 1, 4),  // King Pepe Gold Dragon (4%)
+                    Triple.of(1041148, 1, 4),  // King Pepe Red Shark (4%)
+                    Triple.of(1060134, 1, 4),  // King Pepe White Martial Arts Shorts (4%)
+                    Triple.of(1061156, 1, 4),  // King Pepe Red Shark Skirt (4%)
+                    Triple.of(1072399, 1, 2),  // King Pepe Dark Walker (2%)
+                    Triple.of(1302119, 1, 1),  // King Pepe Cutlass (1%)
+                    Triple.of(1312045, 1, 1),  // King Pepe Danker (1%)
+                    Triple.of(1322073, 1, 1),  // King Pepe Heavy Hammer (1%)
+                    Triple.of(1402064, 1, 1),  // King Pepe Highlander (1%)
+                    Triple.of(1412042, 1, 1),  // King Pepe Niam (1%)
+                    Triple.of(1422045, 1, 1),  // King Pepe Big Hammer (1%)
+                    Triple.of(1432057, 1, 1),  // King Pepe Nakamaki (1%)
+                    Triple.of(1442082, 1, 1),  // King Pepe Axe Polearm (1%)
+                    Triple.of(2002004, 2, 50), // Warrior Potion x2 (50%)
+                    Triple.of(2002004, 4, 20)  // Warrior Potion x4 (20%)
+            );
+        } else if (itemId == 2022571) {
+            rewards = List.of(
+                    Triple.of(1002991, 1, 6),  // King Pepe Dark Matty (6%)
+                    Triple.of(1050155, 1, 6),  // King Pepe White Devil Robe (6%)
+                    Triple.of(1051191, 1, 6),  // King Pepe Red Doroness Robe (6%)
+                    Triple.of(1072400, 1, 6),  // King Pepe Black Salt Shoes (6%)
+                    Triple.of(1372053, 1, 3),  // King Pepe Wizard Wand (3%)
+                    Triple.of(1382070, 1, 3),  // King Pepe Petal Staff (3%)
+                    Triple.of(2002002, 2, 50), // Magic Potion x 2 (50%)
+                    Triple.of(2002002, 4, 20)  // Magic Potion x 4 (20%)
+            );
+        } else if (itemId == 2022572) {
+            rewards = List.of(
+                    Triple.of(1002992, 1, 4),  // King Pepe Red Polefeather Hat (4%)
+                    Triple.of(1060135, 1, 4),  // King Pepe Dark Legolier (4%)
+                    Triple.of(1041149, 1, 4),  // King Pepe Brown Legolas (4%)
+                    Triple.of(1060135, 1, 4),  // King Pepe Dark Legolier Pants (4%)
+                    Triple.of(1061157, 1, 4),  // King Pepe Brown Legolia Pants (4%)
+                    Triple.of(1452073, 1, 4),  // King Pepe Red Viper (4%)
+                    Triple.of(1462066, 1, 4),  // King Pepe Eagle Crow (4%)
+                    Triple.of(2002005, 2, 50), // Sniper Potion x 2 (50%)
+                    Triple.of(2002005, 4, 22)  // Sniper Potion x 4 (30%)
+            );
+        }
+        return rewards;
+    }
+
     @Handler(InHeader.UserItemMakeRequest)
     public static void handleUserItemMakeRequest(User user, InPacket inPacket) {
         // CUIItemMaker::RequestItemMake

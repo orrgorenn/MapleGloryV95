@@ -395,4 +395,38 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.sayOk("I need you to have an USE slot available to reward you properly!");
         }
     }
+
+    @Script("pet_letter")
+    public static void pet_letter(ScriptManager sm) {
+        if(sm.hasItem(4031035, 1)) {
+            sm.sayNext("You have made it! Now let me see... you want to learn 'Follow the Lead' skill? Since you've made it so far, I'll teach you the skill!");
+            sm.removeItem(4031035);
+            sm.addSkill(8, 1, 1);
+            sm.sayOk("There you go! Have fun!");
+        }
+    }
+
+    @Script("pet_lifeitem")
+    public static void pet_lifetime(ScriptManager sm) {
+        final int answer = sm.askMenu("Do you have any business with me?", Map.of(
+                0, "#bPlease tell me about this place.",
+                1, "I'm here through a word from Mar the Fairy...#k"
+        ));
+        if(answer == 0) {
+            if(sm.hasItem(4031035, 1)) {
+                sm.sayNext("Get that letter, jump over obstacles with your pet, and take that letter to my brother Trainer Frod. Give him the letter and something good is going to happen to your pet.");
+                return;
+            }
+            if(sm.askYesNo("This is the road where you can go take a walk with your pet. You can just walk around with it, or you can train your pet to go through the obstacles here. If you aren't too close with your pet yet, that may present a problem and he will not follow your command as much... So, what do you think? Wanna train your pet?")) {
+                if(!sm.canAddItem(4031035, 1)) {
+                    sm.sayOk("Please make room in your inventory and talk to me again.");
+                    return;
+                }
+                sm.addItem(4031035, 1);
+                sm.sayNext("Ok, here's the letter. He wouldn't know I sent you if you just went there straight, so go through the obstacles with your pet, go to the very top, and then talk to Trainer Frod to give him the letter. It won't be hard if you pay attention to your pet while going through obstacles. Good luck!");
+            }
+        } else if(answer == 1) {
+            sm.sayOk("Hey, are you sure you've met #bMar the Fairy#k? Don't lie to me if you've never met her before because it's obvious. That wasn't even a good lie!!");
+        }
+    }
 }
