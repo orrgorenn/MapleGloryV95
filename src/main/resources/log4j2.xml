@@ -10,7 +10,7 @@
         <Socket name="LogioSocketAppender" host="127.0.0.1" port="6689" protocol="tcp">
             <PatternLayout>
                 <Pattern>
-                    {"node":"mapleglory","stream":"app-log","message":"%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"}
+                    {"node":"mapleglory","stream":"app-log","message":"%enc{%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n}{JSON}"}
                 </Pattern>
             </PatternLayout>
         </Socket>
