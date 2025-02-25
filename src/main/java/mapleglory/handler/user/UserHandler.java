@@ -127,12 +127,8 @@ public final class UserHandler {
         final String text = inPacket.decodeString(); // sText
         final boolean onlyBalloon = inPacket.decodeBoolean(); // bOnlyBalloon
         if (text.startsWith(ServerConfig.COMMAND_PREFIX) && text.length() > 1) {
-            if(user.getAccount().isGM()) {
-                CommandProcessor.tryProcessCommand(user, text);
-                return;
-            } else {
-                log.warn("Non GM tried to use commands ({})", user.getCharacterName());
-            }
+            CommandProcessor.tryProcessCommand(user, text);
+            return;
         }
         user.getField().broadcastPacket(UserPacket.userChat(user, ChatType.NORMAL, text, onlyBalloon));
     }
@@ -901,6 +897,11 @@ public final class UserHandler {
         try (var locked = user.acquire()) {
             locked.get().getConfigManager().updateMacroSysData(macroSysData);
         }
+    }
+
+    @Handler(InHeader.UserUseGachaponRemoteRequest)
+    public static void handleUserUseGachaponRemoteRequest(User user, InPacket inPacket) {
+        int itemId = inPacket.decodeInt();
     }
 
     @Handler(InHeader.UserLotteryItemUseRequest)

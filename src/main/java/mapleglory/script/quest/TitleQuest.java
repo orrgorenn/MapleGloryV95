@@ -275,4 +275,11 @@ public final class TitleQuest extends ScriptHandler {
             sm.forceCompleteQuest(29901);
         }
     }
+
+    @Script("q28433s")
+    public static void q28433s(ScriptManager sm) {
+        // Maple Administrator
+        // How to find friends - start
+        sm.forceCompleteQuest(28433);
+    }
 }

@@ -1,22 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration shutdownHook="disable" packages="mapleglory.util">
     <Appenders>
+        <!-- Console Logger -->
         <Console name="ConsoleLogger" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+
+        <!-- Log.io Socket Appender (Sends logs directly to Log.io) -->
+        <Socket name="LogIOAppender" host="127.0.0.1" port="28777">
+            <PatternLayout>
+                <Pattern>
+                    {"node":"mapleglory","stream":"app-log","message":"%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"}
+                </Pattern>
+            </PatternLayout>
+        </Socket>
     </Appenders>
 
     <Loggers>
         <Logger name="mapleglory" level="debug" additivity="false">
             <AppenderRef ref="ConsoleLogger"/>
+            <AppenderRef ref="LogIOAppender"/>
         </Logger>
 
         <Logger name="io.netty" level="error">
             <AppenderRef ref="ConsoleLogger"/>
+            <AppenderRef ref="LogIOAppender"/>
         </Logger>
 
         <Root level="error">
             <AppenderRef ref="ConsoleLogger"/>
+            <AppenderRef ref="LogIOAppender"/>
         </Root>
     </Loggers>
 </Configuration>

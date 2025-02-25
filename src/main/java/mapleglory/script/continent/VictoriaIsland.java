@@ -21,8 +21,8 @@ public final class VictoriaIsland extends ScriptHandler {
     public static final int TICKET_TO_CONSTRUCTION_SITE_B3 = 4031038;
     public static final int KERNING_SQUARE_SUBWAY_1 = 103020010; // Kerning City -> Kerning Square
     public static final int KERNING_SQUARE_SUBWAY_2 = 103020011; // Kerning Square -> Kerning City
-    public static final int REGULAR_SAUNA_PRICE = 499999;
-    public static final int VIP_SAUNA_PRICE = 999999;
+    public static final int REGULAR_SAUNA_PRICE = 4999;
+    public static final int VIP_SAUNA_PRICE = 9999;
 
     @Script("victoria_taxi")
     public static void victoria_taxi(ScriptManager sm) {
@@ -255,6 +255,13 @@ public final class VictoriaIsland extends ScriptHandler {
         // Kerning Square : 7th Floor 8th Floor Area A
         sm.playPortalSE();
         sm.warp(103040300, "fromUp"); // Kerning Square : 5th Floor 6th Floor Area A
+    }
+
+    @Script("halloween_enter")
+    public static void halloween_enter(ScriptManager sm) {
+        // Phantom Forest : Haunted House
+        sm.playPortalSE();
+        sm.warp(682000100);
     }
 
     @Script("nautil_black")
