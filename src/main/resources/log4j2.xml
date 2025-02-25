@@ -6,8 +6,8 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!-- Log.io Socket Appender (Sends logs directly to Log.io) -->
-        <Socket name="LogIOAppender" host="127.0.0.1" port="6689">
+        <!-- SocketAppender for Log.io -->
+        <Socket name="LogioSocketAppender" host="127.0.0.1" port="6689" protocol="tcp">
             <PatternLayout>
                 <Pattern>
                     {"node":"mapleglory","stream":"app-log","message":"%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"}
