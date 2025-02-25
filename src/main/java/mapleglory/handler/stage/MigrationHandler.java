@@ -225,6 +225,7 @@ public final class MigrationHandler {
 
                 // Load friends
                 FriendHandler.loadFriends(user, (friendMap) -> {
+                    log.debug("loadFriends");
                     user.write(FriendPacket.loadFriendDone(friendMap.values()));
                     final List<Integer> friendIds = friendMap.values().stream()
                             .filter((friend) -> friend.getStatus() == FriendStatus.NORMAL)

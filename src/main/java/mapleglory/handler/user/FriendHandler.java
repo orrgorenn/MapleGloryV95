@@ -37,12 +37,15 @@ public final class FriendHandler {
                     final String targetName = inPacket.decodeString(); // sTarget
                     final String friendGroup = inPacket.decodeString(); // sFriendGroup
                     loadFriends(user, (friendMap) -> {
+                        log.debug("SetFriend : inside loadFriends : {}, {}", targetName, friendGroup);
                         final Optional<Friend> friendResult = friendMap.values().stream().filter((f) -> f.getFriendName().equals(targetName)).findFirst();
+                        log.debug("SetFriend : inside loadFriends : friendResult {}", friendResult);
                         if (friendResult.isPresent() && friendResult.get().getStatus() == FriendStatus.NORMAL) {
                             // Update friend group
                             final Friend friend = friendResult.get();
                             friend.setFriendGroup(friendGroup);
                             if (!DatabaseManager.friendAccessor().saveFriend(friend, true)) {
+                                log.debug("SetFriend : if(!saveFriend) : error");
                                 user.write(FriendPacket.setFriendUnknown()); // The request was denied due to an unknown error.
                                 return;
                             }
@@ -86,14 +89,19 @@ public final class FriendHandler {
                 }
                 case AcceptFriend -> {
                     final int friendId = inPacket.decodeInt();
+                    log.debug("AcceptFriend : friendId({})", friendId);
                     loadFriends(user, (friendMap) -> {
                         final Friend friend = friendMap.get(friendId);
+                        log.debug("AcceptFriend : inside LoadFriends : friend({})", friend);
                         if (friend == null) {
+                            log.debug("AcceptFriend : friend == null");
                             user.write(FriendPacket.acceptFriendUnknown()); // The request was denied due to an unknown error.
                             return;
                         }
                         friend.setStatus(FriendStatus.NORMAL);
+                        log.debug("AcceptFriend : after friend.setStatus : {}", friend);
                         if (!DatabaseManager.friendAccessor().saveFriend(friend, true)) {
+                            log.debug("AcceptFriend : if(!saveFriend) : error");
                             user.write(FriendPacket.acceptFriendUnknown()); // The request was denied due to an unknown error.
                             return;
                         }
@@ -136,6 +144,7 @@ public final class FriendHandler {
     public static void loadFriends(User user, Consumer<Map<Integer, Friend>> consumer) {
         final Map<Integer, Friend> friendMap = new HashMap<>();
         for (Friend friend : DatabaseManager.friendAccessor().getFriendsByCharacterId(user.getCharacterId())) {
+            log.debug("loadFriends: friendMap.put({}, {})", friend.getFriendId(), friend);
             friendMap.put(friend.getFriendId(), friend);
         }
         final List<String> mutualFriends = new ArrayList<>();

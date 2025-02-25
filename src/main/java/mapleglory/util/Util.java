@@ -2,6 +2,7 @@ package mapleglory.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import io.github.cdimascio.dotenv.Dotenv;
 
 import java.io.IOException;
@@ -9,6 +10,7 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.security.SecureRandom;
 import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.*;
 import java.util.function.ToDoubleFunction;
 
@@ -109,7 +111,9 @@ public final class Util {
     }
 
     public static String convertListToJson(List<?> list) {
-        Gson gson = new Gson();
+        Gson gson = new GsonBuilder()
+                .registerTypeAdapter(Instant.class, new InstantTypeAdapter())
+                .create();
         return gson.toJson(list); // Convert list to JSON string
     }
 

@@ -19,9 +19,10 @@ public final class VictoriaIsland extends ScriptHandler {
     public static final int TICKET_TO_CONSTRUCTION_SITE_B1 = 4031036;
     public static final int TICKET_TO_CONSTRUCTION_SITE_B2 = 4031037;
     public static final int TICKET_TO_CONSTRUCTION_SITE_B3 = 4031038;
-
     public static final int KERNING_SQUARE_SUBWAY_1 = 103020010; // Kerning City -> Kerning Square
     public static final int KERNING_SQUARE_SUBWAY_2 = 103020011; // Kerning Square -> Kerning City
+    public static final int REGULAR_SAUNA_PRICE = 499999;
+    public static final int VIP_SAUNA_PRICE = 999999;
 
     @Script("victoria_taxi")
     public static void victoria_taxi(ScriptManager sm) {
@@ -441,6 +442,34 @@ public final class VictoriaIsland extends ScriptHandler {
             }
         } else if(answer == 1) {
             sm.sayOk("Hey, are you sure you've met #bMar the Fairy#k? Don't lie to me if you've never met her before because it's obvious. That wasn't even a good lie!!");
+        }
+    }
+
+    @Script("hotel1")
+    public static void hotel1(ScriptManager sm) {
+        sm.sayNext("Welcome. We're the Sleepywood Hotel. Our hotel works hard to serve you the best at all times. If you are tired and worn out from hunting, how about a relaxing stay at our hotel?");
+        final int answer = sm.askMenu("We offer two kinds of rooms for our service. Please choose the one of your liking.", Map.of(
+                0, "Regular sauna (" + REGULAR_SAUNA_PRICE + " mesos per use)",
+                1, "VIP sauna (" + VIP_SAUNA_PRICE + " mesos per use)"
+        ));
+        if(answer == 0) {
+            if(sm.askYesNo("You have chosen the regular sauna. Your HP and MP will recover fast and you can even purchase some items there. Are you sure you want to go in?")) {
+                if(!sm.canAddMoney(-REGULAR_SAUNA_PRICE)) {
+                    sm.sayNext("I'm sorry. It looks like you don't have enough mesos. It will cost you at least " + REGULAR_SAUNA_PRICE + " mesos to stay at our hotel.");
+                    return;
+                }
+                sm.warp(105000011);
+                sm.addMoney(-REGULAR_SAUNA_PRICE);
+            }
+        } else if(answer == 1) {
+            if(sm.askYesNo("You've chosen the VIP sauna. Your HP and MP will recover even faster than that of the regular sauna and you can even find a special item in there. Are you sure you want to go in?")) {
+                if(!sm.canAddMoney(-VIP_SAUNA_PRICE)) {
+                    sm.sayNext("I'm sorry. It looks like you don't have enough mesos. It will cost you at least " + VIP_SAUNA_PRICE + " mesos to stay at our hotel.");
+                    return;
+                }
+                sm.warp(105000012);
+                sm.addMoney(-VIP_SAUNA_PRICE);
+            }
         }
     }
 }
