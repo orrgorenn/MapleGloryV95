@@ -189,6 +189,7 @@ public final class UserHandler {
             user.write(GuildPacket.showGuildRanking(RankManager.getGuildRankings()));
             return;
         }
+        log.debug(npc);
         // Handle trunk / npc shop dialog, lock user
         try (var locked = user.acquire()) {
             if (user.hasDialog()) {
@@ -205,6 +206,7 @@ public final class UserHandler {
             } else if (ShopProvider.isShop(npc.getTemplateId())) {
                 final ShopDialog shopDialog = ShopDialog.from(npc.getTemplate());
                 user.setDialog(shopDialog);
+                log.debug("dialog: {}, template: {}", shopDialog, npc.getTemplate());
                 user.write(FieldPacket.openShopDlg(user, shopDialog));
             }
         }

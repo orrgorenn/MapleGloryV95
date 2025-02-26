@@ -114,7 +114,7 @@ public final class ExplorerQuest extends ScriptHandler {
                 }
                 sm.addInventorySlots(InventoryType.EQUIP, 4);
                 sm.addInventorySlots(InventoryType.ETC, 4);
-                sm.setJob(Job.FIGHTER);
+                sm.setJob(Job.WARRIOR);
                 sm.sayNext("From here on out, you are going to the Warrior path. This is not an easy job, but if you have discipline and confidence in your own body and skills, you will overcome any difficulties in your path. Go, young Warrior!");
                 sm.sayBoth("You've gotten much stronger now. Plus every single one of your inventories have added slots. A whole row, to be exact. Go see for it yourself. I just gave you a little bit of #bSP#k. When you open up the #bSkill#k menu on the lower left corner of the screen, there are skills you can learn by using SP's. One warning, though: You can't raise it all together all at once. There are also skills you can acquire only after having learned a couple of skills first.");
                 sm.sayBoth("Now a reminder. Once you have chosen, you cannot change up your mind and try to pick another path. Go now, and live as a proud Bowman.");

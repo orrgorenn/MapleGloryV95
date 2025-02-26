@@ -1071,7 +1071,7 @@ public final class AdminCommands {
     }
 
     @Command("help")
-    @Permission({"gm", "user"})
+    @Permission("user")
     public static void help(User user, String[] args) {
         if (args.length == 1) {
             final boolean isGM = user.getAccount().isGM();
@@ -1114,19 +1114,19 @@ public final class AdminCommands {
     }
 
     @Command("reloaddrops")
-    @Permission({"gm"})
+    @Permission("gm")
     public static void reloadDrops(User user, String[] args) {
         RewardProvider.initialize();
     }
 
     @Command("reloadshops")
-    @Permission({"gm"})
+    @Permission("gm")
     public static void reloadShops(User user, String[] args) {
         ShopProvider.initialize();
     }
 
     @Command({ "reloadcashshop", "reloadcs" })
-    @Permission({"gm"})
+    @Permission("gm")
     public static void reloadCashShop(User user, String[] args) {
         CashShop.initialize();
     }

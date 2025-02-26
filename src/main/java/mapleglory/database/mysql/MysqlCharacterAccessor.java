@@ -147,6 +147,7 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
 
             cd.setItemSnCounter(new AtomicInteger(rs.getInt(CharacterTable.ITEM_SN_COUNTER)));
             cd.setFriendMax(rs.getInt(CharacterTable.FRIEND_MAX));
+            log.debug("loadingCharData, party_id: {}", rs.getInt(CharacterTable.PARTY_ID));
             cd.setPartyId(rs.getInt(CharacterTable.PARTY_ID));
             cd.setGuildId(rs.getInt(CharacterTable.GUILD_ID));
 

@@ -56,6 +56,16 @@ public final class CommandProcessor {
             return;
         }
         final Method method = commandResult.get();
+        if(method.isAnnotationPresent(Permission.class)) {
+            final Permission permission = method.getAnnotation(Permission.class);
+            if (permission != null) {
+                String[] roles = permission.value();
+                boolean gmCommand = Arrays.asList(roles).contains("gm");
+                if (gmCommand && !user.getAccount().isGM()) {
+                    return;
+                }
+            }
+        }
         if (method.isAnnotationPresent(Arguments.class)) {
             final Arguments annotation = method.getAnnotation(Arguments.class);
             if (arguments.length < annotation.value().length + 1) {

@@ -3,6 +3,7 @@ package mapleglory.database.mysql;
 import mapleglory.database.DatabaseConnection;
 import mapleglory.database.FriendAccessor;
 import mapleglory.database.table.FriendTable;
+import mapleglory.database.table.GiftTable;
 import mapleglory.world.user.friend.Friend;
 import mapleglory.world.user.friend.FriendStatus;
 import org.slf4j.Logger;
@@ -68,37 +69,38 @@ public class MysqlFriendAccessor implements FriendAccessor {
 
     @Override
     public boolean saveFriend(Friend friend, boolean force) {
-        String insertSQL = "INSERT INTO " + FriendTable.getTableName() + " (" +
-                FriendTable.CHARACTER_ID + ", " +
-                FriendTable.FRIEND_ID + ", " +
-                FriendTable.FRIEND_NAME + ", " +
-                FriendTable.FRIEND_GROUP + ", " +
-                FriendTable.FRIEND_STATUS + ") VALUES (?, ?, ?, ?, ?)";
+        String insertQuery;
 
-        if (!force) {
-            insertSQL = "INSERT IGNORE INTO " + FriendTable.getTableName() + " (" +
+        if (force) {
+            // Regular INSERT that overwrites if exists
+            insertQuery = "REPLACE INTO " + FriendTable.getTableName() + " (" +
                     FriendTable.CHARACTER_ID + ", " +
                     FriendTable.FRIEND_ID + ", " +
                     FriendTable.FRIEND_NAME + ", " +
                     FriendTable.FRIEND_GROUP + ", " +
-                    FriendTable.FRIEND_STATUS + ") VALUES (?, ?, ?, ?, ?)";
+                    FriendTable.FRIEND_STATUS + ") " +
+                    "VALUES (?, ?, ?, ?, ?)";
+        } else {
+            // INSERT IF NOT EXISTS using ON DUPLICATE KEY IGNORE (similar to IF NOT EXISTS in Cassandra)
+            insertQuery = "INSERT IGNORE INTO  " + FriendTable.getTableName() + " (" +
+                    FriendTable.CHARACTER_ID + ", " +
+                    FriendTable.FRIEND_ID + ", " +
+                    FriendTable.FRIEND_NAME + ", " +
+                    FriendTable.FRIEND_GROUP + ", " +
+                    FriendTable.FRIEND_STATUS + ") " +
+                    "VALUES (?, ?, ?, ?, ?)";
         }
 
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(insertSQL)) {
+             PreparedStatement stmt = con.prepareStatement(insertQuery)) {
+            stmt.setInt(1, friend.getCharacterId());
+            stmt.setInt(2, friend.getFriendId());
+            stmt.setString(3, friend.getFriendName());
+            stmt.setString(4, friend.getFriendGroup());
+            stmt.setInt(5, friend.getStatus().getValue());
 
-            // Set the parameters
-            ps.setInt(1, friend.getCharacterId());
-            ps.setInt(2, friend.getFriendId());
-            ps.setString(3, friend.getFriendName());
-            ps.setString(4, friend.getFriendGroup());
-            ps.setInt(5, friend.getStatus().getValue());
-
-            // Execute the insert statement
-            int rowsAffected = ps.executeUpdate();
-
-            // If rowsAffected is greater than 0, the insert was successful
-            return rowsAffected > 0;
+            int affectedRows = stmt.executeUpdate();
+            return affectedRows > 0;  // Returns true if the insert was successful
 
         } catch (SQLException e) {
             e.printStackTrace();

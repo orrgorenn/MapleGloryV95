@@ -1,5 +1,7 @@
 package mapleglory.world.user;
 
+import mapleglory.database.mysql.MysqlCharacterAccessor;
+import mapleglory.database.table.CharacterTable;
 import mapleglory.handler.user.FriendHandler;
 import mapleglory.packet.stage.StagePacket;
 import mapleglory.packet.user.UserLocal;
@@ -45,6 +47,8 @@ import mapleglory.world.user.effect.Effect;
 import mapleglory.world.user.friend.Friend;
 import mapleglory.world.user.friend.FriendStatus;
 import mapleglory.world.user.stat.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -55,6 +59,7 @@ import java.util.function.BiPredicate;
 import java.util.function.Predicate;
 
 public final class User extends Life implements Lockable<User> {
+    private static final Logger log = LoggerFactory.getLogger(User.class);
     private final ReentrantLock lock = new ReentrantLock();
     private final Client client;
     private final CharacterData characterData;
@@ -206,6 +211,7 @@ public final class User extends Life implements Lockable<User> {
     }
 
     public void setPartyInfo(PartyInfo partyInfo) {
+        log.debug("loadingCharData, partyInfo: {}",partyInfo);
         this.partyInfo = partyInfo;
         getCharacterData().setPartyId(getPartyInfo().getPartyId());
     }

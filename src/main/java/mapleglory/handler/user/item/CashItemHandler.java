@@ -495,6 +495,7 @@ public final class CashItemHandler extends ItemHandler {
                     } else {
                         final ShopDialog shopDialog = ShopDialog.from(npcTemplate);
                         user.setDialog(shopDialog);
+                        log.debug("dialog: {}, template: {}", shopDialog, npcTemplate);
                         user.write(FieldPacket.openShopDlg(user, shopDialog));
                     }
                 }
