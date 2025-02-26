@@ -6,30 +6,29 @@
             <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
 
-        <!-- SocketAppender for Log.io -->
-        <Socket name="LogioSocketAppender" host="127.0.0.1" port="6689" protocol="tcp">
+        <!-- File Appender for Log.io -->
+        <File name="FileLogger" fileName="/var/log/mapleglory.log" append="true">
             <PatternLayout>
-                <Pattern>
-                    {"node":"mapleglory","stream":"app-log","message":"%enc{%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n}{JSON}"}
-                </Pattern>
+                <Pattern>%d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n</Pattern>
             </PatternLayout>
-        </Socket>
+        </File>
+
     </Appenders>
 
     <Loggers>
         <Logger name="mapleglory" level="debug" additivity="false">
             <AppenderRef ref="ConsoleLogger"/>
-            <AppenderRef ref="LogioSocketAppender"/>
+            <AppenderRef ref="FileLogger"/>
         </Logger>
 
         <Logger name="io.netty" level="error">
             <AppenderRef ref="ConsoleLogger"/>
-            <AppenderRef ref="LogioSocketAppender"/>
+            <AppenderRef ref="FileLogger"/>
         </Logger>
 
         <Root level="error">
             <AppenderRef ref="ConsoleLogger"/>
-            <AppenderRef ref="LogioSocketAppender"/>
+            <AppenderRef ref="FileLogger"/>
         </Root>
     </Loggers>
 </Configuration>
