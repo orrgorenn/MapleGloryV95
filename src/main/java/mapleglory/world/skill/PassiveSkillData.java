@@ -172,11 +172,10 @@ public final class PassiveSkillData {
         return apsd != null ? apsd.cr : 0;
     }
 
-    public String setFrom(BasicStat bs, SecondaryStat ss, SkillManager sm, CharacterData cd) {
+    public void setFrom(BasicStat bs, SecondaryStat ss, SkillManager sm) {
         clearData();
         // No guild skills in v95
 
-        String characterName = null;
         // Add passive skill data
         for (SkillRecord skillRecord : sm.getSkillRecords()) {
             final Optional<SkillInfo> skillInfoResult = SkillProvider.getSkillInfoById(skillRecord.getSkillId());
@@ -190,22 +189,6 @@ public final class PassiveSkillData {
                 } else if (skillRecord.getSkillLevel() > 0) {
                     addPassiveSkillData(si, skillRecord.getSkillLevel());
                 }
-            }
-            // Special handling for Blessing of the Fairy
-            if(si.getSkillId() == Beginner.BLESSING_OF_THE_FAIRY ||
-                    si.getSkillId() == Citizen.BLESSING_OF_THE_FAIRY ||
-                    si.getSkillId() == Aran.BLESSING_OF_THE_FAIRY ||
-                    si.getSkillId() == Evan.BLESSING_OF_THE_FAIRY ||
-                    si.getSkillId() == Noblesse.BLESSING_OF_THE_FAIRY
-            ) {
-                int maxLevel = 0;
-                for (CharacterData chrData : DatabaseManager.characterAccessor().getAllCharacters(cd.getAccountId())) {
-                    if(chrData.getCharacterStat().getLevel() > maxLevel) {
-                        maxLevel = chrData.getCharacterStat().getLevel();
-                        characterName = chrData.getCharacterName();
-                    }
-                }
-                addPassiveSkillData(si, maxLevel);
             }
         }
 
@@ -243,8 +226,6 @@ public final class PassiveSkillData {
 
         // Revise passive skill data
         revisePassiveSkillData();
-
-        return characterName;
     }
 
     private void addPassiveSkillData(SkillInfo si, int slv) {

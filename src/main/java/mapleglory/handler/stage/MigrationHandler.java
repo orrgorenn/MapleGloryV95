@@ -51,9 +51,7 @@ import org.apache.logging.log4j.Logger;
 
 import javax.swing.text.html.Option;
 import java.time.Instant;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public final class MigrationHandler {
     private static final Logger log = LogManager.getLogger(MigrationHandler.class);
@@ -173,10 +171,7 @@ public final class MigrationHandler {
                 user.getSummoned().putAll(migrationInfo.getSummoned());
                 user.setEffectItemId(migrationInfo.getEffectItemId());
                 user.setAdBoard(migrationInfo.getAdBoard());
-                String linkedCharacterName = user.updatePassiveSkillData();
-                if(linkedCharacterName != null) {
-                    user.getCharacterData().setLinkedCharacter(linkedCharacterName);
-                }
+                user.updatePassiveSkillData();
                 user.validateStat();
                 user.write(WvsContext.setGender(user.getGender()));
                 user.write(WvsContext.resetTownPortal());
@@ -199,6 +194,25 @@ public final class MigrationHandler {
                 } else {
                     log.error("Could not resolve default portal : {} on field ID : {}", 0, targetField.getFieldId());
                     targetPortal = targetField.getPortalById(0).orElse(PortalInfo.EMPTY);
+                }
+
+                // Special handling for Blessing of the Fairy
+                List<AvatarData> characters = DatabaseManager.characterAccessor().getAvatarDataByAccountId(user.getAccountId());
+
+                AvatarData highestLevelCharacter = characters.stream()
+                        .filter(chr -> !chr.getCharacterName().equals(user.getCharacterName()))
+                        .max(Comparator.comparingInt(AvatarData::getLevel))
+                        .orElse(null);
+
+                if (highestLevelCharacter != null) {
+                    Optional<SkillRecord> skillRecord = user.getSkillManager().getSkillRecords().stream()
+                            .filter(sr -> sr.getSkillId() % 10000 == 12)
+                            .findFirst();
+
+                    skillRecord.ifPresent(sr -> {
+                        sr.setSkillLevel(highestLevelCharacter.getLevel());
+                        user.getCharacterData().setLinkedCharacter(highestLevelCharacter.getCharacterName());
+                    });
                 }
 
                 // Set field packet sent here

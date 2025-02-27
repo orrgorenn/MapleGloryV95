@@ -1,0 +1,32 @@
+# Guard Robot (6150000)
+
+# Equip Enhancement Scroll - not added check
+# Potential Scroll - not added check
+
+rewards:
+  - [ 0, 312, 481, 0.600000 ]
+  - [ 4000608, 1, 1, 0.600000 ] # Guard Robot Baton
+  - [ 2022000, 1, 1, 0.100000 ] # Pure Water
+  - [ 2070010, 1, 1, 0.000400 ] # Icicle
+  - [ 2001002, 1, 1, 0.100000 ] # Red Bean Sundae
+  - [ 2000004, 1, 1, 0.001000 ] # Elixir
+  - [ 2060000, 10, 20, 0.008000 ] # Arrow for Bow
+  - [ 2061000, 10, 20, 0.008000 ] # Arrow for Crossbow
+  - [ 2040924, 1, 1, 0.000100 ] # Scroll for Shield for LUK 60%
+  - [ 2040927, 1, 1, 0.000100 ] # Scroll for Shield for HP 60%
+  - [ 2044101, 1, 1, 0.010000 ] # Scroll for Two-handed Axe for ATT 60%
+  - [ 1422010, 1, 1, 0.000100 ] # Gigantic Sledge
+  - [ 1432006, 1, 1, 0.000100 ] # Holy Spear
+  - [ 1312009, 1, 1, 0.000100 ] # Hawkhead
+  - [ 1082104, 1, 1, 0.000100 ] # Mithril Husk
+  - [ 1041098, 1, 1, 0.000100 ] # Violet Platina
+  - [ 1061097, 1, 1, 0.000100 ] # Violet Platina Pants
+  - [ 1302011, 1, 1, 0.000100 ] # Neocora
+  - [ 1302012, 1, 1, 0.000100 ] # Red Katana
+  - [ 1082100, 1, 1, 0.000100 ] # Dark Lorin
+  - [ 1072159, 1, 1, 0.000100 ] # Brown Lapiz Sandals
+  - [ 1050064, 1, 1, 0.000100 ] # Dark Linnex
+  - [ 1051062, 1, 1, 0.000100 ] # Blue Lineros
+  - [ 1452011, 1, 1, 0.000200 ] # Golden Hinkel
+  - [ 1041103, 1, 1, 0.000100 ] # Red Mystique
+  - [ 1482008, 1, 1, 0.000100 ] # Psycho Claw
