@@ -8,7 +8,7 @@ public enum PartyRequestType {
     JoinParty(3),
     InviteParty(4),
     KickParty(5),
-    ChangePartyBoss(6);
+    ChangePartyLeader(6);
 
     private final int value;
 

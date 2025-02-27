@@ -147,7 +147,6 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
 
             cd.setItemSnCounter(new AtomicInteger(rs.getInt(CharacterTable.ITEM_SN_COUNTER)));
             cd.setFriendMax(rs.getInt(CharacterTable.FRIEND_MAX));
-            log.debug("loadingCharData, party_id: {}", rs.getInt(CharacterTable.PARTY_ID));
             cd.setPartyId(rs.getInt(CharacterTable.PARTY_ID));
             cd.setGuildId(rs.getInt(CharacterTable.GUILD_ID));
 
@@ -182,6 +181,23 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
             e.printStackTrace();
             return Optional.empty();
         }
+    }
+
+    @Override
+    public List<CharacterData> getAllCharacters(int accountId) {
+        final List<CharacterData> chrs = new ArrayList<>();
+        try (Connection con = DatabaseConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement("SELECT * FROM " + CharacterTable.getTableName() + " WHERE " + CharacterTable.ACCOUNT_ID + " = ?")) {
+            ps.setInt(1, accountId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    chrs.add(loadCharacterData(rs));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return chrs;
     }
 
     @Override

@@ -64,7 +64,7 @@ public final class PartyHandler {
                 final int targetId = inPacket.decodeInt();
                 user.getConnectedServer().submitPartyRequest(user, PartyRequest.kickParty(targetId));
             }
-            case ChangePartyBoss -> {
+            case ChangePartyLeader -> {
                 // CField::SendChangePartyBossMsg
                 if (!user.isPartyBoss()) {
                     user.write(PartyPacket.serverMsg("You are not the leader of the party."));

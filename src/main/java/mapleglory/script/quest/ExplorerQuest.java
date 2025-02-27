@@ -7,12 +7,17 @@ import mapleglory.util.Tuple;
 import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
+import mapleglory.world.quest.QuestRecordType;
 
 import java.util.List;
 import java.util.Map;
 
 public final class ExplorerQuest extends ScriptHandler {
     public static final int MARBAS = 9400612;
+
+    public static final int CLERIC = 230;
+    public static final int WIZARD_FP = 210;
+    public static final int WIZARD_IL = 220;
     @Script("enter_archer")
     public static void enter_archer(ScriptManager sm) {
         //  Power B. Fore : Entrance to Bowman Training Center (1012119)
@@ -61,8 +66,7 @@ public final class ExplorerQuest extends ScriptHandler {
                     sm.addInventorySlots(InventoryType.ETC, 4);
                     sm.setJob(Job.ROGUE);
                     if(sm.hasQuestStarted(2351)) {
-                        // First Mission: Infiltration
-                        sm.forceCompleteQuest(2351);
+                        sm.setQRValue(QuestRecordType.DualBladeInfiltration, "1");
                     }
                     sm.sayNext("Alright, from here out, you are a part of us! You'll be living the life of a wanderer at ..., but just be patient as soon, you'll be living the high life. Alright, it ain't much, but I'll give you some of my abilities... HAAAHHH!!!");
                     sm.sayBoth("You've gotten much stronger now. Plus every single one of your inventories have added slots. A whole row, to be exact. Go see for it yourself. I just gave you a little bit of #bSP#k. When you open up the #bSkill#k menu on the lower left corner of the screen, there are skills you can learn by using SP's. One warning, though: You can't raise it all together all at once. There are also skills you can acquire only after having learned a couple of skills first.");
@@ -273,20 +277,66 @@ public final class ExplorerQuest extends ScriptHandler {
                     }
                 }
             }
+        } else if(sm.getLevel() >= 70) {
+            final int jobId = sm.getUser().getJob();
+            switch (jobId) {
+                // go to priest
+                case CLERIC -> {
+                    log.debug("hey");
+                }
+                // go to arch_mage_fp
+                case WIZARD_FP -> {
+
+                }
+                // go to arch_mage_il
+                case WIZARD_IL -> {
+
+                }
+            }
         }
     }
 
+    @Script("wizard3")
+    public static void wizard3(ScriptManager sm) {
+        boolean qualifyForJob3 = sm.getJob() == Job.WIZARD_FP || sm.getJob() == Job.WIZARD_IL || sm.getJob() == Job.CLERIC;
+        log.debug("sp: {}", sm.getUser().getCharacterStat().getSp().getNonExtendSp());
+        if(!(qualifyForJob3)) {
+            sm.sayOk("May the Gods be with you!");
+            return;
+        }
+        if(sm.getLevel() >= 70) {
+           if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+               // add check if totalSP > lvl * 3
+               sm.sayOk("Hmm...You have too many #bSP#k. You can't make the job advancement with too many SP left.");
+               return;
+           }
+            sm.sayNext("You are indeed a strong one.");
+            if(!(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3)) {
+                if (sm.getJob() == Job.WIZARD_FP) {
+                    sm.setJob(Job.MAGE_FP);
+                    sm.sayOk("You are now a #bFire/Poison Mage#k");
+                } else if (sm.getJob() == Job.WIZARD_IL) {
+                    sm.setJob(Job.MAGE_IL);
+                    sm.sayOk("You are now an #bIce/Lightning Mage#k.");
+                } else if (sm.getJob() == Job.CLERIC) {
+                    sm.setJob(Job.PRIEST);
+                    sm.sayOk("You are now a #bPriest#k.");
+                }
+            }
+        } else {
+            sm.sayOk("Please make sure that you are eligible for the job advancement. (level 70+)");
+        }
+
+    }
+
+    // TODO: move from here to job
     @Script("Enter_Darkportal_M")
     public static void enter_darkportal_m(ScriptManager sm) {
-        if(!sm.hasQuestStarted(28198)) {
+        if (!sm.hasQuestStarted(28198)) {
             sm.sayOk("...");
             return;
         }
-        if(!sm.hasItem(4032495, 1)) {
-            sm.sayOk("Seems like you lost Marbas' Emblem. Go talk to #p1032001# to retrieve it.");
-            return;
-        }
-        if(sm.askMenu("Are you sure you want to fight with Marbas the Demon?", Map.of(0, "I am sure.", 1, "Maybe another time.")) == 0) {
+        if (sm.askMenu("Are you sure you want to fight with Marbas the Demon?", Map.of(0, "I am sure.", 1, "Maybe another time.")) == 0) {
             sm.warp(677000001);
             sm.spawnMob(MARBAS, MobAppearType.NORMAL, 174, 70, true, false);
             sm.broadcastMessage("Kill Marbas!", false);

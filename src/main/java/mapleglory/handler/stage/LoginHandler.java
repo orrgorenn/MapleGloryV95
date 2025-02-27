@@ -69,9 +69,6 @@ public final class LoginHandler {
         // Resolve account
         final Optional<Account> accountResult = DatabaseManager.accountAccessor().getAccountByUsername(username);
         if (accountResult.isEmpty()) {
-            if (ServerConfig.AUTO_CREATE_ACCOUNT) {
-                DatabaseManager.accountAccessor().newAccount(username, password);
-            }
             c.write(LoginPacket.checkPasswordResultFail(LoginResultType.NotRegistered));
             return;
         }
@@ -401,10 +398,11 @@ public final class LoginHandler {
     @Handler(InHeader.SelectCharacter)
     public static void handleSelectCharacter(Client c, InPacket inPacket) {
         final int characterId = inPacket.decodeInt();
-        final String macAddress = inPacket.decodeString(); // CLogin::GetLocalMacAddress
-        final String macAddressWithHddSerial = inPacket.decodeString(); // CLogin::GetLocalMacAddressWithHDDSerialNo
+        final String macAddress = inPacket.decodeString();
+        final String macAddressWithHddSerial = inPacket.decodeString();
 
         final Account account = c.getAccount();
+        System.out.println("[DEBUG] SelectCharacter for ID: " + characterId + " | Account: " + (account != null ? account.getId() : "null"));
         if (ServerConfig.REQUIRE_SECONDARY_PASSWORD || account == null || !account.canSelectCharacter(characterId)) {
             c.write(LoginPacket.selectCharacterResultFail(LoginResultType.Unknown));
             return;

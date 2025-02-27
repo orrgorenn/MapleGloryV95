@@ -49,6 +49,10 @@ public final class Party implements Encodable, Lockable<Party> {
         return true;
     }
 
+    public List<RemoteUser> getPartyMembers() {
+        return partyMembers;
+    }
+
     public boolean addMember(RemoteUser remoteUser) {
         if (!canAddMember(remoteUser)) {
             return false;

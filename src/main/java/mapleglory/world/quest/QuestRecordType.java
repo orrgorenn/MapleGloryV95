@@ -12,6 +12,8 @@ public enum QuestRecordType {
     MushroomCastleThornRemover(2324),
     MushroomCastlePepe(2330),
 
+    DualBladeInfiltration(7635),
+
     UnityPortal(7050),              // Dimensional Mirror Return Map
     FreeMarket(7600),               // Free Market Return Map
     TatamoLikeness(7810),           // Chief Tatamo Magic Seed Discount

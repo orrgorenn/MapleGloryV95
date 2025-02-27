@@ -53,6 +53,8 @@ public interface ScriptManager {
 
     int getLevel();
 
+    Job getJob();
+
     void addExp(int exp);
 
     void setJob(Job job);

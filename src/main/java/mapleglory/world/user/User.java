@@ -462,8 +462,8 @@ public final class User extends Life implements Lockable<User> {
         return SkillProvider.getSkillInfoById(skillId).map(skillInfo -> skillInfo.getValue(stat, slv)).orElse(0);
     }
 
-    public void updatePassiveSkillData() {
-        getPassiveSkillData().setFrom(getBasicStat(), getSecondaryStat(), getSkillManager());
+    public String updatePassiveSkillData() {
+        return getPassiveSkillData().setFrom(getBasicStat(), getSecondaryStat(), getSkillManager(), getCharacterData());
     }
 
     public void validateStat() {

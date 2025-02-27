@@ -30,6 +30,14 @@ import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
 import mapleglory.world.item.*;
 import mapleglory.world.job.JobConstants;
+import mapleglory.world.job.cygnus.Noblesse;
+import mapleglory.world.job.explorer.Beginner;
+import mapleglory.world.job.legend.Aran;
+import mapleglory.world.job.legend.Evan;
+import mapleglory.world.job.resistance.Citizen;
+import mapleglory.world.skill.Skill;
+import mapleglory.world.skill.SkillConstants;
+import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.CharacterData;
 import mapleglory.world.user.*;
 import mapleglory.world.user.data.ConfigManager;
@@ -41,6 +49,7 @@ import mapleglory.world.user.stat.CharacterTemporaryStat;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import javax.swing.text.html.Option;
 import java.time.Instant;
 import java.util.List;
 import java.util.Map;
@@ -164,7 +173,10 @@ public final class MigrationHandler {
                 user.getSummoned().putAll(migrationInfo.getSummoned());
                 user.setEffectItemId(migrationInfo.getEffectItemId());
                 user.setAdBoard(migrationInfo.getAdBoard());
-                user.updatePassiveSkillData();
+                String linkedCharacterName = user.updatePassiveSkillData();
+                if(linkedCharacterName != null) {
+                    user.getCharacterData().setLinkedCharacter(linkedCharacterName);
+                }
                 user.validateStat();
                 user.write(WvsContext.setGender(user.getGender()));
                 user.write(WvsContext.resetTownPortal());
@@ -225,7 +237,6 @@ public final class MigrationHandler {
 
                 // Load friends
                 FriendHandler.loadFriends(user, (friendMap) -> {
-                    log.debug("loadFriends");
                     user.write(FriendPacket.loadFriendDone(friendMap.values()));
                     final List<Integer> friendIds = friendMap.values().stream()
                             .filter((friend) -> friend.getStatus() == FriendStatus.NORMAL)

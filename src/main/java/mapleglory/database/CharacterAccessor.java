@@ -15,6 +15,8 @@ public interface CharacterAccessor {
 
     Optional<CharacterData> getCharacterByName(String name);
 
+    List<CharacterData> getAllCharacters(int accountId);
+
     Optional<CharacterInfo> getCharacterInfoByName(String name);
 
     Optional<Integer> getAccountIdByCharacterId(int characterId);

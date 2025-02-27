@@ -130,6 +130,13 @@ public final class ChannelServerNode extends ServerNode {
     }
 
     public void notifyUserDisconnect(User user) {
+        System.out.println("[DEBUG] Disconnect " + user.getCharacterStat().getName() + " | PartyId: " + user.getPartyId());
+        if (user.getPartyId() != 0) {
+            submitPartyRequest(user, PartyRequest.withdrawParty());
+            user.setPartyInfo(null);
+            System.out.println("[DEBUG] Cleared partyId for " + user.getCharacterStat().getName());
+        }
+        centralClientFuture.channel().writeAndFlush(CentralPacket.userDisconnect(RemoteUser.from(user)));
         centralClientFuture.channel().writeAndFlush(CentralPacket.userDisconnect(RemoteUser.from(user)));
     }
 

@@ -1,6 +1,7 @@
 package mapleglory.packet.user;
 
 import mapleglory.server.header.OutHeader;
+import mapleglory.server.node.ServerNode;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.BitFlag;
 import mapleglory.world.field.life.MovePath;
@@ -14,8 +15,11 @@ import mapleglory.world.user.User;
 import mapleglory.world.user.effect.Effect;
 import mapleglory.world.user.stat.CharacterTemporaryStat;
 import mapleglory.world.user.stat.SecondaryStat;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public final class UserRemote {
+    private static final Logger log = LogManager.getLogger(UserRemote.class);
     // CUserPool::OnUserRemotePacket -----------------------------------------------------------------------------------
 
     public static OutPacket move(User user, MovePath movePath) {
@@ -202,6 +206,7 @@ public final class UserRemote {
     }
 
     public static OutPacket receiveHp(User user) {
+        log.debug("receiveHp: {}, {}, {}", user.getChannelId(), user.getHp(), user.getMaxHp());
         final OutPacket outPacket = OutPacket.of(OutHeader.UserHP);
         outPacket.encodeInt(user.getCharacterId());
         outPacket.encodeInt(user.getHp());

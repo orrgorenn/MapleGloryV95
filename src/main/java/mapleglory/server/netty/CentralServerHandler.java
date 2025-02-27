@@ -439,15 +439,19 @@ public final class CentralServerHandler extends SimpleChannelInboundHandler<InPa
         // Process request
         switch (partyRequest.getRequestType()) {
             case LoadParty -> {
+                System.out.println("[DEBUG] LoadParty for " + remoteUser.getCharacterName() + " | PartyId: " + partyRequest.getPartyId());
                 final Optional<Party> partyResult = centralServerNode.getPartyById(partyRequest.getPartyId());
                 if (partyResult.isEmpty()) {
+                    System.out.println("[DEBUG] No party found, clearing " + remoteUser.getCharacterName());
                     remoteUser.setPartyId(0);
                     remoteServerNode.write(CentralPacket.partyResult(remoteUser.getCharacterId(), null));
                     return;
                 }
                 try (var lockedParty = partyResult.get().acquire()) {
                     final Party party = lockedParty.get();
+                    System.out.println("[DEBUG] Party " + party.getPartyId() + " | Members: " + party.getPartyMembers().size());
                     if (!party.hasMember(remoteUser.getCharacterId())) {
+                        System.out.println("[DEBUG] " + remoteUser.getCharacterName() + " not in party, clearing");
                         remoteUser.setPartyId(0);
                         remoteServerNode.write(CentralPacket.partyResult(remoteUser.getCharacterId(), null));
                         return;
@@ -479,7 +483,7 @@ public final class CentralServerHandler extends SimpleChannelInboundHandler<InPa
             case WithdrawParty -> {
                 final Optional<Party> partyResult = centralServerNode.getPartyById(remoteUser.getPartyId());
                 if (partyResult.isEmpty()) {
-                    remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), PartyPacket.of(PartyResultType.WithdrawParty_NotJoined))); // You have yet to join a party.
+                    remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), PartyPacket.of(PartyResultType.WithdrawParty_NotJoined)));
                     return;
                 }
                 try (var lockedParty = partyResult.get().acquire()) {
@@ -488,11 +492,11 @@ public final class CentralServerHandler extends SimpleChannelInboundHandler<InPa
                         // Disband party
                         if (!centralServerNode.removeParty(party)) {
                             log.error("Failed to disband party {}", party.getPartyId());
-                            remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), PartyPacket.of(PartyResultType.WithdrawParty_Unknown))); // Your request for a party didn't work due to an unexpected error.
+                            remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), PartyPacket.of(PartyResultType.WithdrawParty_Unknown)));
                             return;
                         }
-                        // Broadcast disband packet to party and update party ids
-                        final OutPacket outPacket = PartyPacket.withdrawPartyDone(party, remoteUser, true, false); // You have quit as the leader of the party. The party has been disbanded. | You have left the party since the party leader quit.
+                        // Broadcast disband and clear IDs
+                        final OutPacket outPacket = PartyPacket.withdrawPartyDone(party, remoteUser, true, false);
                         forEachPartyMember(party, (member, node) -> {
                             member.setPartyId(0);
                             node.write(CentralPacket.partyResult(member.getCharacterId(), null));
@@ -502,16 +506,14 @@ public final class CentralServerHandler extends SimpleChannelInboundHandler<InPa
                         // Remove member
                         if (!party.removeMember(remoteUser)) {
                             log.error("Failed to remove member with character ID {} from party {}", remoteUser.getCharacterId(), party.getPartyId());
-                            remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), PartyPacket.of(PartyResultType.WithdrawParty_Unknown))); // Your request for a party didn't work due to an unexpected error.
+                            remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), PartyPacket.of(PartyResultType.WithdrawParty_Unknown)));
                             return;
                         }
-                        // Broadcast withdraw packet to party
-                        final OutPacket outPacket = PartyPacket.withdrawPartyDone(party, remoteUser, false, false); // You have left the party. | '%s' have left the party.
+                        final OutPacket outPacket = PartyPacket.withdrawPartyDone(party, remoteUser, false, false);
                         forEachPartyMember(party, (member, node) -> {
-                            node.write(CentralPacket.partyResult(member.getCharacterId(), party.createInfo(member))); // update member index
+                            node.write(CentralPacket.partyResult(member.getCharacterId(), party.createInfo(member)));
                             node.write(CentralPacket.userPacketReceive(member.getCharacterId(), outPacket));
                         });
-                        // Update user
                         remoteUser.setPartyId(0);
                         remoteServerNode.write(CentralPacket.partyResult(remoteUser.getCharacterId(), null));
                         remoteServerNode.write(CentralPacket.userPacketReceive(remoteUser.getCharacterId(), outPacket));
@@ -639,7 +641,7 @@ public final class CentralServerHandler extends SimpleChannelInboundHandler<InPa
                     }
                 }
             }
-            case ChangePartyBoss -> {
+            case ChangePartyLeader -> {
                 final Optional<Party> partyResult = centralServerNode.getPartyById(remoteUser.getPartyId());
                 if (partyResult.isEmpty()) {
                     remoteServerNode.write(CentralPacket.userPacketReceive(characterId, PartyPacket.of(PartyResultType.ChangePartyBoss_Unknown))); // Your request for a party didn't work due to an unexpected error.

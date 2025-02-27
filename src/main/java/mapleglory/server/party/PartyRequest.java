@@ -1,14 +1,18 @@
 package mapleglory.server.party;
 
 import mapleglory.server.header.CentralHeader;
+import mapleglory.server.node.ChannelServerNode;
 import mapleglory.server.packet.InPacket;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.Encodable;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 /**
  * Utility class for {@link CentralHeader#PartyRequest}
  */
 public final class PartyRequest implements Encodable {
+    private static final Logger log = LogManager.getLogger(PartyRequest.class);
     private final PartyRequestType requestType;
     private int partyId;
     private int characterId;
@@ -55,7 +59,7 @@ public final class PartyRequest implements Encodable {
             case InviteParty -> {
                 outPacket.encodeString(characterName);
             }
-            case ChangePartyBoss -> {
+            case ChangePartyLeader -> {
                 outPacket.encodeInt(characterId);
                 outPacket.encodeByte(isDisconnect);
             }
@@ -78,7 +82,7 @@ public final class PartyRequest implements Encodable {
             case InviteParty -> {
                 request.characterName = inPacket.decodeString();
             }
-            case ChangePartyBoss -> {
+            case ChangePartyLeader -> {
                 request.characterId = inPacket.decodeInt();
                 request.isDisconnect = inPacket.decodeBoolean();
             }
@@ -125,7 +129,7 @@ public final class PartyRequest implements Encodable {
     }
 
     public static PartyRequest changePartyBoss(int targetId, boolean isDisconnect) {
-        final PartyRequest request = new PartyRequest(PartyRequestType.ChangePartyBoss);
+        final PartyRequest request = new PartyRequest(PartyRequestType.ChangePartyLeader);
         request.characterId = targetId;
         request.isDisconnect = isDisconnect;
         return request;
