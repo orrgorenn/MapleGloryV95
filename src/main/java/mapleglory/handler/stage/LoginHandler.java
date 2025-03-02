@@ -33,6 +33,7 @@ import mapleglory.world.skill.SkillManager;
 import mapleglory.world.user.Account;
 import mapleglory.world.user.AvatarData;
 import mapleglory.world.user.CharacterData;
+import mapleglory.world.user.PersonalInfo;
 import mapleglory.world.user.data.*;
 import mapleglory.world.user.stat.CharacterStat;
 import mapleglory.world.user.stat.ExtendSp;

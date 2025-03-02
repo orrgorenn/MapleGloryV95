@@ -181,7 +181,6 @@ public final class ChannelServerHandler extends SimpleChannelInboundHandler<InPa
         final int characterId = inPacket.decodeInt();
         final boolean hasParty = inPacket.decodeBoolean();
         final PartyInfo partyInfo = hasParty ? PartyInfo.decode(inPacket) : null;
-        log.debug("charId, hasParty, partyInfo: {}, {}, {}", characterId, hasParty, partyInfo);
         // Resolve target user
         final Optional<User> targetUserResult = channelServerNode.getUserByCharacterId(characterId);
         if (targetUserResult.isEmpty()) {
@@ -204,11 +203,9 @@ public final class ChannelServerHandler extends SimpleChannelInboundHandler<InPa
                     lockedMember.get().write(UserRemote.receiveHp(user));
                 }
             });
-            log.debug("after forEachPartyMember");
             if (user.getTownPortal() != null && user.getTownPortal().getTownField() == user.getField()) {
                 user.write(FieldPacket.townPortalRemoved(user, false));
             }
-            log.debug("tafter aownportal");
         }
     }
 

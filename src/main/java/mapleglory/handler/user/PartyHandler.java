@@ -48,7 +48,7 @@ public final class PartyHandler {
             }
             case InviteParty -> {
                 // CField::SendJoinPartyMsg
-                if (user.hasParty() && !user.isPartyBoss()) {
+                if (user.hasParty() && !user.isPartyLeader()) {
                     user.write(PartyPacket.serverMsg("You are not the leader of the party."));
                     return;
                 }
@@ -57,7 +57,7 @@ public final class PartyHandler {
             }
             case KickParty -> {
                 // CField::SendKickPartyMsg
-                if (!user.isPartyBoss()) {
+                if (!user.isPartyLeader()) {
                     user.write(PartyPacket.serverMsg("You are not the leader of the party."));
                     return;
                 }
@@ -66,7 +66,7 @@ public final class PartyHandler {
             }
             case ChangePartyLeader -> {
                 // CField::SendChangePartyBossMsg
-                if (!user.isPartyBoss()) {
+                if (!user.isPartyLeader()) {
                     user.write(PartyPacket.serverMsg("You are not the leader of the party."));
                     return;
                 }

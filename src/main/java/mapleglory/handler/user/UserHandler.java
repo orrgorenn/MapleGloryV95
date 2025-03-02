@@ -60,9 +60,11 @@ import mapleglory.world.skill.maker.MakerConstants;
 import mapleglory.world.skill.maker.MakerResult;
 import mapleglory.world.skill.maker.RecipeClass;
 import mapleglory.world.user.Locker;
+import mapleglory.world.user.PersonalInfo;
 import mapleglory.world.user.User;
 import mapleglory.world.user.data.*;
 import mapleglory.world.user.effect.Effect;
+import mapleglory.world.user.friend.Friend;
 import mapleglory.world.user.stat.CharacterStat;
 import mapleglory.world.user.stat.Stat;
 import mapleglory.world.user.stat.StatConstants;
@@ -71,6 +73,8 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.Instant;
 import java.util.*;
+
+import static mapleglory.world.user.data.FindFriendType.FindMoreFriends;
 
 public final class UserHandler {
     private static final Logger log = LogManager.getLogger(UserHandler.class);
@@ -1875,6 +1879,53 @@ public final class UserHandler {
     @Handler(InHeader.UpdateGMBoard)
     public static void handleUpdateGmBoard(User user, InPacket inPacket) {
         inPacket.decodeInt(); // nGameOpt_OpBoardIndex
+    }
+
+    @Handler(InHeader.AccountMoreInfo)
+    public static void handleAccountMoreInfo(User user, InPacket inPacket) {
+        final byte type = inPacket.decodeByte();
+        if (type != 1) {
+            final PersonalInfo pi = PersonalInfo.decode(inPacket);
+            user.getCharacterData().setPersonalInfo(pi);
+            user.write(WvsContext.accountMoreInfoResult(true));
+        } else {
+            user.write(WvsContext.accountMoreInfoResult(
+                    user.getPersonalInfo().getLocation(),
+                    user.getPersonalInfo().getTodo(),
+                    user.getPersonalInfo().getBirthday(),
+                    user.getPersonalInfo().getFound())
+            );
+        }
+    }
+
+    @Handler(InHeader.FindFriend)
+    public static void findFriend(User user, InPacket inPacket) {
+        final byte type = inPacket.decodeByte();
+        final FindFriendType findFriendType = FindFriendType.getByValue(type);
+        switch (findFriendType) {
+            case FindMoreFriends -> {
+                final List<User> users = new ArrayList<>();
+                for (User usr : user.getConnectedServer().getConnectedUsers()) {
+                    if (user.getCharacterId() != user.getCharacterId()) {
+                        users.add(usr);
+                    }
+                }
+                user.write(WvsContext.findFriendResult(users));
+            }
+            case FindFriend -> {
+                if(user.getPersonalInfo().getBirthday() == 0 && user.getPersonalInfo().getTodo() == 0 && user.getPersonalInfo().getLocation() == 0 && user.getPersonalInfo().getFound() == 0) {
+                    user.write(WvsContext.findFriendResult(0));
+                } else {
+                    user.write(WvsContext.findFriendResult(1));
+                }
+            }
+            case null -> {
+                log.error("Received unknown type {} for findFriendType", type);
+            }
+            default -> {
+                log.error("Unhandled func key mapped type : {}", findFriendType);
+            }
+        }
     }
 
     @Handler(InHeader.DragonMove)

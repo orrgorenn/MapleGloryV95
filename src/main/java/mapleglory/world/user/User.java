@@ -1,7 +1,5 @@
 package mapleglory.world.user;
 
-import mapleglory.database.mysql.MysqlCharacterAccessor;
-import mapleglory.database.table.CharacterTable;
 import mapleglory.handler.user.FriendHandler;
 import mapleglory.packet.stage.StagePacket;
 import mapleglory.packet.user.UserLocal;
@@ -162,6 +160,8 @@ public final class User extends Life implements Lockable<User> {
         return characterData.getWildHunterInfo();
     }
 
+    public PersonalInfo getPersonalInfo() { return characterData.getPersonalInfo() != null ? characterData.getPersonalInfo() : PersonalInfo.EMPTY; }
+
     public BasicStat getBasicStat() {
         return basicStat;
     }
@@ -211,7 +211,6 @@ public final class User extends Life implements Lockable<User> {
     }
 
     public void setPartyInfo(PartyInfo partyInfo) {
-        log.debug("loadingCharData, partyInfo: {}",partyInfo);
         this.partyInfo = partyInfo;
         getCharacterData().setPartyId(getPartyInfo().getPartyId());
     }
@@ -228,7 +227,7 @@ public final class User extends Life implements Lockable<User> {
         return getPartyInfo().getMemberIndex();
     }
 
-    public boolean isPartyBoss() {
+    public boolean isPartyLeader() {
         return getPartyInfo().isBoss();
     }
 
@@ -787,7 +786,7 @@ public final class User extends Life implements Lockable<User> {
                 });
             }
             // Assign new party leader on disconnect
-            if (disconnect && isPartyBoss()) {
+            if (disconnect && isPartyLeader()) {
                 for (User member : field.getUserPool().getPartyMembers(getPartyId())) {
                     getConnectedServer().submitPartyRequest(this, PartyRequest.changePartyBoss(member.getCharacterId(), true));
                     break;

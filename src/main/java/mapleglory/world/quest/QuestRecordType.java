@@ -1,5 +1,7 @@
 package mapleglory.world.quest;
 
+import mapleglory.script.boss.Zakum;
+
 /**
  * Special quest IDs used to store various state information for the user.
  */
@@ -43,7 +45,10 @@ public enum QuestRecordType {
 
     EdelsteinUnlockTownQuests(23977), //Not sure what quest is supposed to update this
     EdelsteinFabioFirebombs(23979),
-    EdelsteinWonny10PM(23984);
+    EdelsteinWonny10PM(23984),
+    ZakumPreqStageOne(100200),
+    ZakumPreqStageTwo(100201),
+    Zakum(100250);
 
     private final int questId;
 

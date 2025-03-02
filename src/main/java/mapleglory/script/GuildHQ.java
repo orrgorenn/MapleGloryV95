@@ -151,7 +151,7 @@ public final class GuildHQ extends ScriptHandler {
                 sm.sayNext("Only the guild leader can form a Guild Union.");
                 return;
             }
-            if (!sm.getUser().isPartyBoss()) {
+            if (!sm.getUser().isPartyLeader()) {
                 sm.sayNext("Only the party leader can form a Guild Union.");
                 return;
             }

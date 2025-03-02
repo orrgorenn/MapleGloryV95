@@ -144,7 +144,7 @@ public enum OutHeader {
     ShowSlotMessage(131),
     WildHunterInfo(132),
     AccountMoreInfo(133),
-    FindFirend(134),
+    FindFriend(134),
     StageChange(135),
     DragonBallBox(136),
     AskUserWhetherUsePamsSong(137),

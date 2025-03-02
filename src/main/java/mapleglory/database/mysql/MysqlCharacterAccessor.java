@@ -19,6 +19,7 @@ import mapleglory.world.skill.SkillManager;
 import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.AvatarData;
 import mapleglory.world.user.CharacterData;
+import mapleglory.world.user.PersonalInfo;
 import mapleglory.world.user.data.*;
 import mapleglory.world.user.stat.CharacterStat;
 import org.slf4j.Logger;
@@ -129,6 +130,10 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
             final String rsCm = rs.getString(CharacterTable.CONFIG);
             final ConfigManager cm = gson.fromJson(rsCm, new TypeToken<ConfigManager>() {}.getType());
             cd.setConfigManager(cm);
+
+            final String rsPi = rs.getString(CharacterTable.PERSONAL_INFO);
+            final PersonalInfo pi = gson.fromJson(rsPi, new TypeToken<PersonalInfo>() {}.getType());
+            cd.setPersonalInfo(pi);
 
             final String rsMgr = rs.getString(CharacterTable.MINIGAME_RECORD);
             final MiniGameRecord mgr = gson.fromJson(rsMgr, new TypeToken<MiniGameRecord>() {}.getType());
@@ -350,7 +355,8 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
                 CharacterTable.PARTY_ID + " = ?, " +
                 CharacterTable.GUILD_ID + " = ?, " +
                 CharacterTable.CREATION_TIME + " = ?, " +
-                CharacterTable.MAX_LEVEL_TIME + " = ? " +
+                CharacterTable.MAX_LEVEL_TIME + " = ?, " +
+                CharacterTable.PERSONAL_INFO + " = ? " +
                 "WHERE " + CharacterTable.CHARACTER_ID + " = ?";
 
         try (Connection con = DatabaseConnection.getConnection();
@@ -389,7 +395,9 @@ public class MysqlCharacterAccessor implements CharacterAccessor {
             ps.setTimestamp(24, Util.toTimestamp(characterData.getCreationTime()));
             ps.setTimestamp(25, Util.toTimestamp(characterData.getMaxLevelTime()));
 
-            ps.setInt(26, characterData.getCharacterId()); // WHERE condition
+            ps.setString(26, gson.toJson(characterData.getPersonalInfo()));
+
+            ps.setInt(27, characterData.getCharacterId()); // WHERE condition
 
             int rowsUpdated = ps.executeUpdate();
             return rowsUpdated > 0; // ✅ Returns true if at least one row was updated

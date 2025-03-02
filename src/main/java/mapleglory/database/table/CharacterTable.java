@@ -39,6 +39,7 @@ public final class CharacterTable {
     public static final String GUILD_ID = "guild_id";
     public static final String CREATION_TIME = "creation_time";
     public static final String MAX_LEVEL_TIME = "max_level_time";
+    public static final String PERSONAL_INFO = "personal_info";
 
     private static final String tableName = "characters";
 
@@ -74,6 +75,7 @@ public final class CharacterTable {
                 CharacterTable.GUILD_ID + " INT, " +
                 CharacterTable.CREATION_TIME + " TIMESTAMP, " +
                 CharacterTable.MAX_LEVEL_TIME + " TIMESTAMP, " +
+                CharacterTable.PERSONAL_INFO + " JSON, " +
                 "FOREIGN KEY (" + CharacterTable.ACCOUNT_ID + ") REFERENCES " + AccountTable.getTableName() + "(" + AccountTable.ACCOUNT_ID + ")" +
                 ")";
 

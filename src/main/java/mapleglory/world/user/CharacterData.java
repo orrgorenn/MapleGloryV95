@@ -41,6 +41,7 @@ public final class CharacterData implements Encodable {
     private Instant creationTime;
     private Instant maxLevelTime;
     private String linkedCharacter;
+    private PersonalInfo personalInfo;
 
     public CharacterData(int accountId) {
         this.accountId = accountId;
@@ -56,6 +57,12 @@ public final class CharacterData implements Encodable {
 
     public void setCharacterStat(CharacterStat characterStat) {
         this.characterStat = characterStat;
+    }
+
+    public void setPersonalInfo(PersonalInfo personalInfo) { this.personalInfo = personalInfo; }
+
+    public PersonalInfo getPersonalInfo() {
+        return this.personalInfo;
     }
 
     public void setLinkedCharacter(String characterName) {

@@ -72,6 +72,46 @@ public final class WvsContext {
         return outPacket;
     }
 
+    public static OutPacket findFriendResult(List<User> users) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.FindFriend);
+        outPacket.encodeByte(8);
+        outPacket.encodeShort(users.size());
+        for (User usr : users) {
+            outPacket.encodeInt(usr.getCharacterId());
+            outPacket.encodeString(usr.getCharacterName());
+            outPacket.encodeByte(usr.getLevel());
+            outPacket.encodeShort(usr.getJob());
+            outPacket.encodeInt(0);
+            outPacket.encodeInt(0);
+        }
+        return outPacket;
+    }
+
+    public static OutPacket accountMoreInfoResult(boolean success) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.AccountMoreInfo);
+        outPacket.encodeInt(4);
+        outPacket.encodeInt(success ? 1 : 0);
+        return outPacket;
+    }
+
+    public static OutPacket accountMoreInfoResult(int location, int todo, int birthday, int found) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.AccountMoreInfo);
+        outPacket.encodeInt(2);
+        outPacket.encodeInt(location);
+        outPacket.encodeInt(birthday);
+        outPacket.encodeInt(todo);
+        outPacket.encodeInt(found);
+        return outPacket;
+    }
+
+    public static OutPacket findFriendResult(int result) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.FindFriend);
+        outPacket.encodeByte(6);
+        outPacket.encodeInt(1);
+        outPacket.encodeInt(result);
+        return outPacket;
+    }
+
     public static OutPacket temporaryStatReset(BitFlag<CharacterTemporaryStat> flag) {
         final OutPacket outPacket = OutPacket.of(OutHeader.TemporaryStatReset);
         flag.encode(outPacket);

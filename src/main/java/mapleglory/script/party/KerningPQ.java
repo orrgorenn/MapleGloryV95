@@ -85,7 +85,7 @@ public final class KerningPQ extends ScriptHandler {
                     1, "I want to hear the details"
             ));
             if (answer == 0) {
-                if (!sm.getUser().isPartyBoss()) {
+                if (!sm.getUser().isPartyLeader()) {
                     sm.sayOk("If you'd like to enter here, the leader of your party will have to talk to me. Talk to your party leader about this.");
                     return;
                 }
@@ -134,7 +134,7 @@ public final class KerningPQ extends ScriptHandler {
                     return;
                 }
                 final int requiredPassCount = Math.max(sm.getInstanceUserCount() - 1, 2);
-                if (user.isPartyBoss()) {
+                if (user.isPartyLeader()) {
                     // Introduction
                     if (!sm.getInstanceVariable("stage1_intro").equals("1")) {
                         sm.setInstanceVariable("stage1_intro", "1");
@@ -191,7 +191,7 @@ public final class KerningPQ extends ScriptHandler {
                 }
             }
             case STAGE_2 -> {
-                if (sm.getInstanceVariable("stage2_gate").equals("1") || !user.isPartyBoss()) {
+                if (sm.getInstanceVariable("stage2_gate").equals("1") || !user.isPartyLeader()) {
                     return;
                 }
                 // Introduction
@@ -216,7 +216,7 @@ public final class KerningPQ extends ScriptHandler {
                 sm.broadcastPacket(FieldPacket.setObjectState("gate", 0));
             }
             case STAGE_3 -> {
-                if (sm.getInstanceVariable("stage3_gate").equals("1") || !user.isPartyBoss()) {
+                if (sm.getInstanceVariable("stage3_gate").equals("1") || !user.isPartyLeader()) {
                     return;
                 }
                 // Introduction
@@ -251,7 +251,7 @@ public final class KerningPQ extends ScriptHandler {
                 sm.broadcastPacket(FieldPacket.setObjectState("gate", 0));
             }
             case STAGE_4 -> {
-                if (sm.getInstanceVariable("stage4_gate").equals("1") || !user.isPartyBoss()) {
+                if (sm.getInstanceVariable("stage4_gate").equals("1") || !user.isPartyLeader()) {
                     return;
                 }
                 // Introduction
@@ -272,7 +272,7 @@ public final class KerningPQ extends ScriptHandler {
                 sm.broadcastPacket(FieldPacket.setObjectState("gate", 0));
             }
             case STAGE_5 -> {
-                if (sm.getInstanceVariable("stage5_gate").equals("1") || !user.isPartyBoss()) {
+                if (sm.getInstanceVariable("stage5_gate").equals("1") || !user.isPartyLeader()) {
                     return;
                 }
                 // Introduction
