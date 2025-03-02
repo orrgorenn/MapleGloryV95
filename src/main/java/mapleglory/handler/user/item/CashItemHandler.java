@@ -30,6 +30,10 @@ import mapleglory.world.field.Field;
 import mapleglory.world.field.MapleTvMessage;
 import mapleglory.world.field.affectedarea.AffectedArea;
 import mapleglory.world.item.*;
+import mapleglory.world.job.JobConstants;
+import mapleglory.world.skill.SkillConstants;
+import mapleglory.world.skill.SkillManager;
+import mapleglory.world.skill.SkillRecord;
 import mapleglory.world.user.AvatarLook;
 import mapleglory.world.user.Pet;
 import mapleglory.world.user.User;
@@ -596,6 +600,52 @@ public final class CashItemHandler extends ItemHandler {
                     user.getCharacterStat().setFace(newFace);
                     user.write(WvsContext.statChanged(Stat.FACE, user.getCharacterStat().getFace(), true));
                     user.getField().broadcastPacket(UserRemote.avatarModified(user), user);
+                }
+                case SKILLCHANGE -> {
+                    final int toSkillId = inPacket.decodeInt();
+                    final int fromSkillId = inPacket.decodeInt();
+
+                    final SkillManager sm = locked.get().getSkillManager();
+                    final Optional<SkillRecord> toSkillRecordResult = sm.getSkill(toSkillId);
+                    final Optional<SkillRecord> fromSkillRecordResult = sm.getSkill(fromSkillId);
+                    if (toSkillRecordResult.isEmpty()) {
+                        log.error("Tried to add a skill {} not owned by user", toSkillId);
+                        user.dispose();
+                        return;
+                    }
+                    if (fromSkillRecordResult.isEmpty()) {
+                        log.error("Tried to subtract from skill {} not owned by user", toSkillId);
+                        user.dispose();
+                        return;
+                    }
+                    final SkillRecord toSkillRecord = toSkillRecordResult.get();
+                    if (toSkillRecord.getSkillLevel() >= toSkillRecord.getMasterLevel()) {
+                        log.error("Tried to add a skill {} at master level {}/{}", toSkillId, toSkillRecord.getSkillLevel(), toSkillRecord.getMasterLevel());
+                        user.dispose();
+                        return;
+                    }
+                    final SkillRecord fromSkillRecord = fromSkillRecordResult.get();
+                    if (fromSkillRecord.getSkillLevel() < 1) {
+                        log.error("Tried to subtract from skill {} at 0 level {}/{}", fromSkillRecord, fromSkillRecord.getSkillLevel(), fromSkillRecord.getMasterLevel());
+                        user.dispose();
+                        return;
+                    }
+
+                    // Consume item
+                    final Optional<InventoryOperation> removeItemResult = im.removeItem(position, item, 1);
+                    if (removeItemResult.isEmpty()) {
+                        throw new IllegalStateException(String.format("Could not remove skill change item %d in position %d", item.getItemId(), position));
+                    }
+                    user.write(WvsContext.inventoryOperation(removeItemResult.get(), false));
+
+                    // Move skill point and update client
+                    fromSkillRecord.setSkillLevel(fromSkillRecord.getSkillLevel() - 1);
+                    toSkillRecord.setSkillLevel(toSkillRecord.getSkillLevel() + 1);
+                    user.write(WvsContext.statChanged(Stat.SP, (short) user.getCharacterStat().getSp().getNonExtendSp(), false));
+                    user.write(WvsContext.changeSkillRecordResult(fromSkillRecord, true));
+                    user.write(WvsContext.changeSkillRecordResult(toSkillRecord, true));
+                    user.updatePassiveSkillData();
+                    user.validateStat();
                 }
                 case null -> {
                     log.error("Unknown cash item type for item ID : {}", item.getItemId());
