@@ -75,6 +75,118 @@ public final class ExplorerQuest extends ScriptHandler {
             } else {
                 sm.sayOk("Train a bit more until you reach the base requirements and I can show you the way of the #rThief#k.");
             }
+        } else if(sm.getLevel() >= 30 && sm.getJob() == Job.ROGUE) {
+            if(!(sm.hasItem(4031011, 1) || sm.hasItem(4031012, 1))) {
+                if(!sm.askYesNo("Hmmm...you seem to have gotten a whole lot stronger. You got rid of the old, weak self and and look much more like a thief now. Well, what do you think? Don't you want to get even more powerful than that? Pass a simple test and I'll do just that for you. Do you want to do it?")) {
+                    sm.sayNext("Really? It will help you out a great deal on your journey if you get stronger fast...if you choose to change your mind in the future, please feel free to come back. Know that I'll make you much more powerful than you are right now.");
+                    return;
+                }
+
+                sm.sayNext("Good thinking. But, I need to make sure you are as strong as you look. It's not a hard test, one that should be easy for you to pass. First, take this letter...make sure you don't lose it.");
+                if(!sm.canAddItem(4031011, 1)) { // Dark Lord's Letter
+                    sm.sayOk("Please make room in your inventory.");
+                    return;
+                }
+
+                sm.addItem(4031011, 1);
+                sm.sayBoth("Please take this letter to #b#p1072003##k at #b#m103030400##k near Kerning City. He's doing the job of an instructor in place of me. Give him the letter and he'll give you the test for me. If you want more details, hear it straight from him. I'll be wishing you good luck.");
+            } else if (!sm.hasItem(4031012, 1) && sm.hasItem(4031011, 1)) {
+                sm.sayNext("Still haven't met the person yet? Find #b#p1072003##k who's around #b#m103030400##k near Kerning City. Give the letter to him and he may let you know what to do.");
+            } else if (sm.hasItem(4031012, 1) && !sm.hasItem(4031011, 1)) {
+                sm.sayNext("Hmmm...so you got back here safely. I knew that test would be too easy for you. I admit, you are a great great thief. Now...I'll make you even more powerful than you already are. But, before all that...you need to choose one of two ways. It'll be a difficult decision for you to make, but...if you have any questions, please ask.");
+                final int answer = sm.askMenu("I'll choose my occupation!", Map.of(
+                        0, "Assassin",
+                        1, "Bandit"
+                ));
+
+                if(answer == 0) {
+                    // Assassin
+                    if (!sm.askYesNo("So you want to make the 2nd job advancement as the #bAssassin#? Once you have made the decision, you can't go back and change your mind. You ARE sure about this, right?")) {
+                        sm.sayNext("Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly ... come talk to me once you have made your decision.");
+                        return;
+                    }
+
+                    if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+                        sm.sayNext("Hmmm...you have too much SP...you can't make the 2nd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.");
+                        return;
+                    }
+
+                    sm.setJob(Job.ASSASSIN);
+                    sm.removeItem(4031012);
+                    sm.addInventorySlots(InventoryType.EQUIP, 4);
+                    sm.addInventorySlots(InventoryType.ETC, 4);
+                    sm.sayNext("Alright, from here on out you are the #bAssassin#. Assassins revel in shadows and darkness, waiting until the right time comes for them to stick a dagger through the enemy's heart, suddenly and swiftly... please keep training. I'll make you even more powerful than you are right now!");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as an assassin. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have also given you a little bit of #bSP#. Open the #bSkill Menu# located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
+                    sm.sayBoth("Assassins have to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further.");
+                } else if(answer == 1) {
+                    // Bandit
+                    if (!sm.askYesNo("So you want to make the 2nd job advancement as the #bBandit#? Once you have made the decision, you can't go back and change your mind. You ARE sure about this, right?")) {
+                        sm.sayNext("Really? Have to give more thought to it, huh? Take your time, take your time. This is not something you should take lightly ... come talk to me once you have made your decision.");
+                        return;
+                    }
+
+                    if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+                        sm.sayNext("Hmmm...you have too much SP...you can't make the 2nd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.");
+                        return;
+                    }
+
+                    sm.setJob(Job.BANDIT);
+                    sm.removeItem(4031012);
+                    sm.addInventorySlots(InventoryType.EQUIP, 4);
+                    sm.addInventorySlots(InventoryType.ETC, 4);
+                    sm.sayNext("Alright, from here on out you are the #bBandit#k. Bandits have quick hands and quicker feet to dominate the enemies... please keep training. I'll make you even more powerful than you are right now!");
+                    sm.sayBoth("I have just given you a book that gives you the the list of skills you can acquire as an assassin. I have also added a whole row to your use inventory, along with boosting up your max HP and MP...go see for it yourself.");
+                    sm.sayBoth("I have also given you a little bit of #bSP#k. Open the #bSkill Menu#k located at the bottom left corner. You'll be able to boost up the newly-acquired 2nd level skills. A word of warning though: You can't boost them up all at once. Some of the skills are only available after you have learned other skills. Make sure to remember that.");
+                    sm.sayBoth("Bandits have to be strong. But remember that you can't abuse that power and use it on a weakling. Please use your enormous power the right way, because...for you to use that the right way, that is much harder than just getting stronger. Find me after you have advanced much further.");
+                }
+            }
+        } else {
+            sm.sayNext("Exploring is good, and getting stronger is good and all... but don't you want to enjoy living the life as you know it? How about becoming a Rouge like us and really LIVE the life? Sounds fun, isn't it?");
+        }
+    }
+
+    @Script("change_rogue")
+    public static void change_rogue(ScriptManager sm) {
+        // 2nd Job Advancement Job Instructor
+        if(sm.hasItem(4031011, 1) && !sm.hasItem(4031013, 1)) {
+            sm.sayNext("Hmmm...it is definitely the letter from #b#p1052001##k... so you came all the way here to take the test and make the 2nd job advancement as the rogue. Alright, I'll explain the test to you. Don't sweat it much, though; it's not that complicated.");
+            sm.sayBoth("I'll send you to a hidden map. You'll see monsters not normally seen in normal fields. They look the same like the regular ones, but with a totally different attitude. They neither boost your experience level nor provide you with item.");
+            sm.sayBoth("You'll be able to acquire a marble called #b#t4031013##k while knocking down those monsters. It is a special marble made out of their sinister, evil minds. Collect 30 of those, then go talk to a colleague of mine in there. That's how you pass the test.");
+            if(!sm.askYesNo("Once you go inside, you can't leave until you take care of your mission. If you die, your experience level will decrease...so you better really buckle up and get ready...well, do you want to go for it now?")) {
+                sm.sayNext("You don't seem too prepared for this. Find me when you ARE ready. There are neither portals or stores inside, so you better get 100% ready for it.");
+                return;
+            }
+
+            sm.sayNext("Alright! I'll let you in! Defeat the monster inside to earn 30 Dark Marble and then talk to my colleague inside; he'll give you #b#t4031012##k as a proof that you've passed the test. Best of luck to you. ");
+            sm.warp(910370000);
+        } else if (sm.hasItem(4031011, 1) && sm.hasItem(4031013)) {
+            if(!sm.askYesNo("So you've given up in the middle of this before. Don't worry about it, because you can always retake the test. Now...do you want to go back in and try again?")) {
+                sm.sayNext("You don't seem too prepared for this. Find me when you ARE ready. There are neither portals or stores inside, so you better get 100% ready for it.");
+                return;
+            }
+
+            sm.sayNext("Alright! I'll let you in! Sorry to say this, but I have to take away all your marbles beforehand. Defeat the monsters inside, collect 30 Dark Marbles, then strike up a conversation with a colleague of mine inside. He'll give you the #b#t4031012##k, the proof that you've passed the test. Best of luck to you.");
+            sm.removeItem(4031013);
+            sm.warp(910370000);
+        }
+    }
+
+    @Script("inside_rogue")
+    public static void inside_rogue(ScriptManager sm) {
+        if(sm.hasItem(4031013, 30)) {
+            sm.sayNext("Ohhhhh...you collected all 30 Dark Marbles!! Wasn't it difficult?? Alright. You've passed the test and for that, I'll reward you #b#t4031012##k. Take that item and go back to Kerning City.");
+            sm.removeItem(4031013);
+            sm.removeItem(4031011);
+            sm.addItem(4031012, 1);
+            sm.warp(103030400);
+        } else {
+            if(sm.askYesNo("What's going on? Doesn't look like you have collected 30 #b#t4031013##k yet... If you're having problems with it, then you can leave, come back and try it again. So... wanna give up and get out of here?")) {
+                sm.sayNext("Really... alright, I'll let you out. Please don't give up, though. You can always try again, so do not give up. Until then, bye...");
+                sm.warp(103030400);
+            } else {
+                sm.sayNext("That's right! Stop acting weak and start collecting the marbles. Talk to me when you have collected 30 #b#t4031013##k.");
+            }
         }
     }
 
