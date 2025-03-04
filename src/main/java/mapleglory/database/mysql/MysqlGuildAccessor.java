@@ -162,7 +162,16 @@ public class MysqlGuildAccessor implements GuildAccessor {
 
     @Override
     public boolean newGuild(Guild guild) {
-        String insertSQL = "INSERT INTO " + GuildTable.getTableName() + " (" +
+        if (!checkGuildNameAvailable(guild.getGuildName())) {
+            return false;
+        }
+        return saveGuild(guild);
+    }
+
+    @Override
+    public boolean saveGuild(Guild guild) {
+        String insertOrUpdateSQL = "INSERT INTO " + GuildTable.getTableName() + " (" +
+                GuildTable.GUILD_ID + ", " +
                 GuildTable.GUILD_NAME + ", " +
                 GuildTable.GUILD_NAME_INDEX + ", " +
                 GuildTable.GRADE_NAMES + ", " +
@@ -177,86 +186,48 @@ public class MysqlGuildAccessor implements GuildAccessor {
                 GuildTable.LEVEL + ", " +
                 GuildTable.BOARD_ENTRY_LIST + ", " +
                 GuildTable.BOARD_ENTRY_NOTICE + ", " +
-                GuildTable.BOARD_ENTRY_COUNTER + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                GuildTable.BOARD_ENTRY_COUNTER + ") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?) " +
+                "ON DUPLICATE KEY UPDATE " +
+                GuildTable.GUILD_NAME + " = VALUES(" + GuildTable.GUILD_NAME + "), " +
+                GuildTable.GUILD_NAME_INDEX + " = VALUES(" + GuildTable.GUILD_NAME_INDEX + "), " +
+                GuildTable.GRADE_NAMES + " = VALUES(" + GuildTable.GRADE_NAMES + "), " +
+                GuildTable.MEMBERS + " = VALUES(" + GuildTable.MEMBERS + "), " +
+                GuildTable.MEMBER_MAX + " = VALUES(" + GuildTable.MEMBER_MAX + "), " +
+                GuildTable.MARK_BG + " = VALUES(" + GuildTable.MARK_BG + "), " +
+                GuildTable.MARK_BG_COLOR + " = VALUES(" + GuildTable.MARK_BG_COLOR + "), " +
+                GuildTable.MARK + " = VALUES(" + GuildTable.MARK + "), " +
+                GuildTable.MARK_COLOR + " = VALUES(" + GuildTable.MARK_COLOR + "), " +
+                GuildTable.NOTICE + " = VALUES(" + GuildTable.NOTICE + "), " +
+                GuildTable.POINTS + " = VALUES(" + GuildTable.POINTS + "), " +
+                GuildTable.LEVEL + " = VALUES(" + GuildTable.LEVEL + "), " +
+                GuildTable.BOARD_ENTRY_LIST + " = VALUES(" + GuildTable.BOARD_ENTRY_LIST + "), " +
+                GuildTable.BOARD_ENTRY_NOTICE + " = VALUES(" + GuildTable.BOARD_ENTRY_NOTICE + "), " +
+                GuildTable.BOARD_ENTRY_COUNTER + " = VALUES(" + GuildTable.BOARD_ENTRY_COUNTER + ")";
 
         try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(insertSQL)) {
+             PreparedStatement ps = con.prepareStatement(insertOrUpdateSQL)) {
 
             // Set the parameters from the newGuild object
-            ps.setString(1, guild.getGuildName());
-            ps.setString(2, guild.getGuildName().toLowerCase());  // Convert name to lowercase for index
-            ps.setString(3, Util.convertListToJson(guild.getGradeNames()));  // Assuming JSON for grade names
-            ps.setString(4, Util.convertListToJson(guild.getGuildMembers()));  // Assuming JSON for members
-            ps.setInt(5, guild.getMemberMax());
-            ps.setShort(6, guild.getMarkBg());
-            ps.setByte(7, guild.getMarkBgColor());
-            ps.setShort(8, guild.getMark());
-            ps.setByte(9, guild.getMarkColor());
-            ps.setString(10, guild.getNotice());
-            ps.setInt(11, guild.getPoints());
-            ps.setByte(12, guild.getLevel());
-            ps.setString(13, Util.convertListToJson(guild.getBoardEntries()));  // Assuming JSON for board entries
-            ps.setString(14, Util.convertObjectToJson(guild.getBoardNoticeEntry()));  // Assuming JSON for board notice entry
-            ps.setInt(15, guild.getBoardEntryCounter().get());
+            ps.setInt(1, guild.getGuildId());
+            ps.setString(2, guild.getGuildName());
+            ps.setString(3, guild.getGuildName().toLowerCase());
+            ps.setString(4, Util.convertListToJson(guild.getGradeNames()));
+            ps.setString(5, Util.convertListToJson(guild.getGuildMembers()));
+            ps.setInt(6, guild.getMemberMax());
+            ps.setShort(7, guild.getMarkBg());
+            ps.setByte(8, guild.getMarkBgColor());
+            ps.setShort(9, guild.getMark());
+            ps.setByte(10, guild.getMarkColor());
+            ps.setString(11, guild.getNotice());
+            ps.setInt(12, guild.getPoints());
+            ps.setByte(13, guild.getLevel());
+            ps.setString(14, Util.convertListToJson(guild.getBoardEntries()));
+            ps.setString(15, Util.convertObjectToJson(guild.getBoardNoticeEntry()));
+            ps.setInt(16, guild.getBoardEntryCounter().get());
 
-            // Execute the insert statement
+            // Execute the statement
             int rowsAffected = ps.executeUpdate();
 
-            // Return true if the insert was successful (rows affected > 0)
-            return rowsAffected > 0;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-            return false;
-        }
-
-    }
-
-    @Override
-    public boolean saveGuild(Guild guild) {
-        String updateSQL = "UPDATE " + GuildTable.getTableName() + " SET " +
-                GuildTable.GUILD_NAME + " = ?, " +
-                GuildTable.GUILD_NAME_INDEX + " = ?, " +
-                GuildTable.GRADE_NAMES + " = ?, " +
-                GuildTable.MEMBERS + " = ?, " +
-                GuildTable.MEMBER_MAX + " = ?, " +
-                GuildTable.MARK_BG + " = ?, " +
-                GuildTable.MARK_BG_COLOR + " = ?, " +
-                GuildTable.MARK + " = ?, " +
-                GuildTable.MARK_COLOR + " = ?, " +
-                GuildTable.NOTICE + " = ?, " +
-                GuildTable.POINTS + " = ?, " +
-                GuildTable.LEVEL + " = ?, " +
-                GuildTable.BOARD_ENTRY_LIST + " = ?, " +
-                GuildTable.BOARD_ENTRY_NOTICE + " = ?, " +
-                GuildTable.BOARD_ENTRY_COUNTER + " = ? " +
-                "WHERE " + GuildTable.GUILD_ID + " = ?";
-
-        try (Connection con = DatabaseConnection.getConnection();
-             PreparedStatement ps = con.prepareStatement(updateSQL)) {
-
-            // Set the parameters
-            ps.setString(1, guild.getGuildName());
-            ps.setString(2, guild.getGuildName().toLowerCase());  // Convert name to lowercase for index
-            ps.setString(3, Util.convertListToJson(guild.getGradeNames()));  // Assuming JSON for grade names
-            ps.setString(4, Util.convertListToJson(guild.getGuildMembers()));  // Assuming JSON for members
-            ps.setInt(5, guild.getMemberMax());
-            ps.setShort(6, guild.getMarkBg());
-            ps.setByte(7, guild.getMarkBgColor());
-            ps.setShort(8, guild.getMark());
-            ps.setByte(9, guild.getMarkColor());
-            ps.setString(10, guild.getNotice());
-            ps.setInt(11, guild.getPoints());
-            ps.setByte(12, guild.getLevel());
-            ps.setString(13, Util.convertListToJson(guild.getBoardEntries()));
-            ps.setString(14, Util.convertObjectToJson(guild.getBoardNoticeEntry()));
-            ps.setInt(15, guild.getBoardEntryCounter().get());
-            ps.setInt(16, guild.getGuildId());
-
-            // Execute the update statement
-            int rowsAffected = ps.executeUpdate();
-
-            // Return true if the update was applied (rows affected > 0)
             return rowsAffected > 0;
 
         } catch (SQLException e) {

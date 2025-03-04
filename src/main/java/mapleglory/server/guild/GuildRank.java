@@ -1,7 +1,9 @@
 package mapleglory.server.guild;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum GuildRank {
-    // GUILD
     NONE(0),
     MASTER(1),
     SUBMASTER(2),
@@ -15,13 +17,28 @@ public enum GuildRank {
         this.value = value;
     }
 
-    public final int getValue() {
+    @JsonValue
+    public int getValue() {
         return value;
+    }
+
+    @JsonCreator
+    public static GuildRank fromStringOrInt(Object input) {
+        if (input instanceof Integer) {
+            return getByValue((Integer) input);
+        } else if (input instanceof String) {
+            try {
+                return GuildRank.valueOf((String) input);
+            } catch (IllegalArgumentException e) {
+                return NONE; // Default to NONE if input string does not match any enum
+            }
+        }
+        return NONE;
     }
 
     public static GuildRank getByValue(int value) {
         for (GuildRank rank : values()) {
-            if (rank.getValue() == value) {
+            if (rank.value == value) {
                 return rank;
             }
         }

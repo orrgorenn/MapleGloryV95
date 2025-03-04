@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="Logtail" class="com.logtail.logback.LogtailAppender">
+        <appName>MapleGloryServer</appName>
+        <sourceToken>fVEotsh5wbXksvbHnxXg1KeP</sourceToken>
+        <ingestUrl>https://s1223654.eu-nbg-2.betterstackdata.com</ingestUrl >
+        <mdcFields>requestId,requestTime</mdcFields>
+        <mdcTypes>string,int</mdcTypes>
+    </appender>
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="INFO">
+        <appender-ref ref="Logtail" />
+        <appender-ref ref="Console" />
+    </root>
+</configuration>
