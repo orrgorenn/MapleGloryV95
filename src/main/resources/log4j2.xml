@@ -13,12 +13,18 @@
             </PatternLayout>
         </File>
 
+        <!-- Logtail -->
+        <Http name="LogtailLogger" url="${env:LOGTAIL_HOST}">
+            <Property name="Authorization">Bearer ${env:LOGTAIL_TOKEN}</Property>
+            <JsonLayout compact="true" eventEol="true"/>
+        </Http>
     </Appenders>
 
     <Loggers>
         <Logger name="mapleglory" level="debug" additivity="false">
             <AppenderRef ref="ConsoleLogger"/>
             <AppenderRef ref="FileLogger"/>
+            <AppenderRef ref="LogtailLogger" />
         </Logger>
 
         <Logger name="io.netty" level="error">

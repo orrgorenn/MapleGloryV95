@@ -16,7 +16,6 @@ public final class ServerConfig {
     public static final int CENTRAL_REQUEST_TTL = 5;
     public static final int FIELD_TICK_INTERVAL = 100; // 100 ms tick
     public static final int SHUTDOWN_TIMEOUT = 30;
-    public static final boolean AUTO_CREATE_ACCOUNT = Util.getEnv("AUTO_CREATE_ACCOUNT", false);
     public static final boolean REQUIRE_SECONDARY_PASSWORD = Util.getEnv("REQUIRE_SECONDARY_PASSWORD", true);
 
     public static final String WZ_DIRECTORY = Util.getEnv("WZ_DIRECTORY", "wz");

@@ -12,6 +12,7 @@ import mapleglory.server.node.LoginServerNode;
 import mapleglory.server.node.ServerExecutor;
 import mapleglory.server.rank.RankManager;
 import mapleglory.util.crypto.MapleCrypto;
+import io.github.cdimascio.dotenv.Dotenv;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
