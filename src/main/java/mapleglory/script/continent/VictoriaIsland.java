@@ -484,12 +484,14 @@ public final class VictoriaIsland extends ScriptHandler {
 
     @Script("Dual_moveGate")
     public static void dualMoveGate(ScriptManager sm) {
+        sm.playPortalSE();
         sm.warp(103050000);
     }
 
     @Script("dual_ballRoom")
     public static void dualBallRoom(ScriptManager sm) {
         if(sm.hasQuestStarted(2363)) {
+            sm.playPortalSE();
             sm.warp(910350000, "out00");
         }
     }
@@ -526,6 +528,16 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.addSp(JobConstants.getJobLevel(Job.BLADE_RECRUIT.getJobId()), 2);
                 sm.sayOk("From this moment, you are a #bBlade Recruit#k. Please have pride in all that you do.");
             }
+        }
+    }
+
+    @Script("dual_lv20")
+    public static void dual_lv20(ScriptManager sm) {
+        if(sm.getLevel() >= 20) {
+            sm.playPortalSE();
+            sm.warp(103050310);
+        } else {
+            sm.broadcastMessage("You must be level 20.", true);
         }
     }
 }
