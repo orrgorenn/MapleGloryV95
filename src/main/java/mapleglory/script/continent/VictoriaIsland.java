@@ -540,4 +540,24 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.broadcastMessage("You must be level 20.", true);
         }
     }
+
+    @Script("dual_lv25")
+    public static void dual_lv25(ScriptManager sm) {
+        if(sm.getLevel() >= 25) {
+            sm.playPortalSE();
+            sm.warp(103050340);
+        } else {
+            sm.broadcastMessage("You must be level 25.", true);
+        }
+    }
+
+    @Script("dual_lv30")
+    public static void dual_lv30(ScriptManager sm) {
+        if(sm.getLevel() >= 30) {
+            sm.playPortalSE();
+            sm.warp(103050370);
+        } else {
+            sm.broadcastMessage("You must be level 30.", true);
+        }
+    }
 }
