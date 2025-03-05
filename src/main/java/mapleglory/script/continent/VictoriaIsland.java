@@ -8,6 +8,7 @@ import mapleglory.server.event.EventState;
 import mapleglory.server.event.EventType;
 import mapleglory.server.event.Subway;
 import mapleglory.util.Util;
+import mapleglory.world.job.Job;
 import mapleglory.world.job.JobConstants;
 import mapleglory.world.quest.QuestRecordType;
 
@@ -511,5 +512,20 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.avatarOriented("Effect/OnUserEff.img/itemEffect/quest/2430071");
         }
         sm.removeItem(2430071, 1);
+    }
+
+    @Script("q2363e")
+    public static void q2363e(ScriptManager sm) {
+        // Dual Blade : Time For The Awekening - end
+        if(sm.askYesNo("This is great. The Mirror of Insight has chosen you, Are you ready to awaken as a Dual Blade?")) {
+            if(sm.hasItem(4032616, 1) && !sm.hasQuestCompleted(2363)) {
+                sm.removeItem(4032616);
+                sm.addItem(1342000, 1);
+                sm.forceCompleteQuest(2363);
+                sm.setJob(Job.BLADE_RECRUIT);
+                sm.addSp(JobConstants.getJobLevel(Job.BLADE_RECRUIT.getJobId()), 2);
+                sm.sayOk("From this moment, you are a #bBlade Recruit#k. Please have pride in all that you do.");
+            }
+        }
     }
 }
