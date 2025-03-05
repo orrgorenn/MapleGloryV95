@@ -5,9 +5,13 @@ import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.world.field.Field;
 import mapleglory.world.field.mob.MobAppearType;
+import mapleglory.world.quest.QuestRecordType;
 
 import java.time.Instant;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Optional;
+import java.util.Set;
 
 public class JobQuest extends ScriptHandler {
     final static int CROCELL = 9400611;
@@ -103,5 +107,71 @@ public class JobQuest extends ScriptHandler {
             sm.warp(AMDUSIAS_PRE_FIELD);
             sm.spawnMobInMap(AMDUSIAS, MobAppearType.NORMAL, 511, 35, true, newField);
         }
+    }
+
+    @Script("dual_wallpaper")
+    public static void dual_wallpaper(ScriptManager sm) {
+        if(sm.hasQuestStarted(2358)) {
+            final int mapId = sm.getFieldId();
+            String adding = getLocationKey(mapId);
+
+            if(sm.askYesNo("There is an empty space here for you to put up the poster. Do you wish to attach the poster here?")) {
+                Set<Character> posterSet = getQuestProgress(sm.getQRValue(QuestRecordType.DualBladeDualWallpaper));
+                posterSet.add(adding.charAt(0));
+                if (posterSet.contains('1') && posterSet.contains('2') && posterSet.contains('3')) {
+                    sm.setQRValue(QuestRecordType.DualBladeDualWallpaper, "211"); // Mark quest as complete
+                } else {
+                    sm.setQRValue(QuestRecordType.DualBladeDualWallpaper, setToString(posterSet)); // Update progress
+                }
+
+                sm.sayOk("The poster has been attached.");
+            }
+        }
+    }
+
+    @Script("dual_blueAlcohol")
+    public static void dualBlueAlcohol(ScriptManager sm) {
+        final int mapId = sm.getFieldId();
+        String adding = getLocationKey(mapId);
+
+        if(sm.hasQuestStarted(2358)) {
+            if(sm.askYesNo("It's a half-filled blue bottle... Do you wish to install the bomb?")) {
+                Set<Character> posterSet = getQuestProgress(sm.getQRValue(QuestRecordType.DualBladeDualWallpaper));
+                posterSet.add(adding.charAt(0));
+                if (posterSet.contains('1') && posterSet.contains('2') && posterSet.contains('3')) {
+                    sm.setQRValue(QuestRecordType.DualBladeDualWallpaper, "211"); // Mark quest as complete
+                } else {
+                    sm.setQRValue(QuestRecordType.DualBladeDualWallpaper, setToString(posterSet)); // Update progress
+                }
+
+                sm.sayOk("The bomb has been installed.");
+            }
+        }
+    }
+
+    private static String setToString(Set<Character> posterSet) {
+        StringBuilder sb = new StringBuilder();
+        for (char c : posterSet) {
+            sb.append(c);
+        }
+        return sb.toString();
+    }
+
+    private static String getLocationKey(int mapId) {
+        return switch (mapId) {
+            case 103010100 -> "2";
+            case 103000003 -> "3";
+            default -> "1";
+        };
+    }
+
+    private static Set<Character> getQuestProgress(String questData) {
+        Set<Character> posterSet = new HashSet<>();
+        if (questData != null) {
+            for (char c : questData.toCharArray()) {
+                posterSet.add(c);
+            }
+        }
+        return posterSet;
     }
 }

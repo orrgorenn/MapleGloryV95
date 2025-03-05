@@ -15,6 +15,7 @@ public enum QuestRecordType {
     MushroomCastlePepe(2330),
 
     DualBladeInfiltration(7635),
+    DualBladeDualWallpaper(2358),
 
     UnityPortal(7050),              // Dimensional Mirror Return Map
     FreeMarket(7600),               // Free Market Return Map

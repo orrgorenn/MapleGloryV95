@@ -76,6 +76,17 @@ public final class CygnusQuest extends ScriptHandler {
         }
     }
 
+    @Script("enterSecondDH")
+    public static void enterSecondDH(ScriptManager sm) {
+        // Empress' Road : Entrance to the Drill Hall (130020000)
+        for (int i = 0; i < 5; i++) {
+            if (sm.hasQuestStarted(20201 + i)) {
+                sm.playPortalSE();
+                sm.warp(913001000);
+            }
+        }
+    }
+
     @Script("q20101e")
     public static void q20101e(ScriptManager sm) {
         // Path of a Dawn Warrior (20101 - end)
@@ -201,6 +212,13 @@ public final class CygnusQuest extends ScriptHandler {
         sm.sayBoth("I have also given you a hint of #bSP#k, so open the #bSkill Menu#k to acquire new skills. Of course, you can't raise them at all once, and there are some skills out there where you won't be able to acquire them unless you master the basic skills first.");
         sm.sayBoth("Unlike your time as a Noblesse, once you become the Thunder Breaker, you will lost a portion of your EXP when you run out of HP, okay?");
         sm.sayBoth("Now... I want you to go out there and show the world how the Knights of Cygnus operate.");
+    }
+
+    @Script("q20200s")
+    public static void q20200s(ScriptManager sm) {
+        if(sm.askYesNo("Are you sure you are ready for 2nd job advancement?")) {
+            sm.forceStartQuest(20200);
+        }
     }
 
     @Script("q20700s")
