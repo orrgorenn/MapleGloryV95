@@ -20,3 +20,4 @@ rewards:
   - [ 4000035, 1, 1, 0.400000 ] # Tablecloth
   - [ 4010003, 1, 1, 0.002000 ] # Adamantium Ore
   - [ 4020004, 1, 1, 0.002000 ] # Opal Ore
+  - [ 4032620, 1, 1, 0.500000, 2357 ] # Secret Map : Falsified Remnant
