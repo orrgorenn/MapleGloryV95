@@ -485,7 +485,7 @@ public final class VictoriaIsland extends ScriptHandler {
         sm.warp(103050000);
     }
 
-    @Script("Dual_ballRoom")
+    @Script("dual_ballRoom")
     public static void dualBallRoom(ScriptManager sm) {
         if(sm.hasQuestStarted(2363)) {
             sm.warp(910350000, "out00");
