@@ -479,4 +479,9 @@ public final class VictoriaIsland extends ScriptHandler {
             }
         }
     }
+
+    @Script("Dual_moveGate")
+    public static void dualMoveGate(ScriptManager sm) {
+        sm.warp(103050000);
+    }
 }
