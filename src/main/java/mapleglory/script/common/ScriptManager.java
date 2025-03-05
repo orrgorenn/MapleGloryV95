@@ -270,4 +270,8 @@ public interface ScriptManager {
     String askText(String text, String textDefault, int textLengthMin, int textLengthMax, ScriptMessageParam... overrides);
 
     String askBoxText(String text, String textDefault, int textBoxColumns, int textBoxLines, ScriptMessageParam... overrides);
+
+    // UTILS
+
+    int getRandomIntBelow(int number);
 }

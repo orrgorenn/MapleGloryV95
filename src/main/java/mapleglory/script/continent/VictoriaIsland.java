@@ -498,4 +498,18 @@ public final class VictoriaIsland extends ScriptHandler {
         sm.dropRewards(List.of(Reward.item(2430071, 1, 1, 1)));
         sm.setReactorState(1032001, 0);
     }
+
+    @Script("consume_2430071")
+    public static void consume_2430071(ScriptManager sm) {
+        final int randomInt = sm.getRandomIntBelow(1);
+        if(randomInt == 0 && !sm.hasItem(4032616, 1)) {
+            sm.addItem(4032616, 1);
+            sm.broadcastMessage("You've retrieved a Mirror of Insight from the shattered Opalescent Glass Marble.", true);
+            sm.avatarOriented("Effect/OnUserEff.img/itemEffect/quest/2430071");
+        } else {
+            sm.broadcastMessage("The Opalescent Glass Marble has shattered. Nothing is inside.", true);
+            sm.avatarOriented("Effect/OnUserEff.img/itemEffect/quest/2430071");
+        }
+        sm.removeItem(2430071, 1);
+    }
 }

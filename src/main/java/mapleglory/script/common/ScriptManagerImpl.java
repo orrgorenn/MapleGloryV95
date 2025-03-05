@@ -1162,4 +1162,9 @@ public final class ScriptManagerImpl implements ScriptManager {
                     .reduce(0, (a, b) -> a | b);
         }
     }
+
+    @Override
+    public int getRandomIntBelow(int number) {
+        return new Random().nextInt(number);
+    }
 }
