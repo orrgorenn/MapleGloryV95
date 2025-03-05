@@ -537,42 +537,42 @@ public final class AdminCommands {
         }
     }
 
-    @Command("give")
-    @Arguments({"item ID", "user ID", "amount"})
-    @Permission("gm")
-    public static void give(User user, String[] args) {
-        final int itemId = Integer.parseInt(args[1]);
-        final int userId = Integer.parseInt(args[2]);
-        final int quantity;
-        if (args.length > 3) {
-            quantity = Integer.parseInt(args[3]);
-        } else {
-            quantity = 1;
-        }
-        final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
-        if (itemInfoResult.isEmpty()) {
-            user.write(MessagePacket.system("Could not resolve item ID : %d", itemId));
-            return;
-        }
-        final ItemInfo ii = itemInfoResult.get();
-        final Optional<User> targetUserResult = channelServerNode.getUserByCharacterId(userId);
-        if (targetUserResult.isEmpty()) {
-            return;
-        }
-        final Item item = ii.createItem(user.getNextItemSn(), Math.min(quantity, ii.getSlotMax()), ItemVariationOption.NORMAL);
-
-        // Add item
-        try (var locked = user.acquire()) {
-            final InventoryManager im = locked.get().getInventoryManager();
-            final Optional<List<InventoryOperation>> addItemResult = im.addItem(item);
-            if (addItemResult.isPresent()) {
-                user.write(WvsContext.inventoryOperation(addItemResult.get(), true));
-                user.write(UserLocal.effect(Effect.gainItem(item)));
-            } else {
-                user.write(MessagePacket.system("Failed to add item ID %d (%d) to inventory", itemId, quantity));
-            }
-        }
-    }
+//    @Command("give")
+//    @Arguments({"item ID", "user ID", "amount"})
+//    @Permission("gm")
+//    public static void give(User user, String[] args) {
+//        final int itemId = Integer.parseInt(args[1]);
+//        final int userId = Integer.parseInt(args[2]);
+//        final int quantity;
+//        if (args.length > 3) {
+//            quantity = Integer.parseInt(args[3]);
+//        } else {
+//            quantity = 1;
+//        }
+//        final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
+//        if (itemInfoResult.isEmpty()) {
+//            user.write(MessagePacket.system("Could not resolve item ID : %d", itemId));
+//            return;
+//        }
+//        final ItemInfo ii = itemInfoResult.get();
+//        final Optional<User> targetUserResult = channelServerNode.getUserByCharacterId(userId);
+//        if (targetUserResult.isEmpty()) {
+//            return;
+//        }
+//        final Item item = ii.createItem(user.getNextItemSn(), Math.min(quantity, ii.getSlotMax()), ItemVariationOption.NORMAL);
+//
+//        // Add item
+//        try (var locked = user.acquire()) {
+//            final InventoryManager im = locked.get().getInventoryManager();
+//            final Optional<List<InventoryOperation>> addItemResult = im.addItem(item);
+//            if (addItemResult.isPresent()) {
+//                user.write(WvsContext.inventoryOperation(addItemResult.get(), true));
+//                user.write(UserLocal.effect(Effect.gainItem(item)));
+//            } else {
+//                user.write(MessagePacket.system("Failed to add item ID %d (%d) to inventory", itemId, quantity));
+//            }
+//        }
+//    }
 
     @Command("clearinventory")
     @Arguments("inventory type")
