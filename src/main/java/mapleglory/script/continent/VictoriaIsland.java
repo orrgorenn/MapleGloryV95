@@ -1,5 +1,6 @@
 package mapleglory.script.continent;
 
+import mapleglory.provider.reward.Reward;
 import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
@@ -490,5 +491,11 @@ public final class VictoriaIsland extends ScriptHandler {
         if(sm.hasQuestStarted(2363)) {
             sm.warp(910350000, "out00");
         }
+    }
+
+    @Script("dual_ball00")
+    public static void dualBall00(ScriptManager sm) {
+        sm.dropRewards(List.of(Reward.item(2430071, 1, 1, 1)));
+        sm.setReactorState(1032001, 0);
     }
 }
