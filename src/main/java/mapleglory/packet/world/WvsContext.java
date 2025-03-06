@@ -20,6 +20,7 @@ import mapleglory.world.user.stat.ExtendSp;
 import mapleglory.world.user.stat.SecondaryStat;
 import mapleglory.world.user.stat.Stat;
 
+import javax.swing.text.Position;
 import java.util.List;
 import java.util.Map;
 
@@ -330,6 +331,24 @@ public final class WvsContext {
         outPacket.encodeByte(macroSysData.size());
         for (SingleMacro macroSysDatum : macroSysData) {
             macroSysDatum.encode(outPacket); // SINGLEMACRO::Decode
+        }
+        return outPacket;
+    }
+
+    public static OutPacket SetPassengerRequest(int reqCharacterId) {
+        final OutPacket outPacket = OutPacket.of(OutHeader.SetPassenserRequest);
+        outPacket.encodeInt(reqCharacterId);
+        return outPacket;
+    }
+
+    public static OutPacket followCharacter(int driverChrId, boolean transferField, int x, int y) {
+        OutPacket outPacket = OutPacket.of(OutHeader.UserFollowCharacter);
+        outPacket.encodeInt(driverChrId);
+        if (driverChrId < 0) {
+            outPacket.encodeByte(transferField);
+            if (transferField) {
+                outPacket.encodePositionInt(x, y);
+            }
         }
         return outPacket;
     }

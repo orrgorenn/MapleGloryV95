@@ -37,6 +37,11 @@ public interface OutPacket {
         encodeInt(value ? 1 : 0);
     }
 
+    default void encodePositionInt(int x, int y) {
+        encodeInt(x);
+        encodeInt(y);
+    }
+
     void encodeLong(long value);
 
     void encodeDouble(double value);

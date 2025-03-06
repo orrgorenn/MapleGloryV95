@@ -149,7 +149,7 @@ public enum InHeader {
     UserFollowCharacterWithdraw(135),
     UserSelectPQReward(136),
     UserRequestPQReward(137),
-    SetPassenserResult(138),
+    SetPassengerResult(138),
     BroadcastMsg(139),
     GroupMessage(140),
     Whisper(141),

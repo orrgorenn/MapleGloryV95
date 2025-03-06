@@ -1960,4 +1960,40 @@ public final class UserHandler {
         inPacket.decodeByte(); // bSysOpt_LargeScreen
         inPacket.decodeByte(); // bSysOpt_WindowedMode
     }
+
+    @Handler(InHeader.UserFollowCharacterRequest)
+    public static void handleUserFollowCharacterRequest(User user, InPacket inPacket) {
+        final Field field = user.getField();
+        final int driverChrId = inPacket.decodeInt();
+        final short unk = inPacket.decodeShort();
+
+        Optional<User> userResult = user.getField().getUserPool().getById(driverChrId);
+        if (userResult.isEmpty()) {
+            user.dispose();
+            return;
+        }
+        final User remoteUser = userResult.get();
+        remoteUser.write(WvsContext.SetPassengerRequest(user.getCharacterId()));
+    }
+
+    @Handler(InHeader.SetPassengerResult)
+    public static void handleSetPassengerResult(User user, InPacket inPacket) {
+        final Field field = user.getField();
+        final int reqChrId = inPacket.decodeInt();
+        boolean accepted = inPacket.decodeByte() != 0;
+
+        Optional<User> userResult = user.getField().getUserPool().getById(reqChrId);
+        if (userResult.isEmpty()) {
+            user.dispose();
+            return;
+        }
+        final User remoteUser = userResult.get();
+
+        if(!accepted) {
+            int errorType = inPacket.decodeInt();
+            log.warn("Error sent in SetPassengerResult: {}", errorType);
+        } else {
+            remoteUser.write(WvsContext.followCharacter(user.getCharacterId(), false, 0, 0));
+        }
+    }
 }
