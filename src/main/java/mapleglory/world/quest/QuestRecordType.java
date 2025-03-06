@@ -16,6 +16,7 @@ public enum QuestRecordType {
 
     DualBladeInfiltration(7635),
     DualBladeDualWallpaper(2358),
+    DualBladeDualDiary(2369),
 
     UnityPortal(7050),              // Dimensional Mirror Return Map
     FreeMarket(7600),               // Free Market Return Map

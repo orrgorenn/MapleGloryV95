@@ -71,6 +71,8 @@ public interface ScriptManager {
 
     void resetConsumeItemEffect(int itemId);
 
+    void useSummoningSack(int itemId, int x, int y);
+
 
     // INVENTORY METHODS -----------------------------------------------------------------------------------------------
 

@@ -7,16 +7,23 @@ import mapleglory.packet.user.UserRemote;
 import mapleglory.packet.world.MessagePacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.ItemProvider;
+import mapleglory.provider.MobProvider;
 import mapleglory.provider.item.ItemInfo;
 import mapleglory.provider.item.ItemSpecType;
+import mapleglory.provider.item.MobSummonInfo;
 import mapleglory.provider.map.FieldOption;
+import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
+import mapleglory.provider.mob.MobTemplate;
 import mapleglory.script.common.ScriptDispatcher;
 import mapleglory.server.header.InHeader;
 import mapleglory.server.packet.InPacket;
 import mapleglory.util.Locked;
+import mapleglory.util.Tuple;
+import mapleglory.util.Util;
 import mapleglory.world.GameConstants;
 import mapleglory.world.field.Field;
+import mapleglory.world.field.mob.Mob;
 import mapleglory.world.item.*;
 import mapleglory.world.user.Pet;
 import mapleglory.world.user.User;
@@ -45,6 +52,14 @@ public abstract class ItemHandler {
         }
 
         try (var locked = user.acquire()) {
+            // Check field limit
+            final Field field = locked.get().getField();
+            if (field.hasFieldOption(FieldOption.STATCHANGEITEMCONSUMELIMIT) && !field.getMapInfo().getAllowedItems().contains(itemId)) {
+                log.error("Tried to use stat change item in a restricted field");
+                user.dispose();
+                return;
+            }
+
             // Consume item
             final Optional<InventoryOperation> consumeItemResult = consumeItem(locked, position, itemId);
             if (consumeItemResult.isEmpty()) {
@@ -69,6 +84,69 @@ public abstract class ItemHandler {
     @Handler(InHeader.UserStatChangeByPortableChairRequest)
     public static void handleUserStatChangeByPortableChairRequest(User user, InPacket inPacket) {
         // Client notifying the server that the recovery amount from UserChangeStatRequest has changed
+    }
+
+    @Handler(InHeader.UserMobSummonItemUseRequest)
+    public static void handleUserMobSummonItemUseRequest(User user, InPacket inPacket) {
+        inPacket.decodeInt(); // update_time
+        final int position = inPacket.decodeShort(); // nPOS
+        final int itemId = inPacket.decodeInt(); // nItemID
+
+        // Check item
+        if (!ItemConstants.isMobSummonItem(itemId)) {
+            log.error("Received UserMobSummonItemUseRequest with an invalid mob summon item {}", itemId);
+            user.dispose();
+            return;
+        }
+
+        // Resolve mob summon info
+        final Optional<MobSummonInfo> mobSummonInfoResult = ItemProvider.getMobSummonInfo(itemId);
+        if (mobSummonInfoResult.isEmpty() || mobSummonInfoResult.get().getEntries().isEmpty()) {
+            log.error("Could not resolve mob summon info for item ID : {}", itemId);
+            user.dispose();
+            return;
+        }
+
+        try (var locked = user.acquire()) {
+            // Check field limit
+            final Field field = locked.get().getField();
+            if (field.hasFieldOption(FieldOption.SUMMONLIMIT) && !field.getMapInfo().getAllowedItems().contains(itemId)) {
+                log.error("Tried to use mob summon item in a restricted field");
+                user.dispose();
+                return;
+            }
+            final Optional<Foothold> footholdResult = field.getFootholdBelow(user.getX(), user.getY());
+
+            // Consume item
+            final Optional<InventoryOperation> consumeItemResult = consumeItem(locked, position, itemId);
+            if (consumeItemResult.isEmpty()) {
+                user.dispose();
+                return;
+            }
+            user.write(WvsContext.inventoryOperation(consumeItemResult.get(), true));
+
+            // Summon mobs
+            for (Tuple<Integer, Integer> entry : mobSummonInfoResult.get().getEntries()) {
+                final int templateId = entry.getLeft();
+                final int prop = entry.getRight();
+                if (!Util.succeedProp(prop)) {
+                    continue;
+                }
+                final Optional<MobTemplate> mobTemplateResult = MobProvider.getMobTemplate(templateId);
+                if (mobTemplateResult.isEmpty()) {
+                    log.error("Could not resolve mob template ID : {}", templateId);
+                    continue;
+                }
+                final Mob mob = new Mob(
+                        mobTemplateResult.get(),
+                        null,
+                        user.getX(),
+                        user.getY(),
+                        footholdResult.map(Foothold::getSn).orElse(user.getFoothold())
+                );
+                field.getMobPool().addMob(mob);
+            }
+        }
     }
 
     @Handler(InHeader.UserPetFoodItemUseRequest)
@@ -301,6 +379,14 @@ public abstract class ItemHandler {
         }
 
         try (var locked = user.acquire()) {
+            // Check field limit
+            final Field field = locked.get().getField();
+            if (field.hasFieldOption(FieldOption.STATCHANGEITEMCONSUMELIMIT) && !field.getMapInfo().getAllowedItems().contains(itemId)) {
+                log.error("Tried to use stat change item by pet in a restricted field");
+                user.dispose();
+                return;
+            }
+
             // Consume item
             final Optional<InventoryOperation> consumeItemResult = consumeItem(locked, position, itemId);
             if (consumeItemResult.isEmpty()) {

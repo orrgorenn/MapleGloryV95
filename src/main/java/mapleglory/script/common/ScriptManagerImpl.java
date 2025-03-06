@@ -10,6 +10,7 @@ import mapleglory.packet.world.MessagePacket;
 import mapleglory.packet.world.WvsContext;
 import mapleglory.provider.*;
 import mapleglory.provider.item.ItemInfo;
+import mapleglory.provider.item.MobSummonInfo;
 import mapleglory.provider.map.Foothold;
 import mapleglory.provider.map.PortalInfo;
 import mapleglory.provider.map.ReactorInfo;
@@ -34,6 +35,7 @@ import mapleglory.world.field.drop.Drop;
 import mapleglory.world.field.drop.DropEnterType;
 import mapleglory.world.field.drop.DropOwnType;
 import mapleglory.world.field.mob.Mob;
+import mapleglory.world.field.mob.MobAppearType;
 import mapleglory.world.field.npc.Npc;
 import mapleglory.world.field.reactor.Reactor;
 import mapleglory.world.item.*;
@@ -430,6 +432,23 @@ public final class ScriptManagerImpl implements ScriptManager {
     @Override
     public void resetConsumeItemEffect(int itemId) {
         user.resetTemporaryStat(-itemId);
+    }
+
+    @Override
+    public void useSummoningSack(int itemId, int x, int y) {
+        final Optional<MobSummonInfo> mobSummonInfoResult = ItemProvider.getMobSummonInfo(itemId);
+        if (mobSummonInfoResult.isEmpty()) {
+            throw new ScriptError("Could not resolve item mobs for item ID : %d", itemId);
+        }
+        for (var entry : mobSummonInfoResult.get().getEntries()) {
+            final int mobId = entry.getLeft();
+            final int prob = entry.getRight();
+            final int randomNumber = Util.getRandom().nextInt(100) + 1;
+
+            if (randomNumber <= prob) {
+                this.spawnMob(mobId, MobAppearType.NORMAL, x, y, true, true);
+            }
+        }
     }
 
 

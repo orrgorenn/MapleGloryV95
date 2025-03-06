@@ -560,4 +560,54 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.broadcastMessage("You must be level 30.", true);
         }
     }
+
+    @Script("dual_secret")
+    public static void dualSecret(ScriptManager sm) {
+        if (sm.hasQuestStarted(2369) && !sm.hasItem(4032617)) {
+            sm.playPortalSE();
+            sm.warpInstance(910350100, "out00", 910350100, 10 * 60);
+        }
+    }
+
+    @Script("dual_Diary")
+    public static void dualDiary(ScriptManager sm) {
+        if(!sm.getQRValue(QuestRecordType.DualBladeDualDiary).equals("1")) {
+            sm.useSummoningSack(2109012, 98, 149);
+            sm.setQRValue(QuestRecordType.DualBladeDualDiary, "1");
+        } else if(sm.getField().getMobPool().isEmpty()) {
+            if(!sm.canAddItem(4032617, 1)) {
+                sm.sayOk("Open up one slot in your Etc inventory before continuing.");
+                return;
+            }
+
+            sm.addItem(4032617, 1);
+            sm.sayOk("You've obtained the Former Dark Lord's Diary. You better leave before someone comes in.");
+        }
+    }
+
+    @Script("q2369e")
+    public static void q2369e(ScriptManager sm) {
+        // Lady Syl : Time for The Awakening [2]
+        sm.sayNext("Finally... I have my father's Diary. Thank you. I am starting to trust you even more. Your current position doesn't seem to suit your great abilities. I think you have the qualifications to advance to a #bBlade Acolyte#k. I will advance you to a Blade Acolyte now.");
+        if (sm.hasItem(4032617, 1) && !sm.hasQuestCompleted(2369)){
+            if(!sm.canAddItem(1052244, 1)) {
+                sm.sayNext("Please make room in your Equip Inventory.");
+                return;
+            }
+
+            sm.removeItem(4032616);
+            sm.addItem(1052244, 1);
+            sm.forceCompleteQuest(2369);
+            sm.setJob(Job.BLADE_ACOLYTE);
+            sm.addSkill(4311003, 0, 20);
+            sm.sayNext("My father's diary... Father would often write in a code that only he and I could understand. Wait, in the last chapter... This!");
+        } else if(sm.hasQuestCompleted(2369)) {
+            sm.sayNext("My father's diary... Father would often write in a code that only he and I could understand. Wait, in the last chapter... This!");
+        }
+        sm.sayBoth("This can't be! It's a lie! Jin! How dare you lay a finger on my father's diary!\\r\\n\\r\\n#b(Lady Syl drops the diary and it falls to the ground.)#k");
+        sm.sayBoth("#b(You pick up the book and start reading it.)\\r\\n\\r\\n- Date: XX-XX-XXXX -\\r\\nTeacher has passed away... Three days ago, teacher left for the Cursed Sanctuary at the request of Tristan. Syl seemed worried so I decided to go look for him. When I arrived at the entrance of the Sanctuary, I heard a shriek that made me shiver...");
+        sm.sayBoth("#bWhen I jumped into the darkness of the sanctuary, I came face to face with a red-eyed monster spewing evil energy. Teacher was nowhere to be seen. The monster started attacking. After a fierece battle, I finally succeeded in killing it. However, the fallen monster soon turned into... teacher.");
+        sm.sayBoth("#bI attempted to help teacher, but he passed in my arms. Before he passed, he whispered, My soul was trapped within the Balrog. You freed me... Now, take care of Kerning City and Syl.... and... please don't tell a soul about this. I can't forgive myself for allowing the demon to steal my soul.");
+        sm.sayBoth("#bAs he wished, I will never reveal what happened. His secrets--along with his diary-\\r\\n-will forever be sealed.- Jin -");
+    }
 }
