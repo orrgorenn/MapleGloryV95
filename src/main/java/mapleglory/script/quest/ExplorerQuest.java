@@ -408,10 +408,90 @@ public final class ExplorerQuest extends ScriptHandler {
         }
     }
 
+    @Script("thief3")
+    public static void thief3(ScriptManager sm) {
+        boolean qualifyForJob3 = sm.getJob() == Job.ASSASSIN || sm.getJob() == Job.BANDIT;
+        if(!qualifyForJob3) {
+            sm.sayOk("May the gods be with you!");
+            return;
+        }
+        if(sm.getLevel() >= 70) {
+            if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+                sm.sayOk("Hmm...You have too many #bSP#k. You can't make the job advancement with too many SP left.");
+                return;
+            }
+
+            sm.sayNext("You are indeed a strong one.");
+            if(!(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3)) {
+                if (sm.getJob() == Job.BANDIT) {
+                    sm.setJob(Job.SHADOWER);
+                    sm.sayOk("You are now a #bShadower#k.");
+                } else if (sm.getJob() == Job.ASSASSIN) {
+                    sm.setJob(Job.HERMIT);
+                    sm.sayOk("You are now an #bHermit#k.");
+                }
+            }
+        }
+    }
+
+    @Script("warrior3")
+    public static void warrior3(ScriptManager sm) {
+        boolean qualifyForJob3 = sm.getJob() == Job.FIGHTER || sm.getJob() == Job.PAGE || sm.getJob() == Job.SPEARMAN;
+        if(!qualifyForJob3) {
+            sm.sayOk("May the gods be with you!");
+            return;
+        }
+        if(sm.getLevel() >= 70) {
+            if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+                sm.sayOk("Hmm...You have too many #bSP#k. You can't make the job advancement with too many SP left.");
+                return;
+            }
+
+            sm.sayNext("You are indeed a strong one.");
+            if(!(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3)) {
+                if (sm.getJob() == Job.FIGHTER) {
+                    sm.setJob(Job.CRUSADER);
+                    sm.sayOk("You are now a #bCrusader#k.");
+                } else if (sm.getJob() == Job.PAGE) {
+                    sm.setJob(Job.WHITE_KNIGHT);
+                    sm.sayOk("You are now a #bWhite Knight#k.");
+                } else if (sm.getJob() == Job.SPEARMAN) {
+                    sm.setJob(Job.DRAGON_KNIGHT);
+                    sm.sayOk("You are now an #bDragon Knight#k.");
+                }
+            }
+        }
+    }
+
+    @Script("bowman3")
+    public static void bowman3(ScriptManager sm) {
+        boolean qualifyForJob3 = sm.getJob() == Job.HUNTER || sm.getJob() == Job.CROSSBOWMAN;
+        if(!qualifyForJob3) {
+            sm.sayOk("May the gods be with you!");
+            return;
+        }
+        if(sm.getLevel() >= 70) {
+            if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+                sm.sayOk("Hmm...You have too many #bSP#k. You can't make the job advancement with too many SP left.");
+                return;
+            }
+
+            sm.sayNext("You are indeed a strong one.");
+            if(!(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3)) {
+                if (sm.getJob() == Job.HUNTER) {
+                    sm.setJob(Job.RANGER);
+                    sm.sayOk("You are now a #bRanger#k.");
+                } else if (sm.getJob() == Job.CROSSBOWMAN) {
+                    sm.setJob(Job.SNIPER);
+                    sm.sayOk("You are now a #bSniper#k.");
+                }
+            }
+        }
+    }
+
     @Script("wizard3")
     public static void wizard3(ScriptManager sm) {
         boolean qualifyForJob3 = sm.getJob() == Job.WIZARD_FP || sm.getJob() == Job.WIZARD_IL || sm.getJob() == Job.CLERIC;
-        log.debug("sp: {}", sm.getUser().getCharacterStat().getSp().getNonExtendSp());
         if(!(qualifyForJob3)) {
             sm.sayOk("May the Gods be with you!");
             return;
@@ -426,7 +506,7 @@ public final class ExplorerQuest extends ScriptHandler {
             if(!(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3)) {
                 if (sm.getJob() == Job.WIZARD_FP) {
                     sm.setJob(Job.MAGE_FP);
-                    sm.sayOk("You are now a #bFire/Poison Mage#k");
+                    sm.sayOk("You are now a #bFire/Poison Mage.#k");
                 } else if (sm.getJob() == Job.WIZARD_IL) {
                     sm.setJob(Job.MAGE_IL);
                     sm.sayOk("You are now an #bIce/Lightning Mage#k.");
@@ -438,7 +518,6 @@ public final class ExplorerQuest extends ScriptHandler {
         } else {
             sm.sayOk("Please make sure that you are eligible for the job advancement. (level 70+)");
         }
-
     }
 
     // TODO: move from here to job

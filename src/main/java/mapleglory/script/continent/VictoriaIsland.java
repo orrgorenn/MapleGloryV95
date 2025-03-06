@@ -610,4 +610,29 @@ public final class VictoriaIsland extends ScriptHandler {
         sm.sayBoth("#bI attempted to help teacher, but he passed in my arms. Before he passed, he whispered, My soul was trapped within the Balrog. You freed me... Now, take care of Kerning City and Syl.... and... please don't tell a soul about this. I can't forgive myself for allowing the demon to steal my soul.");
         sm.sayBoth("#bAs he wished, I will never reveal what happened. His secrets--along with his diary-\\r\\n-will forever be sealed.- Jin -");
     }
+
+    @Script("outSecondDH")
+    public static void outSecondDH(ScriptManager sm) {
+        if(sm.askYesNo("Are you done with the Knighthood Exam? Should I let you out?")) {
+            sm.warp(130020000);
+        }
+    }
+
+    @Script("q20201e")
+    public static void q20201e(ScriptManager sm) {
+        // Mihile : Dawn Warrior Knighthood Exam - end
+        if (sm.hasItem(4032096, 30)) {
+            sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
+            if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
+                if(!sm.canAddItem(1142066, 1)) {
+                    sm.sayOk("Please make room in your EQP inventory.");
+                    return;
+                }
+                sm.removeItem(4032096);
+                sm.addItem(1142066, 1);
+                sm.forceCompleteQuest(20201);
+                sm.setJob(Job.DAWN_WARRIOR_2);
+            }
+        }
+    }
 }
