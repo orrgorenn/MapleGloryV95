@@ -1,8 +1,5 @@
 # Peeking Lord Pirate (9300107)
 
 rewards:
-  - [ 0, 316, 475, 0.600000 ]
-  - [ 2040001, 1, 1, 0.150000 ] # Scroll for Helmet for DEF 60%
-  - [ 2040002, 1, 1, 0.150000 ] # Scroll for Helmet for DEF 10%
-  - [ 2040701, 1, 1, 0.150000 ] # Scroll for Shoes for DEX 60%
-  - [ 2040702, 1, 1, 0.150000 ] # Scroll for Shoes for DEX 10%
+- [4001347, 1, 1, 0.999999]
+- [4001348, 1, 1, 0.999999]

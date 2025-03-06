@@ -525,7 +525,6 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.addItem(1342000, 1);
                 sm.forceCompleteQuest(2363);
                 sm.setJob(Job.BLADE_RECRUIT);
-                sm.addSp(JobConstants.getJobLevel(Job.BLADE_RECRUIT.getJobId()), 2);
                 sm.sayOk("From this moment, you are a #bBlade Recruit#k. Please have pride in all that you do.");
             }
         }

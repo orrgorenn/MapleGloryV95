@@ -424,8 +424,8 @@ public final class ExplorerQuest extends ScriptHandler {
             sm.sayNext("You are indeed a strong one.");
             if(!(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3)) {
                 if (sm.getJob() == Job.BANDIT) {
-                    sm.setJob(Job.SHADOWER);
-                    sm.sayOk("You are now a #bShadower#k.");
+                    sm.setJob(Job.CHIEF_BANDIT);
+                    sm.sayOk("You are now a #bChief Bandit#k.");
                 } else if (sm.getJob() == Job.ASSASSIN) {
                     sm.setJob(Job.HERMIT);
                     sm.sayOk("You are now an #bHermit#k.");

@@ -1,4 +1,5 @@
 # Grendel the Really Old's Clone (9001001)
 
 rewards:
-  - [ 4031059, 1, 1, 1.000000 ] # Black Charm
+- [0, 200, 400, 0.2]
+- [4031059, 1, 1, 1.0]
