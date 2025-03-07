@@ -1,5 +1,20 @@
-# Mob 3150001 (3150001)
+# Baby Boulder Muncher (3150001)
 
 rewards:
-- [4000606, 1, 1, 0.5]
-- [4032765, 1, 1, 0.999999, 23943]
+  - [ 0, 79, 118, 0.600000 ]
+  - [ 4000606, 1, 1, 0.400000 ] # Boulder Fragment
+  - [ 4032765, 1, 1, 0.200000 ] # Rock Shield
+  - [ 2000003, 1, 1, 0.010000 ] # Blue Potion
+  - [ 2000001, 1, 1, 0.010000 ] # Orange Potion
+  - [ 2000002, 1, 1, 0.010000 ] # White Potion
+  - [ 2000006, 1, 1, 0.010000 ] # Mana Elixir
+  - [ 2070000, 1, 1, 0.000400 ] # Subi Throwing-Stars
+  - [ 2070002, 1, 1, 0.000400 ] # Mokbi Throwing-Stars
+  - [ 2060000, 10, 20, 0.008000 ] # Arrow for Bow
+  - [ 2061000, 10, 20, 0.008000 ] # Arrow for Crossbow
+  - [ 2040924, 1, 1, 0.000100 ] # Scroll for Shield for LUK 60%
+  - [ 1002145, 1, 1, 0.000100 ] # Dark Matty
+  - [ 1060070, 1, 1, 0.000100 ] # Blue Piette Pants
+  - [ 1452006, 1, 1, 0.000100 ] # Red Viper
+  - [ 1061070, 1, 1, 0.000100 ] # Red Shadow Pants
+  - [ 1002180, 1, 1, 0.000100 ] # Dark Burgler

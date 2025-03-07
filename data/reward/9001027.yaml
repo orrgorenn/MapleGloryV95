@@ -1,4 +1,4 @@
-# Mob 9001027 (9001027)
+# Decaying Coolie Zombie (9001027)
 
 rewards:
-- [4000593, 1, 1, 0.999999]
+  - [ 4000593, 1, 1, 0.400000, 22575 ] # Decaying Zombie Molar

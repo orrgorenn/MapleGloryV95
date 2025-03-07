@@ -1,30 +1,22 @@
-# Mob 8300007 (8300007)
+# Dragon Rider (8300007)
 
 rewards:
-- [2290069, 1, 1, 0.025]
-- [2290055, 1, 1, 0.025]
-- [2000005, 1, 1, 0.999999]
-- [2049100, 1, 1, 0.003]
-- [2049201, 1, 1, 0.003]
-- [2049203, 1, 1, 0.003]
-- [2049205, 1, 1, 0.003]
-- [2049207, 1, 1, 0.003]
-- [2040502, 1, 1, 0.003]
-- [2040505, 1, 1, 0.003]
-- [2040514, 1, 1, 0.003]
-- [2040517, 1, 1, 0.003]
-- [2040534, 1, 1, 0.003]
-- [2047000, 1, 1, 0.003]
-- [2047001, 1, 1, 0.003]
-- [2047002, 1, 1, 0.003]
-- [2047100, 1, 1, 0.003]
-- [2047101, 1, 1, 0.003]
-- [2047102, 1, 1, 0.003]
-- [2430144, 1, 2, 0.025]
-- [2290038, 1, 1, 0.025]
-- [2290029, 1, 1, 0.025]
-- [2290027, 1, 1, 0.025]
-- [2290018, 1, 1, 0.025]
-- [2290101, 1, 1, 0.025]
-- [2290111, 1, 1, 0.025]
-- [2290126, 1, 1, 0.025]
+  - [ 0, 720, 1080, 0.600000 ]
+  - [ 2000005, 1, 1, 0.500000 ] # Power Elixir
+  - [ 2000005, 1, 1, 0.500000 ] # Power Elixir
+  - [ 2040502, 1, 1, 0.010000 ] # Scroll for Overall Armor for DEX 10%
+  - [ 2040505, 1, 1, 0.010000 ] # Scroll for Overall Armor for DEF 10%
+  - [ 2040514, 1, 1, 0.010000 ] # Scroll for Overall Armor for INT 10%
+  - [ 2040517, 1, 1, 0.010000 ] # Scroll for Overall Armor for LUK 10%
+  - [ 2040534, 1, 1, 0.010000 ] # Scroll for Overall for STR 10%
+  - [ 2047000, 1, 1, 0.010000 ] # Tablet for One-Handed Weapon for ATT
+  - [ 2047001, 1, 1, 0.010000 ] # Tablet for One-Handed Weapon for Accuracy
+  - [ 2047002, 1, 1, 0.010000 ] # Tablet for One-Handed Weapon for Magic Attack
+  - [ 2047100, 1, 1, 0.010000 ] # Tablet for Two-Handed Weapon for ATT
+  - [ 2047101, 1, 1, 0.010000 ] # Tablet for Two-Handed Weapon for Accuracy 
+  - [ 2047102, 1, 1, 0.010000 ] # Tablet for Two-Handed Weapon for Magic Attack
+  - [ 2049100, 1, 1, 0.000100 ] # Chaos Scroll 60%
+  - [ 2049201, 1, 1, 0.010000 ] # Dark Scroll for Accessory for STR 30%
+  - [ 2049203, 1, 1, 0.010000 ] # Dark Scroll for Accessory for DEX 30%
+  - [ 2049205, 1, 1, 0.010000 ] # Dark Scroll for Accessory for INT 30%
+  - [ 2049207, 1, 1, 0.010000 ] # Dark Scroll for Accessory for LUK 30%
