@@ -634,4 +634,23 @@ public final class VictoriaIsland extends ScriptHandler {
             }
         }
     }
+
+    @Script("q2374e")
+    public static void q2374e(ScriptManager sm) {
+        sm.sayNext("I've been waiting for you. Do you have Arec's answer?\\r\\nPlease give me his letter.");
+        sm.sayBoth("We have finally received Arec's official recognition. This is an important movement for us. It's also time that you experience a change.");
+        if(sm.hasItem(4032619) && !sm.hasQuestCompleted(2374)) {
+            if(!sm.canAddItem(1132021, 1)) {
+                sm.sayOk("Please free at least one Equip slot before advancing to Blade Specialist.");
+                return;
+            }
+
+            sm.removeItem(4032619);
+            sm.addItem(1132021, 1);
+            sm.forceCompleteQuest(2374);
+            sm.setJob(Job.BLADE_SPECIALIST);
+            sm.addSkill(4321000, 0, 20);
+            sm.sayOk("Now that we have Arec's Recognition, you can make a job advancement by going to see him when you reach Lv. 70. Finally, a new future has been opened for the Dual Blades.");
+        }
+    }
 }

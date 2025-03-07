@@ -114,6 +114,15 @@ public interface ScriptManager {
         return hasItem(itemId, 1);
     }
 
+    default boolean hasItems(List<Tuple<Integer, Integer>> items) {
+        for (var item : items) {
+            if (!hasItem(item.getLeft(), item.getRight())) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     boolean hasItem(int itemId, int quantity);
 
     int getItemCount(int itemId);

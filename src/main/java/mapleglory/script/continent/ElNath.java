@@ -113,7 +113,7 @@ public class ElNath extends ScriptHandler {
             // mineral
             if (index >= 1 && index <= 7) {
                 List<Tuple<Integer, Integer>> removeItems = List.of(
-                        Tuple.of(4010000 + (index - 1), -numOfItems)
+                        Tuple.of(4010000 + (index - 1), nAllNum)
                 );
                 if(!handleTransaction(sm, numOfItems, nPrice, removeItems, 4011000 + (index - 1))) return;
             }
@@ -121,7 +121,7 @@ public class ElNath extends ScriptHandler {
             // jewel
             if (index >= 100 && index <= 108) {
                 List<Tuple<Integer, Integer>> removeItems = List.of(
-                        Tuple.of(4020000 + (index - 1), -numOfItems)
+                        Tuple.of(4020000 + (index - 1), nAllNum)
                 );
                 if(!handleTransaction(sm, numOfItems, nPrice, removeItems, 4021000 + (index - 1))) return;
             }
@@ -129,7 +129,7 @@ public class ElNath extends ScriptHandler {
             // crystal
             if (index >= 300 && index <= 304) {
                 List<Tuple<Integer, Integer>> removeItems = List.of(
-                        Tuple.of(4004000 + (index - 1), -numOfItems)
+                        Tuple.of(4004000 + (index - 1), nAllNum)
                 );
                 if(!handleTransaction(sm, numOfItems, nPrice, removeItems, 4005000 + (index - 1))) return;
             }
@@ -139,7 +139,7 @@ public class ElNath extends ScriptHandler {
     }
 
     private static boolean handleTransaction(ScriptManager sm, int numOfItems, int mesos, List<Tuple<Integer, Integer>> removeItems, int itemToGive) {
-        if(!sm.canAddItems(removeItems) || !sm.canAddMoney(-mesos) || !sm.canAddItem(itemToGive, numOfItems)) {
+        if(!sm.hasItems(removeItems) || !sm.canAddMoney(-mesos) || !sm.canAddItem(itemToGive, numOfItems)) {
             sm.sayOk("Hmm... Please make sure you have all the necessary materials, and that you have some free space in your etc. inventory...");
             return false;
         }
@@ -148,7 +148,7 @@ public class ElNath extends ScriptHandler {
         for (var item : removeItems) {
             sm.removeItem(item.getLeft(), item.getRight());
         }
-        sm.addItem(itemToGive, 1);
+        sm.addItem(itemToGive, numOfItems);
         return true;
     }
 }

@@ -505,7 +505,6 @@ public final class ScriptManagerImpl implements ScriptManager {
         return true;
     }
 
-
     @Override
     public boolean canAddItems(List<Tuple<Integer, Integer>> items) {
         return user.getInventoryManager().canAddItems(items);
