@@ -31,3 +31,4 @@ rewards:
   - [ 4130007, 1, 1, 0.000300 ] # Two-Handed Mace Forging Stimulator
   - [ 4130011, 1, 1, 0.000300 ] # Staff Production Stimulator
   - [ 4130015, 1, 1, 0.000300 ] # Claw Production Stimulator
+  - [ 4032511, 1, 1, 0.050000, 3718 ] # Andy's Pocket Watch

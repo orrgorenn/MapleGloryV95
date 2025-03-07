@@ -34,7 +34,7 @@ public final class UnityPortal extends ScriptHandler {
             310000000, // Black Wing Territory : Edelstein
             540000000, // Singapore : CBD
             600000000, // New Leaf City : NLC Town Center
-            800000000 // Zipangu : Mushroom Shrine
+            800000000  // Zipangu : Mushroom Shrine
     );
 
     public static void returnPortal(ScriptManager sm) {

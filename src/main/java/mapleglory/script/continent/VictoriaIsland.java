@@ -653,4 +653,12 @@ public final class VictoriaIsland extends ScriptHandler {
             sm.sayOk("Now that we have Arec's Recognition, you can make a job advancement by going to see him when you reach Lv. 70. Finally, a new future has been opened for the Dual Blades.");
         }
     }
+
+    @Script("subway_out")
+    public static void subway_out(ScriptManager sm) {
+        if(!sm.askYesNo("This device is connected to the outside. Will you give up and leave this place? You'll have to start from where you started the next time you come here...")) {
+            sm.playPortalSE();
+            sm.warp(103000100);
+        }
+    }
 }

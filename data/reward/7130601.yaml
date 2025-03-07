@@ -27,3 +27,4 @@ rewards:
   - [ 4130011, 1, 1, 0.000300 ] # Staff Production Stimulator
   - [ 4130016, 1, 1, 0.000300 ] # Knuckler Production Stimulator
   - [ 4130022, 1, 1, 0.000300 ] # Shield Production Stimulator
+  - [ 4032511, 1, 1, 0.050000, 3718 ] # Andy's Pocket Watch

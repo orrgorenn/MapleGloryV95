@@ -24,3 +24,4 @@ rewards:
   - [ 4130001, 1, 1, 0.000300 ] # Shoes Production Stimulator
   - [ 4130005, 1, 1, 0.000300 ] # Two-Handed Sword Forging Stimulator
   - [ 4130017, 1, 1, 0.000300 ] # Gun Production Stimulator
+  - [ 4032511, 1, 1, 0.050000, 3718 ] # Andy's Pocket Watch

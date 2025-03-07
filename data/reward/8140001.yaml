@@ -32,3 +32,4 @@ rewards:
   - [ 4130004, 1, 1, 0.000300 ] # One-Handed Blunt Weapon Forging Stimulator
   - [ 4130015, 1, 1, 0.000300 ] # Claw Production Stimulator
   - [ 4130016, 1, 1, 0.000300 ] # Knuckler Production Stimulator
+  - [ 4032511, 1, 1, 0.050000, 3718 ] # Andy's Pocket Watch

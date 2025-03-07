@@ -28,3 +28,4 @@ rewards:
   - [ 4130010, 1, 1, 0.000300 ] # Wand Production Stimulator
   - [ 4130013, 1, 1, 0.000300 ] # Crossbow Production Stimulator
   - [ 4130022, 1, 1, 0.000300 ] # Shield Production Stimulator
+  - [ 4032511, 1, 1, 0.050000, 3718 ] # Andy's Pocket Watch
