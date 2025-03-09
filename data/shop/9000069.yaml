@@ -2,7 +2,6 @@
 
 recharge: true
 items:
-  - [ 5070000, 250000, 1, 1] # Cheap Megaphone
   - [ 5071000, 500000, 1, 1] # Megaphone
   - [ 5072000, 2000000, 1, 1 ] # Super Megaphone
   - [ 5073000, 1000000, 1, 1 ] # Heart Megaphone

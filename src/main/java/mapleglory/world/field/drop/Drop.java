@@ -68,6 +68,8 @@ public final class Drop extends FieldObjectImpl {
         return questId != 0;
     }
 
+    public boolean isOneOfAKind() { return item != null && item.isOneOfAKind(); }
+
     public boolean isUserDrop() {
         return source instanceof User;
     }

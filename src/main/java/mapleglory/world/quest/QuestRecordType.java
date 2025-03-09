@@ -18,6 +18,11 @@ public enum QuestRecordType {
     DualBladeDualWallpaper(2358),
     DualBladeDualDiary(2369),
 
+    WheresHella(3006),
+    AcquiringTheFairyDust(3014),
+    TheSmallGraveThatsHidden(3017),
+    AlcasterAndTheDarkCrystal(3035),
+
     UnityPortal(7050),              // Dimensional Mirror Return Map
     FreeMarket(7600),               // Free Market Return Map
     TatamoLikeness(7810),           // Chief Tatamo Magic Seed Discount

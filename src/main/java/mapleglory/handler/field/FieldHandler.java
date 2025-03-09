@@ -18,6 +18,7 @@ import mapleglory.world.field.drop.DropOwnType;
 import mapleglory.world.field.reactor.Reactor;
 import mapleglory.world.item.InventoryManager;
 import mapleglory.world.item.InventoryOperation;
+import mapleglory.world.item.ItemConstants;
 import mapleglory.world.quest.QuestRecord;
 import mapleglory.world.quest.QuestState;
 import mapleglory.world.user.User;
@@ -94,6 +95,14 @@ public final class FieldHandler {
                     }
                     final Optional<QuestInfo> questInfoResult = QuestProvider.getQuestInfo(drop.getQuestId());
                     if (questInfoResult.isPresent() && questInfoResult.get().hasRequiredItem(user, drop.getItem().getItemId())) {
+                        user.write(MessagePacket.cannotGetAnymoreItems());
+                        user.dispose();
+                        return;
+                    }
+                }
+                // One-of-a-kind Item
+                if (drop.isOneOfAKind() && ItemConstants.isEquip(drop.getItem().getItemId())) {
+                    if (im.hasItem(drop.getItem().getItemId(), 1)) {
                         user.write(MessagePacket.cannotGetAnymoreItems());
                         user.dispose();
                         return;

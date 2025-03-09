@@ -1,9 +1,14 @@
 package mapleglory.world.item;
 
+import mapleglory.packet.world.MessagePacket;
+import mapleglory.provider.ItemProvider;
+import mapleglory.provider.item.ItemInfo;
+import mapleglory.provider.item.ItemInfoType;
 import mapleglory.server.packet.OutPacket;
 import mapleglory.util.Encodable;
 
 import java.time.Instant;
+import java.util.Optional;
 
 public final class Item implements Encodable {
     private final ItemType itemType;
@@ -152,6 +157,15 @@ public final class Item implements Encodable {
 
     public void setRingData(RingData ringData) {
         this.ringData = ringData;
+    }
+
+    public boolean isOneOfAKind() {
+        final Optional<ItemInfo> itemInfoResult = ItemProvider.getItemInfo(itemId);
+        if (itemInfoResult.isEmpty()) {
+            return false;
+        }
+        final ItemInfo ii = itemInfoResult.get();
+        return ii.getInfo(ItemInfoType.only) == 1;
     }
 
 

@@ -362,6 +362,14 @@ public final class User extends Life implements Lockable<User> {
         return getCharacterStat().getJob();
     }
 
+    public boolean is3rdJob() {
+        return getCharacterStat().getJob() % 10 == 1;
+    }
+
+    public boolean is4thJob() {
+        return getCharacterStat().getJob() % 10 == 2;
+    }
+
     public int getLevel() {
         return getCharacterStat().getLevel();
     }

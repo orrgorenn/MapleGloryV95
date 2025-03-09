@@ -12,6 +12,7 @@ import java.util.Map;
 public class ElNath extends ScriptHandler {
     @Script("refine_elnath")
     public static void refineElNath(ScriptManager sm) {
+        // Vogen
         if (sm.askYesNo("Looks like you have quite a bit of ores and jewels with you. For a small service fee, I can refine them into the materials needed to create shields or weapons. I've been doing this for 50 years, so it's a piece of cake! What do you think? You want me to do it?")) {
             final int answer = sm.askMenu("Good decision! Give me the ores and the service fee, and I can refine them so that they'll be of some use. Before doing so, don't forget to check your etc. inventory to make sure that you have enough free space for the new items. Let's see, what would you like me to do?", Map.of(
                     0, "Refine the ore of a mineral",
@@ -130,16 +131,16 @@ public class ElNath extends ScriptHandler {
                             handleRefineOres(sm, 300, "#t4005000#", "#v4004000#", "#t4004000#", 5000);
                             break;
                         case 1:
-                            handleRefineOres(sm, 300, "#t4005001#", "#v4004001#", "#t4004001#", 5000);
+                            handleRefineOres(sm, 301, "#t4005001#", "#v4004001#", "#t4004001#", 5000);
                             break;
                         case 2:
-                            handleRefineOres(sm, 300, "#t4005002#", "#v4004002#", "#t4004002#", 5000);
+                            handleRefineOres(sm, 302, "#t4005002#", "#v4004002#", "#t4004002#", 5000);
                             break;
                         case 3:
-                            handleRefineOres(sm, 300, "#t4005003#", "#v4004003#", "#t4004003#", 5000);
+                            handleRefineOres(sm, 303, "#t4005003#", "#v4004003#", "#t4004003#", 5000);
                             break;
                         case 4:
-                            handleRefineOres(sm, 300, "#t4005004#", "#v4004004#", "#t4004004#", 100000);
+                            handleRefineOres(sm, 304, "#t4005004#", "#v4004004#", "#t4004004#", 100000);
                             break;
                     }
                     break;

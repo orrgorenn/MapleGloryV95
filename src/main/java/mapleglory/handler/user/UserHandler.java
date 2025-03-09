@@ -1434,7 +1434,17 @@ public final class UserHandler {
                 miniGameRoom.handlePacket(locked, mrp, inPacket);
                 return;
             }
+            // PersonalShop Protocol
+            if (mrp.getValue() >= MiniRoomProtocol.PSP_PutItem.getValue() && mrp.getValue() <= MiniRoomProtocol.PSP_DeleteBlackList.getValue()) {
+                if (!(user.getDialog() instanceof PersonalShop personalShop)) {
+                    log.error("Received personal shop action {} outside a personal shop", mrp);
+                    return;
+                }
+                personalShop.handlePacket(locked, mrp, inPacket);
+                return;
+            }
             // Common MiniRoom Protocol
+            final Field field = user.getField();
             switch (mrp) {
                 case MRP_Create -> {
                     if (user.getDialog() != null) {
@@ -1444,6 +1454,10 @@ public final class UserHandler {
                     }
                     final int type = inPacket.decodeByte();
                     final MiniRoomType mrt = MiniRoomType.getByValue(type);
+//                    if (!field.getMiniRoomPool().canAddMiniRoom(mrt, user.getX(), user.getY())) {
+//                        user.write(MiniRoomPacket.enterResult(EnterResultType.ExistMiniRoom));
+//                        return;
+//                    }
                     switch (mrt) {
                         case OmokRoom, MemoryGameRoom -> {
                             // CWvsContext::SendCreateMiniGameRequest
@@ -1469,7 +1483,7 @@ public final class UserHandler {
                             final MiniGameRoom miniGameRoom = mrt == MiniRoomType.OmokRoom ?
                                     new OmokGameRoom(title, password, gameSpec, user) :
                                     new MemoryGameRoom(title, password, gameSpec, user);
-                            user.getField().getMiniRoomPool().addMiniRoom(miniGameRoom);
+                            field.getMiniRoomPool().addMiniRoom(miniGameRoom);
                             user.setDialog(miniGameRoom);
                             user.write(MiniRoomPacket.MiniGame.enterResult(miniGameRoom, user));
                             miniGameRoom.updateBalloon();
@@ -1477,7 +1491,7 @@ public final class UserHandler {
                         case TradingRoom -> {
                             // CField::SendInviteTradingRoomMsg
                             final TradingRoom tradingRoom = new TradingRoom(user);
-                            user.getField().getMiniRoomPool().addMiniRoom(tradingRoom);
+                            field.getMiniRoomPool().addMiniRoom(tradingRoom);
                             user.setDialog(tradingRoom);
                             user.write(MiniRoomPacket.enterResult(tradingRoom, user));
                         }
@@ -1487,7 +1501,29 @@ public final class UserHandler {
                             inPacket.decodeByte(); // 0
                             final int position = inPacket.decodeShort(); // nPOS
                             final int itemId = inPacket.decodeInt(); // nItemID
-                            // TODO
+                            // Check field
+                            if (!field.getMapInfo().isShop()) {
+                                log.error("Tried to create player shop outside of the free market");
+                                return;
+                            }
+                            // Check for required item
+                            if (mrt == MiniRoomType.PersonalShop) {
+                                if (itemId != ItemConstants.REGULAR_STORE_PERMIT || !user.getInventoryManager().hasItem(itemId, 1)) {
+                                    log.error("Tried to create personal shop without the required item");
+                                    return;
+                                }
+                                // Create personal shop
+                                final PersonalShop personalShop = new PersonalShop(title, user);
+                                field.getMiniRoomPool().addMiniRoom(personalShop);
+                                user.setDialog(personalShop);
+                                user.write(MiniRoomPacket.PlayerShop.enterResult(personalShop, user));
+                            } else {
+                                if (itemId / 10000 != 503 || !user.getInventoryManager().hasItem(itemId, 1)) {
+                                    log.error("Tried to create entrusted shop without the required item");
+                                    return;
+                                }
+                                // TODO: entrusted shop handling
+                            }
                         }
                         case null -> {
                             log.error("Tried to create unknown mini room type {}", type);
@@ -1505,7 +1541,7 @@ public final class UserHandler {
                         return;
                     }
                     final int targetId = inPacket.decodeInt();
-                    final Optional<User> targetResult = user.getField().getUserPool().getById(targetId);
+                    final Optional<User> targetResult = field.getUserPool().getById(targetId);
                     if (targetResult.isEmpty()) {
                         user.write(MiniRoomPacket.inviteResult(InviteType.NoCharacter, null)); // Unable to find the character.
                         tradingRoom.cancelTrade(locked, LeaveType.UserRequest);
@@ -1531,7 +1567,7 @@ public final class UserHandler {
                         return;
                     }
                     // Resolve trading room
-                    final Optional<MiniRoom> miniRoomResult = user.getField().getMiniRoomPool().getById(miniRoomId);
+                    final Optional<MiniRoom> miniRoomResult = field.getMiniRoomPool().getById(miniRoomId);
                     if (miniRoomResult.isEmpty() || !(miniRoomResult.get() instanceof TradingRoom tradingRoom)) {
                         return;
                     }
@@ -1555,7 +1591,7 @@ public final class UserHandler {
                     final String password = isPrivate ? inPacket.decodeString() : null;
                     inPacket.decodeByte(); // 0
                     // Resolve mini room
-                    final Optional<MiniRoom> miniRoomResult = user.getField().getMiniRoomPool().getById(miniRoomId);
+                    final Optional<MiniRoom> miniRoomResult = field.getMiniRoomPool().getById(miniRoomId);
                     if (miniRoomResult.isEmpty()) {
                         user.write(MiniRoomPacket.enterResult(EnterResultType.NoRoom)); // The room is already closed.
                         return;
@@ -1605,6 +1641,8 @@ public final class UserHandler {
                         tradingRoom.cancelTradeUnsafe(user);
                     } else if (miniRoom instanceof MiniGameRoom miniGameRoom) {
                         miniGameRoom.leaveUnsafe(user);
+                    } else if (miniRoom instanceof PersonalShop personalShop) {
+                        log.debug("Tried to leave from a mini room with unhandled type [PersonalShop]");
                     } else {
                         log.error("Tried to leave from a mini room with unhandled type {}", miniRoom.getType());
                         user.setDialog(null);

@@ -132,20 +132,6 @@ public final class TitleQuest extends ScriptHandler {
         sm.forceStartQuest(29900);
     }
 
-    @Script("q29900e")
-    public static void q29900e(ScriptManager sm) {
-        // Beginner Adventurer (29900 - end)
-        sm.sayNext("Congratulations on earning your honorable #b<Beginner Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work.\n" +
-                "\n" +
-                "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
-                " #v1142107:# #t1142107# 1");
-        if (!sm.addItem(1142107, 1)) {
-            sm.sayOk("Make some room in your inventory and talk back to me.");
-            return;
-        }
-        sm.forceCompleteQuest(29900);
-    }
-
     @Script("q29901s")
     public static void q29901s(ScriptManager sm) {
         // Junior Adventurer (29901 - start)
@@ -266,14 +252,81 @@ public final class TitleQuest extends ScriptHandler {
         sm.forceCompleteQuest(29945);
     }
 
+    @Script("q29900e")
+    public static void q29900e(ScriptManager sm) {
+        // Beginner Adventurer (29900 - end)
+        sm.sayNext("Congratulations on earning your honorable #b<Beginner Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work.\n" +
+                "\n" +
+                "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
+                " #v1142107:# #t1142107# 1");
+        if (!sm.canAddItem(1142107, 1)) {
+            sm.sayOk("Make some room in your inventory and talk back to me.");
+            return;
+        }
+        sm.forceCompleteQuest(29900);
+    }
+
     @Script("q29901e")
     public static void q29901e(ScriptManager sm) {
-        // Dalair - Monk of Honor
-        // Junior Adventurer - end
+        // Junior Adventurer (29901 - end)
+        sm.sayNext("Congratulations on earning your honorable #b<Junior Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work.\n" +
+                "\n" +
+                "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
+                " #v1142108:# #t1142108# 1");
+        if (!sm.canAddItem(1142108, 1)) {
+            sm.sayOk("Make some room in your inventory and talk back to me.");
+            return;
+        }
         if (sm.canAddItem(1142108,1) && !sm.hasItem(1142108, 1) && sm.getUser().getJob() % 100 > 0 && sm.getUser().getJob() < 1000) {
             sm.addItem(1142108, 1);
             sm.forceCompleteQuest(29901);
         }
+    }
+
+    @Script("q29902e")
+    public static void q29902e(ScriptManager sm) {
+        // Veteran Adventurer (29902 - end)
+        sm.sayNext("Congratulations on earning your honorable #b<Veteran Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work.\n" +
+                "\n" +
+                "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
+                " #v1142109:# #t1142109# 1");
+        if (!sm.canAddItem(1142109, 1)) {
+            sm.sayOk("Make some room in your inventory and talk back to me.");
+            return;
+        }
+        if (sm.canAddItem(1142109,1) && !sm.hasItem(1142109, 1) && sm.getUser().is3rdJob()) {
+            sm.addItem(1142109, 1);
+            sm.forceCompleteQuest(29902);
+        }
+    }
+
+    @Script("q29903e")
+    public static void q29903e(ScriptManager sm) {
+        // Master Adventurer (29903 - end)
+        sm.sayNext("Congratulations on earning your honorable #b<Master Adventurer>#k title. I wish you the best of luck in your future endeavors! Keep up the good work.\n" +
+                "\n" +
+                "#fUI/UIWindow.img/QuestIcon/4/0#\n" +
+                " #v1142110:# #t1142110# 1");
+        if (!sm.canAddItem(1142110, 1)) {
+            sm.sayOk("Make some room in your inventory and talk back to me.");
+            return;
+        }
+        if (sm.canAddItem(1142110,1) && !sm.hasItem(1142110, 1) && sm.getUser().is4thJob()) {
+            sm.addItem(1142110, 1);
+            sm.forceCompleteQuest(29903);
+        }
+    }
+
+    @Script("q29002s")
+    public static void q29002s(ScriptManager sm) {
+        // Title Challenge - Celebrity (29002 - start)
+        if(!sm.askAccept("#v1142003:# #t1142003# \n\n #e- Time Limit 30 days\n- You must gain at least 1000 fame#k\n\nDo you want to test your skills to see if you're worthy of this title?")) {
+            sm.sayOk("Come back when you're ready.");
+            return;
+        }
+
+        sm.sayOk("I will give you 30 days to gain at least 1000 fame. After you that, come back and see me. Remember that you have to come back and see me within the time limit in order for it to be approved. Also, unless you complete this challenge or quit first, you can't try out for another title.");
+        sm.forceStartQuest(29002);
     }
 
     @Script("q28433s")
@@ -288,5 +341,17 @@ public final class TitleQuest extends ScriptHandler {
         // Maple Administrator
         // New Function: Party Search
         sm.forceCompleteQuest(10579);
+    }
+
+    @Script("q29913s")
+    public static void q29913s(ScriptManager sm) {
+        // Legendary Thief Medal
+        if (sm.canAddItem(1142012, 1)) {
+            sm.addItem(1142012, 1);
+            sm.broadcastMessage("You obtained the <Legendary Thief> medal.", true);
+            sm.addSkill(1005, 1, 1);
+            sm.forceStartQuest(29913);
+            sm.forceCompleteQuest(29913);
+        }
     }
 }
