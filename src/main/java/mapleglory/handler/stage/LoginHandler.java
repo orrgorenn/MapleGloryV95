@@ -90,6 +90,15 @@ public final class LoginHandler {
                 return;
             }
 
+            // Multi-client logic
+            String readableMachineId = Util.readableByteArray(machineId);
+            if (DatabaseManager.activeMachineAccessor().checkActiveInstances(readableMachineId) >= ServerConfig.MULTICLIENT_MAX_INSTANCES) {
+                c.write(LoginPacket.checkPasswordResultFail(LoginResultType.ImpossibleIP));
+                return;
+            }
+            DatabaseManager.accountAccessor().setLoggedStatus(account, true);
+            DatabaseManager.activeMachineAccessor().addNewInstance(account.getId(), readableMachineId, "0");
+
             c.setAccount(account);
             c.setMachineId(machineId);
             c.getServerNode().addClient(c);

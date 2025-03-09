@@ -107,6 +107,9 @@ public final class Server {
         log.info("Loaded database (mysql) connection in {} milliseconds", Duration.between(start, Instant.now()).toMillis());
         DatabaseManager.initialize();
 
+        log.info("Clearing multi-client instances...");
+        DatabaseManager.activeMachineAccessor().clearInstances();
+
         // Initialize ranks
         start = Instant.now();
         RankManager.initialize();

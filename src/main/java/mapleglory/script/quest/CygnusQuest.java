@@ -339,4 +339,57 @@ public final class CygnusQuest extends ScriptHandler {
         sm.sayNext("#p1102000#, the Training Instructor, will help you train into a serviceable knight. Once you reach Level 13, I'll assign you a mission or two. So until then, keep training.");
         sm.sayPrev("Oh, and are you aware that if you strike a conversation with #p1101001#, she'll give you a blessing? The blessing will definitely help you on your journey.");
     }
+
+    @Script("q20311s")
+    public static void q20311s(ScriptManager sm) {
+        // Cygnus 3rd Job advancement - Dawn Warrior
+        moveTo3rdJob(sm, Job.DAWN_WARRIOR_3, 20311);
+    }
+
+    @Script("q20312s")
+    public static void q20312s(ScriptManager sm) {
+        // Cygnus 3rd Job advancement - Blaze Wizard
+        moveTo3rdJob(sm, Job.BLAZE_WIZARD_3, 20312);
+    }
+
+    @Script("q20313s")
+    public static void q20313s(ScriptManager sm) {
+        // Cygnus 3rd Job advancement - Wind Archer
+        moveTo3rdJob(sm, Job.WIND_ARCHER_3, 20313);
+    }
+
+    @Script("q20314s")
+    public static void q20314s(ScriptManager sm) {
+        // Cygnus 3rd Job advancement - Night Walker
+        moveTo3rdJob(sm, Job.NIGHT_WALKER_3, 20314);
+    }
+
+    @Script("q20315s")
+    public static void q20315s(ScriptManager sm) {
+        // Cygnus 3rd Job advancement - Thunder Breaker
+        moveTo3rdJob(sm, Job.THUNDER_BREAKER_3, 20315);
+    }
+
+    private static void moveTo3rdJob(ScriptManager sm, Job job, int questId) {
+        sm.sayNext("The jewel you brought back from the Transformer is the tear of the Divine Bird. It's the crystal of it's power. If the Black Wizard has his hands on this, then spells doom for all of us.");
+        if(!sm.askYesNo("For your effort in preventing a potentially serious disaster, the Godess has bestowed upon a new title for you. Are you ready to accept it?")) {
+            sm.sayOk("You are not ready yet.");
+            return;
+        }
+
+        if(sm.getUser().getCharacterStat().getSp().getNonExtendSp() > (sm.getLevel() - 70) * 3) {
+            sm.sayNext("Hmmm...you have too much SP...you can't make the 3rd job advancement with that many SP in store. Use more SP on the skills on the 1st level and then come back.");
+            return;
+        }
+
+        if(!sm.canAddItem(1142068, 1)) {
+            sm.sayOk("Please make space in your inventory.");
+            return;
+        }
+
+        sm.addItem(1142068, 1);
+        sm.setJob(job);
+        sm.sayOk("As of this moment, you are now the Knight Sergeant. From this moment on, you shall carry yourself with dignity and respect befitting your new title The Knight Sergeant of Knights of cygnus. May your glory shines as bright as it is right now.");
+        sm.forceCompleteQuest(questId);
+    }
 }

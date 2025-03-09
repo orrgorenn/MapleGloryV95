@@ -75,10 +75,6 @@ public class DatabaseConnection {
             jdbi = Jdbi.create(dataSource);
             long initDuration = Duration.between(initStart, Instant.now()).toMillis();
             log.info("Connection pool initialized in {} ms", initDuration);
-
-            log.info("Creating tables");
-            AccountTable.createTable();
-            CharacterTable.createTable();
             return true;
         } catch (Exception e) {
             long timeout = Duration.between(initStart, Instant.now()).getSeconds();

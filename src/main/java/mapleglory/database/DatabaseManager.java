@@ -11,6 +11,7 @@ public final class DatabaseManager {
     private static GuildAccessor guildAccessor;
     private static GiftAccessor giftAccessor;
     private static MemoAccessor memoAccessor;
+    private static ActiveMachineAccessor activeMachineAccessor;
 
     public static IdAccessor idAccessor() { return idAccessor; }
 
@@ -38,6 +39,8 @@ public final class DatabaseManager {
         return memoAccessor;
     }
 
+    public static ActiveMachineAccessor activeMachineAccessor() { return activeMachineAccessor; }
+
     public static void initialize() {
         // Create Tables
         IdTable.createTable();
@@ -47,6 +50,7 @@ public final class DatabaseManager {
         GuildTable.createTable();
         GiftTable.createTable();
         MemoTable.createTable();
+        ActiveMachineTable.createTable();
 
         // Create Accessors
         idAccessor = new MysqlIdAccessor();
@@ -56,6 +60,7 @@ public final class DatabaseManager {
         guildAccessor = new MysqlGuildAccessor();
         giftAccessor = new MysqlGiftAccessor();
         memoAccessor = new MysqlMemoAccessor();
+        activeMachineAccessor = new MysqlActiveMachineAccessor();
     }
 
     public static void shutdown() {}
