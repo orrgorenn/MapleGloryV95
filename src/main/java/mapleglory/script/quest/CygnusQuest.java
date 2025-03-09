@@ -153,7 +153,8 @@ public final class CygnusQuest extends ScriptHandler {
 
     @Script("desguiseStrike")
     public static void desguiseStrike(ScriptManager sm) {
-        if(sm.getJob().getJobId() % 100 == 10 && sm.getJob().getJobId() > 1000) {
+        if(sm.getJob().getJobId() % 100 != 10 || sm.getJob().getJobId() <= 1000) {
+            log.debug(sm.getJob().getJobId());
             sm.sayOk("Hello there, #h0#. Are you helping us finding the intruder? He is not in this area, I've already searched here.");
             return;
         }
