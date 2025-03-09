@@ -555,4 +555,43 @@ public final class ExplorerQuest extends ScriptHandler {
             }
         }
     }
+
+    @Script("kairinT")
+    public static void kairinT(ScriptManager sm) {
+        if(sm.getJob() != Job.BEGINNER) {
+            sm.sayOk("Don't you want to feel the freedom eminating from the sea? Don't you want the power, the fame, and everything else that comes with it? Then you should join us and enjoy it yourself.");
+            return;
+        }
+
+        if(sm.getLevel() < 10) {
+            sm.sayOk("Hmm...I don't think you have trained enough, yet. See me when you get stronger.");
+            return;
+        }
+
+        if(sm.askYesNo("You seem more than qualified! Great, are you ready to become one of us?")) {
+            sm.sayNext("Welcome to the band of Pirates! You may have to spend some time as a wanderer at first, but better days will certainly dawn upon you, sooner than you think! In the mean time, let me share some of my abilities with you.");
+
+            List<Tuple<Integer, Integer>> pirateItems = List.of(
+                    Tuple.of(1482014, 1),
+                    Tuple.of(1492014, 1),
+                    Tuple.of(2330006, 600),
+                    Tuple.of(2330006, 600)
+            );
+            if (!sm.canAddItems(pirateItems)) {
+                sm.sayOk("Make sure you have enough space in your EQP and USE inventories.");
+                return;
+            }
+
+            sm.setJob(Job.PIRATE);
+            sm.addItems(pirateItems);
+            sm.addInventorySlots(InventoryType.EQUIP, 4);
+            sm.addInventorySlots(InventoryType.ETC, 4);
+
+            sm.sayNext("I have just increased the number of slots for your equipment and etc. inventory. You have also gotten a bit stronger. Can you feel it? Now that you can officially call yourself a Pirate, join us in our quest for adventure and freedom!");
+            sm.sayBoth("I have just given you a little bit of #bSP#k. Look at the #bSkill menu#k to find some skills, and use your SP to learn the skills. Beware that not all skills can be enhanced from the get go. There are some skills that you can only acquire after mastering basic skills.");
+            sm.sayBoth("One more thing. Now that you have graduated from the ranks of a Beginner into a Pirate, you'll have to make sure not to die prematurely. If you do lose all your health, you'll lose valuable EXP that you have earned. Wouldn't it stink to lose hard-earned EXP by dying?");
+            sm.sayBoth("This is all I can teach you. I have also given you some useful weapons to work with, so it's up to you now to train with them. The world is yours for the taking, so use your resources wisely, and when you feel like you've reached the top, let me know. I'll have something better for you in store...");
+            sm.sayBoth("Oh, and... your stats should accurately reflect your new occupation as a Pirate. Click on #bAuto Assign#k on your stat window to make yourself into an even more formidable pirate.");
+        }
+    }
 }

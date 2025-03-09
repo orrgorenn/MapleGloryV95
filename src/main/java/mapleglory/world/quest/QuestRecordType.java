@@ -27,6 +27,7 @@ public enum QuestRecordType {
     FreeMarket(7600),               // Free Market Return Map
     TatamoLikeness(7810),           // Chief Tatamo Magic Seed Discount
     WorldTour(8792),                // World Tour Return Map
+    GachaponEvent(9000),
 
     CygnusTutorial(20022),          // Cygnus Tutorial
     AranTutorial(21002),            // Aran Tutorial

@@ -492,6 +492,38 @@ public final class AdminCommands {
         }
     }
 
+    @Command("spawnnpc")
+    @Arguments("npc template ID")
+    @Permission("gm")
+    public static void spawnnpc(User user, String[] args) {
+        final int templateId = Integer.parseInt(args[1]);
+        final Optional<NpcTemplate> npcTemplateResult = NpcProvider.getNpcTemplate(templateId);
+        if (npcTemplateResult.isEmpty()) {
+            user.write(MessagePacket.system("Could not resolve npc template ID : %d", templateId));
+            return;
+        }
+        final int count;
+        if (args.length > 2) {
+            count = Integer.parseInt(args[2]);
+        } else {
+            count = 1;
+        }
+        final Field field = user.getField();
+        final Optional<Foothold> footholdResult = field.getFootholdBelow(user.getX(), user.getY());
+        for (int i = 0; i < count; i++) {
+            final Npc npc = new Npc( // x, y, rx0, rx1, fh, flip
+                    npcTemplateResult.get(),
+                    user.getX(),
+                    user.getY(),
+                    (user.getX() + 50),
+                    (user.getY() - 50),
+                    footholdResult.map(Foothold::getSn).orElse(0),
+                    false
+            );
+            field.getNpcPool().addNpc(npc);
+        }
+    }
+
     @Command("togglemob")
     @Arguments("true/false")
     @Permission("gm")

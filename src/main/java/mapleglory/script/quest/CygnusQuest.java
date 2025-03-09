@@ -4,6 +4,9 @@ import mapleglory.script.common.Script;
 import mapleglory.script.common.ScriptHandler;
 import mapleglory.script.common.ScriptManager;
 import mapleglory.util.Tuple;
+import mapleglory.world.field.Field;
+import mapleglory.world.field.mob.MobAppearType;
+import mapleglory.world.field.npc.Npc;
 import mapleglory.world.item.InventoryType;
 import mapleglory.world.job.Job;
 
@@ -22,40 +25,142 @@ public final class CygnusQuest extends ScriptHandler {
     public static void enterDisguise1(ScriptManager sm) {
         // Empress' Road : Training Forest I (130010000)
         //   in00 (-724, -754)
-        sm.playPortalSE();
-        sm.warp(130010010, "out00"); // Empress' Road : Training Forest I
+        if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
+            Field field = sm.getField().getFieldStorage().getFieldById(913002000).get();
+            if (field.getUserPool().getCount() > 0) {
+                sm.broadcastMessage("Someone else is already searching the area.", true);
+                return;
+            }
+
+            if (sm.hasItem(4032101, 1)) {
+                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                return;
+            }
+
+            sm.playPortalSE();
+            sm.warp(913002000);
+            field.setMobSpawn(false);
+            sm.spawnNpc(1104104, 2517, 88, true, false);
+        } else {
+            sm.playPortalSE();
+            sm.warp(130010010, "out00"); // Empress' Road : Training Forest I
+        }
     }
 
     @Script("enterDisguise2")
     public static void enterDisguise2(ScriptManager sm) {
         // Empress' Road : Training Forest I (130010000)
         //   in01 (-1439, -755)
-        sm.playPortalSE();
-        sm.warp(130010020, "out00"); // Empress' Road : Tiv's Forest
+        if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
+            Field field = sm.getField().getFieldStorage().getFieldById(913002100).get();
+            if (field.getUserPool().getCount() > 0) {
+                sm.broadcastMessage("Someone else is already searching the area.", true);
+                return;
+            }
+
+            if (sm.hasItem(4032101, 1)) {
+                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                return;
+            }
+
+            sm.playPortalSE();
+            sm.warp(913002100);
+            field.setMobSpawn(false);
+            sm.spawnNpc(1104104, 3307, 88, true, false);
+        } else {
+            sm.playPortalSE();
+            sm.warp(130010020, "out00"); // Empress' Road : Tiv's Forest
+        }
     }
 
     @Script("enterDisguise3")
     public static void enterDisguise3(ScriptManager sm) {
         // Empress' Road : Training Forest II (130010100)
         //   in00 (-1402, -338)
-        sm.playPortalSE();
-        sm.warp(130010110, "out00"); // Empress' Road : Timu's Forest
+        if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
+            Field field = sm.getField().getFieldStorage().getFieldById(913002200).get();
+            if (field.getUserPool().getCount() > 0) {
+                sm.broadcastMessage("Someone else is already searching the area.", true);
+                return;
+            }
+
+            if (sm.hasItem(4032101, 1)) {
+                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                return;
+            }
+
+            sm.playPortalSE();
+            sm.warp(913002200);
+            field.setMobSpawn(false);
+            sm.spawnNpc(1104104, 263, 88, true, false);
+        } else {
+            sm.playPortalSE();
+            sm.warp(130010110, "out00"); // Empress' Road : Timu's Forest
+        }
     }
 
     @Script("enterDisguise4")
     public static void enterDisguise4(ScriptManager sm) {
         // Empress' Road : Training Forest II (130010100)
         //   in01 (-2887, -747)
-        sm.playPortalSE();
-        sm.warp(130010120, "out00"); // Empress' Road : Tiru's Forest
+        if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
+            Field field = sm.getField().getFieldStorage().getFieldById(913002300).get();
+            if (field.getUserPool().getCount() > 0) {
+                sm.broadcastMessage("Someone else is already searching the area.", true);
+                return;
+            }
+
+            if (sm.hasItem(4032101, 1)) {
+                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                return;
+            }
+
+            sm.playPortalSE();
+            sm.warp(913002300);
+            field.setMobSpawn(false);
+            sm.spawnNpc(1104104, -1766, 88, true, false);
+        } else {
+            sm.playPortalSE();
+            sm.warp(130010120, "out00"); // Empress' Road : Tiru's Forest
+        }
     }
 
     @Script("enterDisguise5")
     public static void enterDisguise5(ScriptManager sm) {
         // Empress' Road : Training Forest III (130010200)
         //   west00 (-4097, 90)
-        sm.playPortalSE();
-        sm.warp(130020000, "east00"); // Empress' Road : Entrance to the Drill Hall
+        if (sm.hasQuestStarted(20301) || sm.hasQuestStarted(20302) || sm.hasQuestStarted(20303) || sm.hasQuestStarted(20304) || sm.hasQuestStarted(20305)) {
+            Field field = sm.getField().getFieldStorage().getFieldById(913002400).get();
+            if (field.getUserPool().getCount() > 0) {
+                sm.broadcastMessage("Someone else is already searching the area.", true);
+                return;
+            }
+
+            if (sm.hasItem(4032101, 1)) {
+                sm.broadcastMessage("You have already challenged the Master of Disguise, report your success to the Chief Knight.", true);
+                return;
+            }
+
+            sm.playPortalSE();
+            sm.warp(913002400);
+            field.setMobSpawn(false);
+            sm.spawnNpc(1104104, 542, 88, true, false);
+        } else {
+            sm.playPortalSE();
+            sm.warp(130020000, "east00"); // Empress' Road : Entrance to the Drill Hall
+        }
+    }
+
+    @Script("desguiseStrike")
+    public static void desguiseStrike(ScriptManager sm) {
+        if(sm.getJob().getJobId() % 100 == 10 && sm.getJob().getJobId() > 1000) {
+            sm.sayOk("Hello there, #h0#. Are you helping us finding the intruder? He is not in this area, I've already searched here.");
+            return;
+        }
+
+        sm.sayOk("Darn, you found me! Then, there's only one way out! Let's fight, like #rBlack Wings#k should!");
+        sm.spawnMob(9001009, MobAppearType.NORMAL, 542, 88, false, true);
+        sm.removeNpc(1104104);
     }
 
     @Script("enterFirstDH")

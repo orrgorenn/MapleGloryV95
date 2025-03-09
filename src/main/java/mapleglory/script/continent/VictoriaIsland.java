@@ -270,8 +270,13 @@ public final class VictoriaIsland extends ScriptHandler {
     public static void nautil_black(ScriptManager sm) {
         // Muirhat (1092007)
         //   Nautilus : Top Floor - Hallway (120000100)
-
-        // TODO
+        if(!sm.hasQuestStarted(2175)) {
+            sm.sayOk("The Black Magician and his followers. Kyrin and the crew of the Nautilus. They'll be chasing one another until one of them doesn't exist, that's for sure.");
+        } else {
+            sm.sayNext("Are you ready? Good, I'll send you to where the disciples of the Black Magician are. Look for the pigs around the area where I'll be sending you. You'll be able to find it by tracking them.");
+            sm.sayNext("When they are weakened, they'll change back to their original state. If you find something suspicious, you must fight them until they are weak. I'll be here awaiting your findings.");
+            sm.warp(912000000);
+        }
     }
 
     @Script("nautil_stone")
@@ -313,6 +318,12 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.sayOk("I can't give you the empty bottle because your inventory is full. Please make some room in your Etc window.");
             }
         }
+    }
+
+    @Script("end_black")
+    public static void end_black(ScriptManager sm) {
+        sm.playPortalSE();
+        sm.warp(120000200);
     }
 
     @Script("mom_cow")
@@ -631,6 +642,25 @@ public final class VictoriaIsland extends ScriptHandler {
                 sm.addItem(1142066, 1);
                 sm.forceCompleteQuest(20201);
                 sm.setJob(Job.DAWN_WARRIOR_2);
+            }
+        }
+    }
+
+    @Script("q20204e")
+    public static void q20204e(ScriptManager sm) {
+        // Eckhart - Chief Night of Darkness
+        // Knighthood Exam
+        if (sm.hasItem(4032099, 30)) {
+            sm.sayNext("So you brought all the #bProof of Exam#k... Okay, I believe that you are not qualified to become an official knight.");
+            if(sm.askYesNo("Are you interested in becoming an Official Knight?")) {
+                if(!sm.canAddItem(1142066, 1)) {
+                    sm.sayOk("Please make room in your EQP inventory.");
+                    return;
+                }
+                sm.removeItem(4032099);
+                sm.addItem(1142066, 1);
+                sm.forceCompleteQuest(20204);
+                sm.setJob(Job.NIGHT_WALKER_2);
             }
         }
     }
